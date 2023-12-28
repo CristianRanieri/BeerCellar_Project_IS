@@ -14,6 +14,10 @@ public class Carrello {
         this.id = id;
     }
 
+    public boolean isEmpty(){
+        return contenutoCarrello.isEmpty();
+    }
+
     public ArrayList<ContenutoCarrello> getContenutoCarrello() {
         return contenutoCarrello;
     }

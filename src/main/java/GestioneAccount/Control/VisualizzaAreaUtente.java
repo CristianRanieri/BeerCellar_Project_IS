@@ -1,4 +1,4 @@
-package Utils.Other;
+package GestioneAccount.Control;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,16 +8,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
-@WebServlet("/index.jsp")
-public class Home extends HttpServlet {
+@WebServlet("/visualizzaAreaUtente")
+public class VisualizzaAreaUtente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //da completare
-
-
-        RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/home.jsp");
-        dispatcher.forward(req,resp);
+        if(req.getSession().getAttribute("account")!=null){
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/areaUtente.jsp");
+            dispatcher.forward(req,resp);
+        }else {
+            resp.sendRedirect("login");
+        }
     }
 
     @Override
