@@ -19,7 +19,7 @@ public class AccountDAO {
     public Account getUtenteByEmailPass(Account a){
         Account account=null;
         try {
-            PreparedStatement ps= con.prepareStatement("SELECT * FROM Account WHERE email=? AND pass=?");
+            PreparedStatement ps= con.prepareStatement("SELECT * FROM Utente WHERE email=? AND pass=?");
             ps.setString(1,a.getEmail());
             ps.setString(2,a.getPassword());
 
@@ -38,14 +38,16 @@ public class AccountDAO {
         return account;
     }
 
-    public void creaAccount(Account a){
+    public boolean creaAccount(Account a){
+        int b;
         try {
-            PreparedStatement ps= con.prepareStatement("INSERT INTO Account(nome,email,pass,gestore) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps= con.prepareStatement("INSERT INTO Utente(nome,email,pass,gestore) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,a.getNome());
             ps.setString(2,a.getEmail());
             ps.setString(3,a.getPassword());
             ps.setBoolean(4,a.isGestore());
-            ps.executeUpdate();
+
+            b = ps.executeUpdate();
 
             ResultSet rs=ps.getGeneratedKeys();
             rs.next();
@@ -53,12 +55,13 @@ public class AccountDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return b==1;
     }
 
     public Account getAccountByEmail(String email){
         Account a=null;
         try {
-            PreparedStatement ps= con.prepareStatement("SELECT * FROM Account WHERE email=?");
+            PreparedStatement ps= con.prepareStatement("SELECT * FROM Utente WHERE email=?");
             ps.setString(1,email);
 
             ResultSet rs=ps.executeQuery();

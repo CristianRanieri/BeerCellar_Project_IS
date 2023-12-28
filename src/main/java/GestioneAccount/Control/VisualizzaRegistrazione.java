@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +13,13 @@ import java.io.IOException;
 public class VisualizzaRegistrazione extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+
+        if(req.getSession().getAttribute("account")==null){
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/registrazione.jsp");
+            dispatcher.forward(req,resp);
+        }else {
+            resp.sendRedirect("visualizzaAreaUtente");
+        }
     }
 
     @Override
