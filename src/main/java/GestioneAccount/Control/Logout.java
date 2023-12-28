@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +13,16 @@ import java.io.IOException;
 public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        //si controlla che l'utente è loggato nella sessione
+        if(req.getSession().getAttribute("account")!=null) {
+            //l'utente è loggato
+            AccountService accountService = new AccountService();
+            accountService.logout(req.getSession());
+            resp.sendRedirect("index.jsp");
+        }else {
+            //l'utente non è loggato
+            resp.sendRedirect("login");
+        }
     }
 
     @Override

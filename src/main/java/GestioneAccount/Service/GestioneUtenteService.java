@@ -36,8 +36,12 @@ public class GestioneUtenteService {
         return account!=null;
     }
 
+    /**
+     * Implementa la funzionalità di rimozione dell'utente dalla sessione.
+     * @param session dal quale rimuovere l'utente
+     */
     public void logout(HttpSession session){
-
+        session.invalidate();
     }
 
     /**

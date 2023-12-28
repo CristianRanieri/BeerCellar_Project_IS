@@ -32,6 +32,6 @@ public class MySessionListner implements HttpSessionListener {
         Carrello carrello= (Carrello)se.getSession().getAttribute("carrello");
 
         if(carrello.getId()!=-1)
-            carrelloDAO.caricaCarrello(carrello.getId(),carrello);
+            carrelloDAO.caricaCarrello(carrello);
     }
 }
