@@ -46,7 +46,7 @@
   <div class="blocco-input-nep">
     <label>&nbsp;&nbsp;&nbsp;Password</label>
     <div>
-      <input type="password" name="pass" minlength="8" maxlength="16" title="Da 8 a 16 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
+      <input type="password" name="pass" minlength="8" maxlength="40" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
     </div>
   </div>
 
@@ -54,7 +54,7 @@
     <div>
       <input type="submit" id="bottone-login" value="LOGIN">
     </div>
-    <label><a href="visualizzaLogin"> Non hai un account? Registrati ora. </a></label>
+    <label><a href="visualizzaRegistrazione"> Non hai un account? Registrati ora. </a></label>
   </div>
 </form>
 

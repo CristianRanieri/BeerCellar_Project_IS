@@ -27,8 +27,21 @@ public class GestioneCredenzialiService {
          return account;
      }
 
-    public Account modificaDatiAccount(Account account){
+    /**
+     * Implementa la funzionalità di modifica delle credenziali di un utente registrato.
+     * @param account che contine la nuova passowrd e nome del account.
+     * @return true se la password è diversa dal quella attuale altrimenti false.
+     */
+    public boolean modificaDatiAccount(Account account){
+        AccountDAO accountDAO= new AccountDAO();
+        Account accountSearch = accountDAO.getUtenteByEmailPass(account);
 
-        return account;
+       if(accountSearch==null){
+            //le password sono diverse quidi si effettua la modifica
+            accountDAO.updateNomePassword(account);
+            return true;
+        }
+        //le password sono uguali
+        return false;
     }
 }

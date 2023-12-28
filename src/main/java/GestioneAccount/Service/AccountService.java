@@ -13,7 +13,7 @@ public class AccountService {
         return gestioneCredenzialiService.registraUtente(account);
     }
 
-    public Account modificaDatiAccount(Account account){
+    public boolean modificaDatiAccount(Account account){
         return gestioneCredenzialiService.modificaDatiAccount(account);
     }
 
