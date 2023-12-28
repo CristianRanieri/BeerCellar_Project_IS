@@ -17,8 +17,8 @@ public class AccountService {
         return gestioneCredenzialiService.modificaDatiAccount(account);
     }
 
-    public Account login(Account account){
-        return gestioneUtenteService.login(account);
+    public boolean login(Account account,HttpSession session){
+        return gestioneUtenteService.login(account,session);
     }
 
     public void logout(HttpSession session){
