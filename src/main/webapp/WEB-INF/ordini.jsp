@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.entity.Ordine" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.entity.AcquistoProdotto" %>
@@ -17,7 +18,14 @@
 </head>
 <body>
 
-<% Account account= (Account) request.getAttribute("account");
+<c:if test="${requestScope.error1}">
+        <div>
+            <h3 class="testo-croce-error"> &times; </h3>
+            <h4>Input non valido riprova</h4>
+        </div>
+</c:if>
+
+<% Account account= (Account) session.getAttribute("account");
    if(account.isGestore()){ %>
     <form action="ricercaOrdini">
         <select name="tipoID">

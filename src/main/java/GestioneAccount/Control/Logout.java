@@ -21,7 +21,7 @@ public class Logout extends HttpServlet {
             resp.sendRedirect("index.jsp");
         }else {
             //l'utente non è loggato
-            resp.sendRedirect("login");
+            resp.sendRedirect("visualizzaLogin");
         }
     }
 

@@ -1,6 +1,7 @@
 package GestioneOrdini.Control;
 
 import GestioneOrdini.Service.OrdiniService;
+import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,30 +19,56 @@ public class RicercaOrdini extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String dove="/WEB-INF/ordini.jsp";
+        Account account = (Account) req.getSession().getAttribute("account");
 
-        //prendo e inizializzo i parametri da passare al service
-        int offset=0;
-        if (req.getParameter("offset")!=null)
-            offset= Integer.parseInt(req.getParameter("offset"));
-        Account account= new Account();
-        account.setGestore(true);
-        String tipoID= req.getParameter("tipoID");
-        int numero= Integer.parseInt(req.getParameter("numero"));
+        //controllo che ci sia un utente loggato in sessione
+        if(account != null){
+            //l'utente è loggato, controllo che sia un gestore
+            if(account.isGestore()){
+                //è un gestore, quindi si effettua il controllo della validita degli input
+                if(req.getParameter("tipoID")!=null && req.getParameter("numero")!=null && (req.getParameter("tipoID").equals("Utente") ||
+                        req.getParameter("tipoID").equals("Ordine")) && PatternInput.numeri1_4Cifre(req.getParameter("numero"))
+                ){
+                    boolean b=true;
+                    int offset=0;
+                    //controllo valore offset, se è diverso da null deve rispettare il formato
+                    if(req.getParameter("offset")!=null)
+                        if(!PatternInput.numeri1_4Cifre(req.getParameter("offset"))) {
+                            b = false;
+                        }else {
+                            offset= Integer.parseInt(req.getParameter("offset"));
+                        }
 
-        //eseguo il service, prendo gli ordini
-        OrdiniService ordiniService = new OrdiniService();
-        ArrayList<Ordine> ordini = ordiniService.ricercaOrdini(tipoID, numero,offset);
+                    if(b){
+                        //gli input sono validi, eseguo il metodo di ricerca deglio ordini
+                        OrdiniService ordiniService = new OrdiniService();
+                        ArrayList<Ordine> ordini = ordiniService.ricercaOrdini(req.getParameter("tipoID"), Integer.parseInt(req.getParameter("numero")),offset);
 
-        //setto gli attributi utilizzati dalla jsp
-        req.setAttribute("ordini", ordini);
-        req.setAttribute("account", account);
-        //servono per il calcolo del offset
-        req.setAttribute("numeroOrdini",ordini.size()+offset);
-        req.setAttribute("nuoviOrdini", ordini.size());
-        req.setAttribute("ricerca", true);
+                        //setto gli attributi utilizzati dalla jsp
+                        req.setAttribute("ordini", ordini);
+                        //servono per il calcolo del offset
+                        req.setAttribute("numeroOrdini",ordini.size()+offset);
+                        req.setAttribute("nuoviOrdini", ordini.size());
+                        req.setAttribute("ricerca", true);
 
-        //passo il controllo alla parte di visualizzazione(jsp)
-        RequestDispatcher dispatcher = req.getRequestDispatcher(dove);
-        dispatcher.forward(req,resp);
+                        //passo il controllo alla parte di visualizzazione(jsp)
+                        RequestDispatcher dispatcher = req.getRequestDispatcher(dove);
+                        dispatcher.forward(req,resp);
+                    }else {
+                        //input non validi
+                        resp.sendRedirect("visualizzaOrdini");
+                    }
+                }else {
+                    //input non validi
+                    resp.sendRedirect("visualizzaOrdini");
+                }
+            }else {
+                //non è un gestore, ridirezione pagina di errore, mancanza dei permessi
+                //da aggiungere
+            }
+        }else {
+            //l'utente non è loggato, ridirezione login
+            resp.sendRedirect("visualizzaLogin");
+        }
     }
 }

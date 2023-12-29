@@ -62,5 +62,11 @@
     </form>
 </div>
 
+<div id="blocco-logout-bottone">
+    <form action="visualizzaOrdini">
+        <input type="submit" value="STORICO ORDINI">
+    </form>
+</div>
+
 </body>
 </html>

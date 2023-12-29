@@ -50,7 +50,7 @@ public class ModificaCredenziali extends HttpServlet {
             dispatcher.forward(req, resp);
         }else {
             //l'utente non è loggato si reindirizza verso la pagina di login
-            resp.sendRedirect("pageLogin");
+            resp.sendRedirect("visualizzaLogin");
         }
 
     }

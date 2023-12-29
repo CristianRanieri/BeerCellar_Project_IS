@@ -16,7 +16,7 @@ public class VisualizzaAreaUtente extends HttpServlet {
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/areaUtente.jsp");
             dispatcher.forward(req,resp);
         }else {
-            resp.sendRedirect("login");
+            resp.sendRedirect("visualizzaLogin");
         }
     }
 
