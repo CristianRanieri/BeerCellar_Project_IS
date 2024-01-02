@@ -6,14 +6,6 @@ public class Carrello {
     public Carrello() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public boolean isEmpty(){
         return contenutoCarrello.isEmpty();
     }
@@ -26,6 +18,5 @@ public class Carrello {
         this.contenutoCarrello = contenutoCarrello;
     }
 
-    private int id;
     private ArrayList<ContenutoCarrello> contenutoCarrello;
 }

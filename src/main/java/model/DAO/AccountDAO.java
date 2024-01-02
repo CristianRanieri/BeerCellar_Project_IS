@@ -32,6 +32,13 @@ public class AccountDAO {
                 account.setPassword(rs.getString("pass"));
                 account.setGestore(rs.getBoolean("gestore"));
             }
+
+            //se non è un gestore recupero anche il carrello
+            if(account!=null && !account.isGestore()) {
+                CarrelloDAO carrelloDAO = new CarrelloDAO();
+                account.setCarrello(carrelloDAO.getCarrelloByIdUtente(account.getId()));
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -19,7 +19,7 @@ public class Registrazione extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //si controlla se l'utente è gia in sessione, se non è in sessione si procede con la registrazione altrimenti viene indirizzato verso la sua area utente
-        if(req.getSession().getAttribute("account")==null){
+        if(((Account)req.getSession().getAttribute("account")).getId() == -1){
             //validazione dell'input
             if (req.getParameter("nome") != null && PatternInput.nome(req.getParameter("nome")) &&
                     req.getParameter("email") != null && PatternInput.email(req.getParameter("email")) &&
@@ -38,11 +38,10 @@ public class Registrazione extends HttpServlet {
                 if (account!=null){
                     //la registrazione ha avuto successo
 
-                    //si aggiorna id del carrello
-                    Carrello carrello = (Carrello) req.getSession().getAttribute("carrello");
-                    carrello.setId(account.getId());
+                    //si setta il carrello carrello
+                    account.setCarrello(((Account)req.getSession().getAttribute("account")).getCarrello());
 
-                    //si aggiunge l'oggetto account nella sessione
+                    //si aggiorna l'oggetto account nella sessione
                     req.getSession().setAttribute("account", account);
 
                     //si effettua il redirect verso la pagina di home

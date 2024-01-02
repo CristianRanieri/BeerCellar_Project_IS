@@ -21,7 +21,7 @@ public class VisualizzaOrdini extends HttpServlet {
         String dove="/WEB-INF/ordini.jsp";
 
         //si controlla che l'utente sia loggato
-        if(req.getSession().getAttribute("account")!=null){
+        if(((Account)req.getSession().getAttribute("account")).getId() != -1){
             //l'utente è loggato, controllo degli input
             boolean b=true;
             int offset=0;

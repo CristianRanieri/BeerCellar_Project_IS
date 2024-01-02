@@ -17,21 +17,20 @@ public class GestioneUtenteService {
         AccountDAO accountDAO= new AccountDAO();
         CarrelloDAO carrelloDAO= new CarrelloDAO();
 
+        //si prende l'utente dal database tramite le credenziali
         account = accountDAO.getUtenteByEmailPass(account);
         if (account!=null){
             //l'account è stato trovato
-            session.setAttribute("account",account);
 
-            //si carica il carrello dell'utente nella sessione
-            Carrello carrello = carrelloDAO.getCarrelloByIdUtente(account.getId());
-            //se il carrello caricato dal database non è vuoto allaroa sovrascrive quello in sessione altrimenti si lascia il contenuto inserito prima del login
-            if(!carrello.isEmpty()){
-                //il carrello non è vuoto, quindi si sostituisce
-                session.setAttribute("carrello", carrello);
-            }else {
-                //il carrello è vuoto quindi cambio l'id da -1 generico per utenti non loggati con quello dell'utente
-                ((Carrello)session.getAttribute("carrello")).setId(account.getId());
+            //si recupera il carrello attuale dell'utente
+            Carrello carrello = ((Account)session.getAttribute("account")).getCarrello();
+            //se il carrello caricato dal database non è vuoto allora sovrascrive quello in sessione altrimenti si lascia il contenuto inserito prima del login
+            if(!account.isGestore() && !account.getCarrello().isEmpty()){
+                //il carrello è vuoto quindi si mantiene quello in sessione
+                //si setta il carrello in sessione nella nuova istanza di account
+                account.setCarrello(carrello);
             }
+            session.setAttribute("account", account);
         }
         return account!=null;
     }

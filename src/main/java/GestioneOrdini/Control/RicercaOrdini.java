@@ -22,7 +22,7 @@ public class RicercaOrdini extends HttpServlet {
         Account account = (Account) req.getSession().getAttribute("account");
 
         //controllo che ci sia un utente loggato in sessione
-        if(account != null){
+        if(account.getId() != -1){
             //l'utente è loggato, controllo che sia un gestore
             if(account.isGestore()){
                 //è un gestore, quindi si effettua il controllo della validita degli input

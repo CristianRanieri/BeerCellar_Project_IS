@@ -58,9 +58,19 @@ public class Account {
         this.gestore=gestore;
     }
 
+    public Carrello getCarrello() {
+        return carrello;
+    }
+
+    public void setCarrello(Carrello carrello) {
+        this.carrello = carrello;
+    }
+
     private int id;
     private String nome;
     private String email;
     private String password;
     private boolean gestore;
+
+    private Carrello carrello;
 }

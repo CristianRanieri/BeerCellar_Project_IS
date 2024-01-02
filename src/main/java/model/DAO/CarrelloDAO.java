@@ -41,7 +41,6 @@ public class CarrelloDAO {
             }
 
             carrello.setContenutoCarrello(contenutoCarrellos);
-            carrello.setId(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -49,18 +48,17 @@ public class CarrelloDAO {
     }
 
     //aggiorna il contenuto del carrello di un utente
-    public void caricaCarrello(Carrello carrello){
+    public void caricaCarrello(Carrello carrello, int id){
         try {
             //elimino tutto cio che si trova nel attuale carrello di quell'utente sul db
             PreparedStatement ps= con.prepareStatement("DELETE FROM ContenutoCarrello WHERE idCarrello=?");
-            ps.setInt(1, carrello.getId());
+            ps.setInt(1, id);
 
             ps.executeUpdate();
 
             //salvo tutto cio che si trova nel carrello aggiornato nel db
             for(ContenutoCarrello c: carrello.getContenutoCarrello()) {
                 ps = con.prepareStatement("INSERT INTO ContenutoCarrello VALUES (?,?,?)");
-                ps.setInt(1, carrello.getId());
                 ps.setInt(2, c.getProdotto().getId());
                 ps.setInt(3, c.getQuantita());
 

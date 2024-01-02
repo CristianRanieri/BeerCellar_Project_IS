@@ -18,7 +18,7 @@ public class ModificaCredenziali extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //si controlla che l'utente è loggato nella sessione
-        if(req.getSession().getAttribute("account")!=null) {
+        if(((Account)req.getSession().getAttribute("account")).getId() != -1) {
             //l'utente è loggato
             if(req.getParameter("nome")!=null && req.getParameter("pass")!=null && !req.getParameter("nome").equals("") && !req.getParameter("pass").equals("") &&
                     PatternInput.nome(req.getParameter("nome")) && PatternInput.password(req.getParameter("pass"))
@@ -37,6 +37,9 @@ public class ModificaCredenziali extends HttpServlet {
                 if(b){
                     //la modifica è stata effettuata nel modo corretto, si setta un attributo per notificare la corretta modfica
                     req.setAttribute("corretto",true);
+                    account= (Account)req.getSession().getAttribute("account");
+                    account.setNome(req.getParameter("nome"));
+                    account.setPassword(req.getParameter("pass"));
                 }else {
                     //la modifica non è andata a boun fine, la pasword inserita è uguale a quella registrata
                     req.setAttribute("error1",true);

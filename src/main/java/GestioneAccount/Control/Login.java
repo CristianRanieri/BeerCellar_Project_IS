@@ -18,13 +18,13 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //si controlla se l'utente è gia in sessione, se non è in sessione si procede con il login altrimenti viene indirizzato verso la sua area utente
-        if(req.getSession().getAttribute("account")==null){
+        if(((Account)req.getSession().getAttribute("account")).getId() == -1){
             //validazione dell'input
             if (req.getParameter("email") != null && PatternInput.email(req.getParameter("email")) &&
                     req.getParameter("pass") != null && PatternInput.password(req.getParameter("pass"))
             ){
                 //tutti gli input rispettano il formato, qiundi si continua con il login
-                //si instanziano gli oggetti per eseguire il metodo registraUtente
+                //si instanziano gli oggetti per eseguire il metodo di login
                 Account account= new Account();
                 account.setEmail(req.getParameter("email"));
                 account.setPassword(req.getParameter("pass"));
@@ -48,7 +48,10 @@ public class Login extends HttpServlet {
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/login.jsp");
                 dispatcher.forward(req, resp);
             }
+        }else {
+            resp.sendRedirect("visualizzaAreaUtente");
         }
+
     }
 
     @Override
