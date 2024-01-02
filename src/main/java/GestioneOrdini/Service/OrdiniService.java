@@ -11,10 +11,6 @@ public class OrdiniService {
 
     public void effettuaOrdine(Ordine ordine){
         OrdineDAO ordineDAO = new OrdineDAO();
-        double pt=0;
-        for (AcquistoProdotto ap: ordine.getProdotti())
-            pt+=ap.getPrezzoAcquisto();
-        ordine.setPrezzoTotale(pt);
 
         boolean b=ordineDAO.creaOrdine(ordine);
         System.out.println("creazione dell'ordine:"+ b);

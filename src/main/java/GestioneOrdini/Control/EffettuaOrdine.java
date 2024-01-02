@@ -32,6 +32,11 @@ public class EffettuaOrdine extends HttpServlet {
         ordine.setCitta(req.getParameter("citta"));
         ordine.setIndirizzo(req.getParameter("indirizzo"));
 
+        double pt=0;
+        for (AcquistoProdotto ap: ordine.getProdotti())
+            pt+=ap.getPrezzoAcquisto();
+        ordine.setPrezzoTotale(pt);
+
         OrdiniService ordiniService= new OrdiniService();
         Account account= new Account();
         account.setId(1);

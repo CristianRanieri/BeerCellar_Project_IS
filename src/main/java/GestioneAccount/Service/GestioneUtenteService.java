@@ -49,6 +49,6 @@ public class GestioneUtenteService {
      * @return true se l'utente si trova in sessione altrimenti false.
      */
     public boolean isLogged(HttpSession session){
-        return session.getAttribute("account") != null;
+        return ((Account)session.getAttribute("account")).getId() != -1;
     }
 }
