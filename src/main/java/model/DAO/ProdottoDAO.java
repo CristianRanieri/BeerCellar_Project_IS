@@ -124,9 +124,9 @@ public class ProdottoDAO {
     }
 
     //modificare un prodotto
-    public void modificaSpecificaProdotto(Prodotto prodotto){
+    public void modificaProdotto(Prodotto prodotto){
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE Specifiche SET Nome=?,Formato=?,Prezzo=?,Fermentazione=?,Stile=?,Colore=?,TassoAlcolico=?,Descrizione=?,Glutine=?,Birrificio=?,InCatalogo=? WHERE IdProdotto=?");
+            PreparedStatement ps = con.prepareStatement("UPDATE Prodotto SET Nome=?,Formato=?,Prezzo=?,Fermentazione=?,Stile=?,Colore=?,TassoAlcolico=?,Descrizione=?,Glutine=?,Birrificio=?,InCatalogo=? WHERE IdProdotto=?");
             ps.setString(1, prodotto.getNome());
             ps.setString(2, prodotto.getFormato());
             ps.setDouble(3, prodotto.getPrezzo());
@@ -154,7 +154,7 @@ public class ProdottoDAO {
             ps.setInt(1,id);
 
             ResultSet rs = ps.executeQuery();
-            while (rs.next())
+            if(rs.next())
                 prodotto = this.creaIstanzaProdotto(rs);
 
         } catch (SQLException e) {

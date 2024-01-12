@@ -1,0 +1,92 @@
+h1{
+    text-align: center;
+}
+
+#contenitore{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+h3 > span{
+    border-bottom: 2px solid;
+}
+
+#datiCliente, #datiPagamento, #datiIndirizzoConsegna{
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#datiCliente > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+#datiCliente > div > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#datiPagamento > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+#datiPagamento > div > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+#datiPagamento > div > div > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#datiIndirizzoConsegna > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+#datiIndirizzoConsegna > div > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+#datiIndirizzoConsegna > div > div > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#datiCliente input{
+    max-width: 100%;
+}
+
+select{
+    width: 100%;
+}
+
+.contenitore_bottone_procedi {
+    display: flex;
+    justify-content: center;
+}
+
+.contenitore_bottone_procedi button {
+    background-color: #1C110A;
+    color: #f1f1f1;
+}
+
+.contenitore_bottone_procedi button:hover {
+    outline: #f1f1f1 0.2em solid;
+}

@@ -1,0 +1,47 @@
+.filter-beer{
+    text-align: center;
+    margin: 1em;
+}
+
+.lista-prodotti {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.2em;
+    max-width: 100%; /* Larghezza massima della griglia */
+    margin: 0 auto; /* Centra la griglia nella pagina */
+}
+
+.contenitore-prodotto {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin: 0.3em;
+    background-color: transparent;
+    border: 0.15em #1c110a solid;
+    border-radius: 10px;
+    padding: 3em;
+}
+
+.div_img{
+    text-align: center;
+}
+
+.img_prodotto{
+    width: 10em;
+}
+
+.div-button{
+    text-align: center;
+    margin-top: 0.5em ;
+}
+
+.button-acquista{
+    color: white;
+    background-color: #1c110a;
+}
+
+#button_ricerca{
+    color: white;
+    background-color: #1c110a;
+}

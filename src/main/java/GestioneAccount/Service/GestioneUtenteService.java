@@ -5,6 +5,7 @@ import model.DAO.AccountDAO;
 import model.DAO.CarrelloDAO;
 import model.entity.Account;
 import model.entity.Carrello;
+import model.entity.ContenutoCarrello;
 
 public class GestioneUtenteService {
     /**
@@ -15,23 +16,22 @@ public class GestioneUtenteService {
      */
     public boolean login(Account account, HttpSession session){
         AccountDAO accountDAO= new AccountDAO();
-        CarrelloDAO carrelloDAO= new CarrelloDAO();
+        Carrello carrelloAttuale = account.getCarrello();
 
         //si prende l'utente dal database tramite le credenziali
         account = accountDAO.getUtenteByEmailPass(account);
-        if (account!=null){
+        if (account != null){
             //l'account è stato trovato
-
-            //si recupera il carrello attuale dell'utente
-            Carrello carrello = ((Account)session.getAttribute("account")).getCarrello();
             //se il carrello caricato dal database non è vuoto allora sovrascrive quello in sessione altrimenti si lascia il contenuto inserito prima del login
-            if(!account.isGestore() && !account.getCarrello().isEmpty()){
-                //il carrello è vuoto quindi si mantiene quello in sessione
+            if(!account.isGestore() && account.getCarrello().isEmpty()){
+                //il carrello non è vuoto, quindi si mantiene quello in sessione
                 //si setta il carrello in sessione nella nuova istanza di account
-                account.setCarrello(carrello);
+                account.setCarrello(carrelloAttuale);
             }
+
             session.setAttribute("account", account);
         }
+
         return account!=null;
     }
 

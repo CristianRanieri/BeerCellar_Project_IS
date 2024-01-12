@@ -28,6 +28,7 @@ public class CarrelloDAO {
         Carrello carrello= new Carrello();
         ProdottoDAO prodottoDAO= new ProdottoDAO();
         ArrayList<ContenutoCarrello> contenutoCarrellos= new ArrayList<>();
+
         try{
             PreparedStatement ps= con.prepareStatement("SELECT * FROM ContenutoCarrello WHERE IdCarrello=?");
             ps.setInt(1,id);
@@ -59,6 +60,7 @@ public class CarrelloDAO {
             //salvo tutto cio che si trova nel carrello aggiornato nel db
             for(ContenutoCarrello c: carrello.getContenutoCarrello()) {
                 ps = con.prepareStatement("INSERT INTO ContenutoCarrello VALUES (?,?,?)");
+                ps.setInt(1, id);
                 ps.setInt(2, c.getProdotto().getId());
                 ps.setInt(3, c.getQuantita());
 

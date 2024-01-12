@@ -28,6 +28,7 @@ public class Login extends HttpServlet {
                 Account account= new Account();
                 account.setEmail(req.getParameter("email"));
                 account.setPassword(req.getParameter("pass"));
+                account.setCarrello(((Account)req.getSession().getAttribute("account")).getCarrello());
 
                 AccountService accountService= new AccountService();
                 boolean b = accountService.login(account,req.getSession());

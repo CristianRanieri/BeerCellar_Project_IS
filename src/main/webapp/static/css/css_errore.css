@@ -1,0 +1,13 @@
+
+div#blocco-messaggio-cambiamenti{
+    width: 100%;
+    background-color: rgba(255,0,0,0.5);
+    border-radius: 5px;
+    text-align : center;
+}
+
+div#blocco-messaggio-cambiamenti > h2,div#blocco-messaggio-cambiamenti > h3{
+    font-family: Bahnschrift,sans-serif;
+    color: darkred;
+}
+

@@ -58,6 +58,10 @@ public class PatternInput {
         return Pattern.compile("^\\d{1,4}$", Pattern.CASE_INSENSITIVE).matcher(prezzo).matches();
     }
 
+    public static boolean numeri1_2Cifre(String prezzo){
+        return Pattern.compile("^\\d{1,2}$", Pattern.CASE_INSENSITIVE).matcher(prezzo).matches();
+    }
+
     public static boolean descrizione(String des){
         return des.length()<=255;
     }

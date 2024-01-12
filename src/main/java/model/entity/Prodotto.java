@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.util.Objects;
+
 public class Prodotto {
     public Prodotto() {}
 
@@ -97,6 +99,14 @@ public class Prodotto {
 
     public void setInCatalogo(boolean inCatalogo) {
         this.inCatalogo = inCatalogo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prodotto prodotto = (Prodotto) o;
+        return id == prodotto.id && inCatalogo == prodotto.inCatalogo && Objects.equals(prezzo, prodotto.prezzo);
     }
 
     private int id;

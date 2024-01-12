@@ -1,0 +1,126 @@
+#h3_carrello{
+    text-decoration: underline;
+    padding-left: 1em;
+}
+
+#div_contenitore {
+    display: flex; /* Utilizza flexbox per allineare i figli in una riga */
+    justify-content: space-around;
+
+}
+
+.div_tabella_prodotti_carrello,.div_carrelloTotale {
+    flex: 100%; /* Fai in modo che entrambi i div occupino la stessa quantità di spazio */
+    margin: 1em; /* Margine tra i div */
+}
+
+.div_tabella_prodotti_carrello{
+
+}
+
+th{
+    font-size: larger;
+}
+
+th,td{
+    border-bottom: 1px solid black;
+}
+tr:last-child td {
+    border-bottom: none; /* Rimuovi la linea alla fine dell'ultima riga */
+}
+table{
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border-spacing: 0;
+}
+
+.prezzo{
+    text-align: center;
+}
+
+img{
+    width: 5em;
+}
+
+.div_tuttoIlProdotto {
+    display: flex; /* Utilizza flexbox per allineare i figli in una riga */
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.div_immagineProdotto,.div_Prodotto {
+    flex: 100%; /* Fai in modo che entrambi i div occupino la stessa quantità di spazio */
+    margin: 1em; /* Margine tra i div */
+
+}
+
+.div_immagineProdotto{
+    margin-right: -1em;
+}
+
+.div_nomeProdotto{
+    padding-bottom: 0.5em;
+}
+
+.div_quantità {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.5em;
+    text-align: center;
+    width: 1em;
+}
+
+.button_rimuovi{
+    background-color: black;
+    color:white;
+    font-size: 11px;
+}
+
+.div_carrelloTotale{
+    flex: 80%;
+    max-height: 200px;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 4em;
+}
+
+#div_subtotale{
+
+    padding-bottom: 0.5em;
+    word-spacing: 1em;
+
+}
+
+#div_spedizione{
+    padding-bottom: 0.5em;
+    word-spacing: 1em;
+}
+#spedizione{
+    word-spacing: 0;
+}
+
+#div_totale{
+    padding-bottom: 0.5em;
+    word-spacing: 1em;
+}
+
+#button_procedi_ordine{
+    background-color: #1c110a;
+    color: white;
+}
+
+@media screen and (max-width: 540px){
+    #div_contenitore {
+        flex-wrap: wrap;
+    }
+    .div_carrelloTotale{
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+}

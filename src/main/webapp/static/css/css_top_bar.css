@@ -1,0 +1,136 @@
+.contenitore_TopBar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(28, 17, 10);
+    padding: 0.5em;
+    border-radius: 0.3em;
+}
+
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    max-width: 80em;
+}
+
+.top-bar div {
+    margin: 0em 0.5em auto;
+    justify-content: center;
+}
+
+#div_ricerca {
+    flex: 1;
+}
+
+.input-barra {
+    font-family: "Montserrat", 'Font Awesome 5 Free';
+    width: 100%;
+    max-width: 100em;
+    flex-shrink: 1;
+}
+
+.input-barra::placeholder {
+    font-family: "Montserrat", 'Font Awesome 5 Free';
+    font-style: normal;
+}
+
+.input-barra:before {
+    content: "\f002"; /* Inserisce l'icona tramite il content */
+    font-family: "Montserrat", 'Font Awesome 5 Free';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icon-user {
+    font-family: 'Font Awesome 5 Free';
+    border-radius: 100%;
+    min-width: auto;
+    width: 2.2em;
+}
+
+.icon-cart {
+    font-family: 'Font Awesome 5 Free';
+    border-radius: 100%;
+    min-width: auto;
+    width: 2.2em;
+}
+
+.bottoni_utenti div{
+    display: inline-block;
+}
+
+.bottoni_utenti {
+    margin-left: auto;
+    flex: 0 0 auto;
+}
+
+.contenitore_logo {
+    flex: 0 0 auto;
+    width: 13em;
+}
+
+.contenitore_logo img {
+    width: 13em;
+}
+
+@media screen and (max-width: 658px) {
+    .contenitore_logo {
+        display: none;
+    }
+}
+
+.contenitore_filtri {
+    display: flex;
+    flex-direction: row;
+}
+
+.image-button img{
+    width: 2em;
+    height: auto;
+    margin-right: 0.3em;
+    filter: invert(100%);
+}
+
+.contenitore_filtri form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 0.5em 1em;
+    font-size: 80%;
+    background-color: transparent;
+    color: white;
+}
+
+.image-button:hover {
+    outline: #f1f1f1 solid 0.17em;
+}
+
+.contenitore_filtri form button {
+    margin: 0.5em 0.7em auto;
+    font-size: 80%;
+    text-align: center;
+}
+
+.input-barra:hover, .icon-user:hover, .icon-cart:hover {
+    outline: #ff7700 solid 0.17em;
+}
+
+@media screen and (max-width: 372px) {
+    .contenitore_filtri {
+        flex-direction: column;
+    }
+}

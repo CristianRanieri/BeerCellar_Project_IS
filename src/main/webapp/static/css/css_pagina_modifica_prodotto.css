@@ -1,0 +1,75 @@
+h1{
+    text-align: center;
+}
+
+.titolo{
+    text-align: center;
+    font-size: 1em;
+}
+
+#div_prodotto {
+    display: flex; /* Utilizza flexbox per allineare i figli in una riga */
+    justify-content: space-around;
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
+#div_dati_prodotto,#div_descrizioneProdotto {
+    flex: 50%; /* Fai in modo che entrambi i div occupino la stessa quantità di spazio */
+    margin: 2em; /* Margine tra i div */
+}
+
+#div_dati_prodotto {
+    display: flex;
+    flex-direction: column; /* I figli del div_dati_prodotto saranno in colonna */
+}
+
+#div_dati_prodotto ,select, input {
+    width: 100%; /* Le select si espanderanno orizzontalmente */
+}
+
+#gluten{
+    width:0;
+    margin-left: -8ex;
+}
+
+#div_glutine label {
+    display: flex;
+    align-items: center; /* Allinea verticalmente i contenuti */
+}
+
+
+
+#div_descrizioneProdottoTextArea{
+    margin-top: 1em;
+    text-align: center;
+    margin-bottom: -1em;
+}
+
+#descrizioneProdotto{
+    width: 20em;
+    height: 10em;
+}
+
+
+#immagineBirra{
+    background-color: #1c110a;
+    color: #fff7f2;
+}
+
+#div_bottone_modifica{
+    text-align: center;
+    margin: auto;
+}
+
+#bottone_modifica_prodotto{
+    width: 50%;
+    background-color: #1c110a;
+    color: #f1f1f1;
+}
+
+@media screen and (max-width: 540px){
+    #div_prodotto {
+        flex-wrap: wrap;
+    }
+}

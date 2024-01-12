@@ -1,0 +1,70 @@
+#ordini span{
+    font-family: "Krona One", serif;
+    border-bottom: 2px solid;
+    margin: 0 0 0 2em;
+}
+
+.divStoricoOrdini{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 0.2em solid;
+    border-radius: 0.5em;
+    margin: 3% 4%;
+}
+
+.divDatiOrdine{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0.5em;
+    border-bottom: #1C110A 0.16em solid;
+    margin-bottom: 1%;
+}
+
+.divDatiOrdine > div{
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 900px) {
+    .divDatiOrdine {
+        justify-content: center;
+    }
+
+    .divDatiOrdine > div {
+        margin: 0 2em;
+    }
+}
+
+.divProdottiAcquistati{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding-left: 5%;
+}
+
+.pack-foto {
+    width: 10%;
+    min-width: 5em;
+    background-color: rgba(241, 241, 241, 0.21);
+    border-radius: 0.2em;
+    padding: 0.1em;
+    margin-right: 1em;
+}
+
+.pack-image{
+    width: 100%;
+}
+
+.divProdottiAcquistati{
+    margin-bottom: 1em;
+}
+
+.pack{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10em;
+}
+
+

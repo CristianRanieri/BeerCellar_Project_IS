@@ -14,6 +14,7 @@ import java.io.IOException;
 public class VisualizzaLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //controllo che non sia loggato
         if(((Account)req.getSession().getAttribute("account")).getId() == -1){
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/login.jsp");
             dispatcher.forward(req,resp);

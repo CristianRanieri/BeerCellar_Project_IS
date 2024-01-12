@@ -12,13 +12,9 @@
 </head>
 <body>
 
-<form action="visualizzaLogin" style="text-align: center">
-  <input type="submit" value="LOGIN">
-</form>
-
-<form action="visualizzaRegistrazione" style="text-align: center">
-  <input type="submit" value="REGISTRAZIONE">
-</form>
+<jsp:include page="header.jsp">
+    <jsp:param name="header" value=""/>
+</jsp:include>
 
 </body>
 </html>

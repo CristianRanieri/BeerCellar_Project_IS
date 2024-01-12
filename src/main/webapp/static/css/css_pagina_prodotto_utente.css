@@ -1,0 +1,53 @@
+.contenuto_prodotto {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    vertical-align: center;
+    justify-content: space-around;
+    padding: 5em;
+}
+
+.contenitore_immagine {
+    min-width: 20em;
+    max-width: 30em;
+    flex: 10%;
+    background-color: white;
+    border-radius: 1em;
+    padding: 0.5em;
+}
+
+.contenuto_prodotto img {
+    width: 100%;
+    border-radius: 0.7em;
+    box-sizing: border-box;
+}
+
+.contenitore_informazioni {
+    flex: 20%;
+    margin-left: 1em;
+}
+
+.contenitore_informazioni h3 {
+    margin: 1em auto;
+}
+
+.contenitore_selettore {
+    margin: 2em auto;
+}
+
+.contenitore_descrizione{
+    flex: 100%;
+    margin: 4em 0em auto;
+}
+
+.contenitore_decorazione_pagamento img {
+    max-width: 30%;
+    min-width: 12em;
+}
+
+@media screen and (min-width: 1300px) {
+    .contenuto_prodotto {
+        padding: 8em 20em;
+    }
+}

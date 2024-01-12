@@ -1,0 +1,80 @@
+.contenitore_pagina_area_utente {
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+}
+
+.contenitore_seleziona_opzione_area_utente {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20%;
+    background-color: rgba(241, 241, 241, 0.51);
+    padding: 3%;
+    border-radius: 1em;
+}
+
+@media screen and (max-width: 680px) {
+    .contenitore_pagina_area_utente {
+        flex-wrap: wrap;
+    }
+}
+
+#divProfilo {
+    text-align: left; /* Allinea il testo a sinistra */
+}
+
+#divInternoAProfilo {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide in due colonne */
+    gap: 0.2em; /* Aggiunge uno spazio tra le colonne */
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Imposta la larghezza a 100% */
+}
+
+.form-row label {
+    margin-bottom: 5px;
+    align-self: flex-start; /* Allinea le label in alto rispetto alla colonna */
+}
+
+.form-row input[type="text"], .form-row input[type="password"] {
+    width: calc(100% - 0.3em); /* Fai sì che gli input occupino tutta la larghezza della colonna, considerando il margine */
+    margin-bottom: 10px; /* Aggiunge uno spazio tra gli input */
+    box-sizing: border-box; /* Considera il padding e il bordo nell'ampiezza totale */
+}
+
+/* Media query per schermi più piccoli */
+@media screen and (max-width: 768px) {
+    #divInternoAProfilo {
+        grid-template-columns: 1fr; /* Utilizza una colonna singola su schermi più piccoli */
+    }
+}
+
+#divProfilo input[type="submit"], .contenitore_seleziona_opzione_area_utente input[type="submit"] {
+    width: 100%;
+}
+
+.contenitore_seleziona_opzione_area_utente input[type="submit"] {
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+    margin: 0 0 1em;
+    transition: none;
+}
+
+.contenitore_seleziona_opzione_area_utente input[type="submit"]:first-child {
+    outline: none;
+    border: none 0.17em rgb(28, 17, 10);
+    border-bottom-style: solid;
+    margin: 0 0 1em;
+}
+
+.contenitore_seleziona_opzione_area_utente input:hover {
+    outline: none;
+    border: 0.17em none #1C110A;
+    border-bottom-style: solid;
+    margin: 0 0 0.89em;
+}
