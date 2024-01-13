@@ -126,6 +126,10 @@ footer {
  */
 }
 
+.abovefooter {
+    min-height: calc(100vh - 30em);
+}
+
 .footer-content {
     display: flex;
     justify-content: space-around;

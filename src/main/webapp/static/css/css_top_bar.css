@@ -69,11 +69,13 @@
 .bottoni_utenti {
     margin-left: auto;
     flex: 0 0 auto;
+    margin-bottom: 0;
 }
 
 .contenitore_logo {
     flex: 0 0 auto;
     width: 13em;
+    margin-bottom: 0;
 }
 
 .contenitore_logo img {
@@ -133,4 +135,8 @@
     .contenitore_filtri {
         flex-direction: column;
     }
+}
+
+#div_ricerca form, .bottoni_utenti > div > form, .contenitore_filtri form {
+    margin-bottom: 0;
 }

@@ -9,10 +9,13 @@
 
 <html>
   <head>
-      <meta charset="UTF-8">
       <title>Carrello</title>
-      <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
-      <link rel="stylesheet" href="./static/css/css_pagina_carrello.css" type="text/css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Media Query -->
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_generic.css" type="text/css">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
+      <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_carrello.css" type="text/css">
   </head>
   <body>
   <jsp:include page="header.jsp">
@@ -100,7 +103,7 @@
   </div>
   <%}%>
 
-  <jsp:include page="footer.html">
+  <jsp:include page="footer.jsp">
       <jsp:param name="footer" value=""/>
   </jsp:include>
 

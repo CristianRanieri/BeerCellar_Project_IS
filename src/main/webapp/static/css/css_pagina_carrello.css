@@ -14,8 +14,8 @@
     margin: 1em; /* Margine tra i div */
 }
 
-.div_tabella_prodotti_carrello{
-
+.contenitore-messaggio {
+    padding-left: 1em;
 }
 
 th{
