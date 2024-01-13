@@ -2,13 +2,7 @@
 <%@ page import="model.entity.Ordine" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.entity.AcquistoProdotto" %>
-<%@ page import="model.entity.Account" %><%--
-  Created by IntelliJ IDEA.
-  User: 174907
-  Date: 27/12/2023
-  Time: 14:21
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.entity.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
