@@ -16,6 +16,7 @@ public class VisualizzaRegistrazione extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if(((Account)req.getSession().getAttribute("account")).getId() == -1){
+            req.setAttribute("reg",true);
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/registrazione.jsp");
             dispatcher.forward(req,resp);
         }else {

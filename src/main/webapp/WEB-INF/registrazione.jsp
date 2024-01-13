@@ -10,8 +10,13 @@
 <html>
 <head>
     <title>Registrazione</title>
+    <link rel="stylesheet" href="static/css/css_pagina_registrazione_e_login.css" type="text/css">
 </head>
 <body>
+
+<jsp:include page="header.jsp">
+    <jsp:param name="header" value=""/>
+</jsp:include>
 
 <c:if test="${requestScope.error2}">
     <div id="errore-registrazione">
@@ -31,45 +36,30 @@
     </div>
 </c:if>
 
+<div class="buttons">
+    <form action="visualizzaRegistrazione"><button id="button_registrati" class="attivo">Registrati</button></form>
+    <form action="visualizzaLogin"><button id="button_login">Login</button></form>
+</div>
 
-<form action="registrazione" method="post">
-
-    <div class="blocco-input-nep">
-        <label>&nbsp;&nbsp;&nbsp;Nome</label>
-        <div>
-            <input type="text" name="nome" maxlength="30" pattern="^[a-zA-Z]{5,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 4 massimo 30." required>
+<div id="registrazione" method="post">
+    <form id="registerForm" action="registrazione">
+        <div class="form-row">
+            <input type="text" name="nome" placeholder="Nome" maxlength="30" pattern="^[a-zA-Z]{5,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 5 massimo 30." required>
+            <input type="email" name="email" placeholder="Email" name="email" pattern="^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." maxlength="30" required>
         </div>
-    </div>
-
-    <div class="blocco-input-nep">
-        <label>&nbsp;&nbsp;&nbsp;Indirizzo email</label>
-        <div>
-            <input type="email" name="email" pattern="^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." maxlength="30">
+        <div class="form-row">
+            <input type="password" name="pass" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" placeholder="Password" required>
+            <input type="password" name="confermaPass" minlength="8" maxlength="16" title="Da 8 a 16 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" placeholder="Conferma Password" required>
         </div>
-    </div>
-
-    <div class="blocco-input-nep">
-        <label>&nbsp;&nbsp;&nbsp;Password</label>
-        <div>
-            <input type="password" name="pass" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
+        <div class="form-row">
+            <button type="submit">Registrati</button>
         </div>
-    </div>
+    </form>
+</div>
 
-    <div class="blocco-input-nep">
-        <label>&nbsp;&nbsp;&nbsp;Conferma Password</label>
-        <div>
-            <input type="password" name="confermaPass" minlength="8" maxlength="16" title="Da 8 a 16 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
-        </div>
-    </div>
-
-    <div id="blocco-input-bottone">
-        <div>
-            <input type="submit" id="bottone-login" value="CREA UN ACCOUNT">
-        </div>
-        <label><a href="visualizzaLogin"> Hai gia un account? Accedi ora. </a></label>
-    </div>
-</form>
-
+<jsp:include page="footer.html">
+    <jsp:param name="footer" value=""/>
+</jsp:include>
 
 </body>
 </html>

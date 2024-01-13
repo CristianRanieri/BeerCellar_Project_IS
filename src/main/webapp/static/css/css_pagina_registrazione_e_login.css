@@ -1,8 +1,8 @@
 .buttons {
     display: flex;
     justify-content: center;
-    margin-top: 10em;
-    margin-bottom: 5em;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .buttons button {
@@ -18,12 +18,6 @@
     border: 0.17em none #1C110A;
     border-bottom-style: solid;
     margin: 0 0 1em;
-}
-
-@media  screen and (max-width: 844px) {
-    .buttons {
-        margin-top: 4em;
-    }
 }
 
 @media screen and (min-width: 512px){
@@ -42,7 +36,6 @@
     outline: none;
     border: 0.17em none rgb(28, 17, 10);
     border-bottom-style: solid;
-    margin: 0 0 1em;
 }
 
 #registrazione {

@@ -10,9 +10,13 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="static/css/css_pagina_registrazione_e_login.css" type="text/css">
 </head>
 <body>
 
+<jsp:include page="header.jsp">
+  <jsp:param name="header" value=""/>
+</jsp:include>
 
 <c:if test="${requestScope.error2}">
   <div id="errore-registrazione">
@@ -33,30 +37,26 @@
   </div>
 </c:if>
 
+<div class="buttons">
+  <form action="visualizzaRegistrazione"><button id="button_registrati">Registrati</button></form>
+  <form action="visualizzaLogin"><button id="button_login"  class="attivo">Login</button></form>
+</div>
 
-<form action="login" method="post">
-
-  <div class="blocco-input-nep">
-    <label>&nbsp;&nbsp;&nbsp;Indirizzo email</label>
-    <div>
-      <input type="email" name="email" pattern="^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." maxlength="30">
+<div id="login" style="display: flex">
+  <form id="loginForm" action="login" method="post">
+    <div class="form-row">
+      <input type="email" name="email" pattern="^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." maxlength="30" placeholder="Email" required>
+      <input type="password" name="pass" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" placeholder="Password" required>
     </div>
-  </div>
-
-  <div class="blocco-input-nep">
-    <label>&nbsp;&nbsp;&nbsp;Password</label>
-    <div>
-      <input type="password" name="pass" minlength="8" maxlength="40" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
+    <div class="form-row">
+      <button type="submit">Accedi</button>
     </div>
-  </div>
+  </form>
+</div>
 
-  <div id="blocco-input-bottone">
-    <div>
-      <input type="submit" id="bottone-login" value="LOGIN">
-    </div>
-    <label><a href="visualizzaRegistrazione"> Non hai un account? Registrati ora. </a></label>
-  </div>
-</form>
+<jsp:include page="footer.html">
+  <jsp:param name="footer" value=""/>
+</jsp:include>
 
 </body>
 </html>
