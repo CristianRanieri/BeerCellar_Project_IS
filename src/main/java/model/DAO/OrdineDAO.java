@@ -175,7 +175,7 @@ public class OrdineDAO {
 
             for(AcquistoProdotto acquisto : ordine.getProdotti()){
                 ps = con.prepareStatement("INSERT INTO AcquistoProdotto (IdOrdine,IdProdotto,Quantita,PrezzoAcquisto) VALUES (?,?,?,?)");
-                ps.setInt(1,ordine.getId());
+                ps.setInt(1,idOrdine);
                 ps.setInt(2,acquisto.getProdotto().getId());
                 ps.setInt(3, acquisto.getQuantita());
                 ps.setDouble(4,acquisto.getPrezzoAcquisto());
