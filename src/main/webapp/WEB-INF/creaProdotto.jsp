@@ -29,7 +29,7 @@
 
                     <h3><label for="nomeBirra">Nome Birra</label></h3>
 
-                    <input type="text" value="" id="nomeBirra" name="nomeBirra" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
+                    <input type="text" id="nomeBirra" name="nomeBirra" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
 
                     <h3><label for="formato">Formato</label></h3>
                     <select id="formato" name="formato" required>
@@ -40,7 +40,7 @@
                     </select>
 
                     <h3><label for="prezzo">Prezzo</label></h3>
-                    <input type="text" value="" id="prezzo" name="prezzo" pattern="^\d{1,3}\.\d{2}$" required>
+                    <input type="text" id="prezzo" name="prezzo" pattern="^\d{1,3}\.\d{2}$" required>
 
                     <h3><label for="fermentazione">Fermentazione</label></h3>
                     <select id="fermentazione" name="fermentazione" required>
@@ -73,13 +73,13 @@
                     </select>
 
                     <h3><label for="tassoAlcolico">Tasso Alcolico(%)</label></h3>
-                    <input type="text" value="" id="tassoAlcolico" name="tassoAlcolico" pattern="^\d{1,2}\.\d{1,2}$" required>
+                    <input type="text" id="tassoAlcolico" name="tassoAlcolico" pattern="^\d{1,2}\.\d{1,2}$" required>
                 </div>
 
                 <div id="div_descrizioneProdotto">
                     <h3 class="titolo" for="descrizioneProdotto">DESCRIZIONE PRODOTTO</h3>
                     <div id="div_descrizioneProdottoTextArea">
-                        <textarea id="descrizioneProdotto" minlength="8" maxlength="255" required></textarea>
+                        <textarea id="descrizioneProdotto" name="descrizione" minlength="8" maxlength="255" required></textarea>
                     </div>
                     <br>
                     <div class="div_glutine">
@@ -90,7 +90,7 @@
                     </div>
 
                     <h3><label for="immagineBirra">Immagine Birra</label></h3>
-                    <input type="file" value="Scegli un'immagine" id="immagineBirra" name="immagineBirra" accept="image/*" required> <!-- per togliere choose file e mettere Scegli un'immagine si deve fare una personalizzazione e quindi sostituire lo style normale-->
+                    <input type="file" id="immagineBirra" name="immagineBirra" accept="image/*" required> <!-- per togliere choose file e mettere Scegli un'immagine si deve fare una personalizzazione e quindi sostituire lo style normale-->
 
                     <br>
                     <h3><label for="nomeBirrificio">Nome Birrificio</label></h3>

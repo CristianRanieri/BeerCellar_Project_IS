@@ -21,7 +21,7 @@
         </jsp:include>
 
         <form action="modificaProdotto" enctype="multipart/form-data" method="post">
-
+            <input type="hidden" name="id_prodotto" value="<%=prodotto.getId()%>">
             <h1>Modifica Prodotto</h1>
 
             <div id="div_prodotto">
@@ -108,7 +108,7 @@
 
                     <h3 class="titolo" for="descrizioneProdotto">DESCRIZIONE PRODOTTO</h3>
                     <div id="div_descrizioneProdottoTextArea">
-                        <textarea  id="descrizioneProdotto" minlength="8" maxlength="255" required><%=prodotto.getDescrizione()%></textarea>
+                        <textarea  id="descrizioneProdotto" name="descrizione" minlength="8" maxlength="255" required><%=prodotto.getDescrizione()%></textarea>
                     </div>
                     <br>
                     <div class="div_glutine">

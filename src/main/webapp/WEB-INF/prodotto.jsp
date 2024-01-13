@@ -35,7 +35,7 @@
 
     <div class="contenuto_prodotto">
       <div class="contenitore_immagine">
-        <img src="${pageContext.request.contextPath}/static/image/bottle.png" alt="example">
+        <img src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>">
       </div>
 
       <div class="contenitore_informazioni">
