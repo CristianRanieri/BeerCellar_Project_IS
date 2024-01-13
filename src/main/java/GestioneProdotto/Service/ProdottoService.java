@@ -8,7 +8,7 @@ public class ProdottoService {
     /**
      * questo metodo si occupa di ritirare un prodotto dal database.
      * @param id del prodotto da ricercare.
-     * @return istnaza del prodotto se viene trovato altrimenti null.
+     * @return istanza del prodotto se viene trovato altrimenti null.
      */
     public Prodotto getProdotto(int id){
         ProdottoDAO prodottoDAO = new ProdottoDAO();
