@@ -1,3 +1,4 @@
+<%@ page import="model.entity.Account" %>
 <div class="contenitore_TopBar"><!-- Spostare solo questo contenitore in una jsp da @include re in ogni altra jsp -->
 
   <div class="top-bar">
@@ -18,11 +19,13 @@
         </form>
       </div>
 
-      <div>
-        <form action="visualizzaCarrello" method="get">
-          <input type="submit" value="&#xf07a;" class="icon-cart">
-        </form>
-      </div>
+      <%if (!((Account) session.getAttribute("account")).isGestore()){%>
+        <div>
+          <form action="visualizzaCarrello" method="get">
+            <input type="submit" value="&#xf07a;" class="icon-cart">
+          </form>
+        </div>
+      <%}%>
     </div>
   </div>
 

@@ -34,11 +34,20 @@ public class InitConfig extends HttpServlet {
         stili.sort(comparator);
         getServletContext().setAttribute("stili",stili);
 
+        ArrayList<String> fermentazioni = new ArrayList<>();
+        fermentazioni.add("Alta");
+        fermentazioni.add("Bassa");
+        fermentazioni.add("Mista");
+        fermentazioni.add("Spontanea");
+        fermentazioni.sort(comparator);
+        getServletContext().setAttribute("fermentazioni", fermentazioni);
+
         ArrayList<String> colori = new ArrayList<>();
-        colori.add("bionda");
-        colori.add("blanche");
-        colori.add("ambrata");
-        colori.add("scura");
+        colori.add("Bionda");
+        colori.add("Blanche");
+        colori.add("Ambrata");
+        colori.add("Scura");
+        colori.add("Rossa");
         colori.sort(comparator);
         getServletContext().setAttribute("colori",colori);
 

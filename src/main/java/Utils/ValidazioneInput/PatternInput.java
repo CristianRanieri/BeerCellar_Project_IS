@@ -50,6 +50,10 @@ public class PatternInput {
         return Pattern.compile("^\\d{1,3}\\.\\d{2}$", Pattern.CASE_INSENSITIVE).matcher(prezzo).matches();
     }
 
+    public static boolean tassoAlcolico(String tassoAlcolico){
+        return Pattern.compile("^\\d{1,2}\\.\\d{1,2}$", Pattern.CASE_INSENSITIVE).matcher(tassoAlcolico).matches();
+    }
+
     public static boolean numeri2_4Cifre(String prezzo){
         return Pattern.compile("^\\d{2,4}$", Pattern.CASE_INSENSITIVE).matcher(prezzo).matches();
     }
