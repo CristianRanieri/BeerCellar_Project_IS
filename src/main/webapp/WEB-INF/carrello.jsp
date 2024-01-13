@@ -30,8 +30,6 @@
   </div>
   <% }%>
 
-
-
   <!--CARRELLO:-->
   <h3 id="h3_carrello">Carrello</h3>
 
@@ -101,5 +99,10 @@
       <h2>Aggiungi degli articoli per effettuare un acquisto. </h2>
   </div>
   <%}%>
+
+  <jsp:include page="footer.html">
+      <jsp:param name="footer" value=""/>
+  </jsp:include>
+
   </body>
 </html>

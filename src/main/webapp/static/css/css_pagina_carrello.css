@@ -87,7 +87,8 @@ img{
     color: black;
     font-weight: bold;
     text-align: center;
-    padding-top: 4em;
+    padding-top: 20px;
+    padding-bottom: 7px;
 }
 
 #div_subtotale{

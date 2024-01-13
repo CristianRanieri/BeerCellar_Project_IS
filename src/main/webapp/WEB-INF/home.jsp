@@ -16,5 +16,10 @@
     <jsp:param name="header" value=""/>
 </jsp:include>
 
+
+
+<jsp:include page="footer.html">
+    <jsp:param name="footer" value=""/>
+</jsp:include>
 </body>
 </html>
