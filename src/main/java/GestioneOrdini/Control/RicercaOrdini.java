@@ -64,7 +64,7 @@ public class RicercaOrdini extends HttpServlet {
                 }
             }else {
                 //non è un gestore, ridirezione pagina di errore, mancanza dei permessi
-                //da aggiungere
+                resp.sendRedirect("errorePermessi.jsp");
             }
         }else {
             //l'utente non è loggato, ridirezione login

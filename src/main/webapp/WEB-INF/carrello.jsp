@@ -87,7 +87,7 @@
             </div>
 
             <div id="div_ProcediOrdine">
-                <button id="button_procedi_ordine" type="submit" value="Procedi all'ordine">Procedi all'ordine</button>
+                <form action="visualizzaEffettuaOrdine"><button id="button_procedi_ordine" type="submit" value="Procedi all'ordine">Procedi all'ordine</button></form>
             </div>
 
         </div>
