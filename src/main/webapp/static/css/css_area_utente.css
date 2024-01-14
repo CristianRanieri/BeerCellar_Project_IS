@@ -7,9 +7,10 @@
 .contenitore_seleziona_opzione_area_utente {
     display: flex;
     flex-direction: column;
-    margin-right: 20%;
+    margin-right: 5%;
     background-color: rgba(241, 241, 241, 0.51);
-    padding: 3%;
+    padding: 2%;
+    width: 170px;
     border-radius: 1em;
 }
 

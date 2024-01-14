@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Registrazione</title>
+    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
     <link rel="stylesheet" href="static/css/css_pagina_registrazione_e_login.css" type="text/css">
 </head>
 <body>
@@ -19,20 +20,14 @@
 </jsp:include>
 
 <c:if test="${requestScope.error2}">
-    <div id="errore-registrazione">
-        <div>
-            <h3 class="testo-croce-error"> &times; </h3>
-            <h4>Creazione account non effettuata, credenziali non valide.</h4>
-        </div>
+    <div id="blocco-messaggio-cambiamenti">
+        <h3>Credenziali non valide, creazione registrazione non effettuata.</h3>
     </div>
 </c:if>
 
 <c:if test="${requestScope.error1}">
-    <div id="errore-registrazione">
-        <div>
-            <h3 class="testo-croce-error"> &times; </h3>
-            <h4>Creazione account non effettuata, email gia esistente.</h4>
-        </div>
+    <div id="blocco-messaggio-cambiamenti">
+        <h3>Email già esistente, registrazione non effettuata.</h3>
     </div>
 </c:if>
 

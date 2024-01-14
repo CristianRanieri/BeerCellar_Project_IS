@@ -24,7 +24,7 @@
 <% if(request.getAttribute("errore")!=null){%>
 <div id="blocco-messaggio-cambiamenti">
     <h2>ERRORE!</h2>
-    <h3>Alcuni dati selezionati o inseriti non sono stati inviati o non rispettano il formato indicato, scusaci per il disagio e le chiedeamo di riprovare.</h3>
+    <h3>Alcuni dati selezionati o inseriti non sono stati inviati o non rispettano il formato indicato, la esortiamo a riprovare.</h3>
 </div>
 <% }%>
 <!--ERRORE:-->

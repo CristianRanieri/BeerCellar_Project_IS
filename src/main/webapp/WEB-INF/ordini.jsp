@@ -9,7 +9,7 @@
     <title>Ordini</title>
     <link rel="stylesheet" href="./static/css/css_pagina_ordini_utente.css" type="text/css">
     <link rel="stylesheet" href="./static/css/css_pagina_ordini_admin.css" type="text/css">
-
+    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
     <% int numeroOrdini = (int) request.getAttribute("numeroOrdini");%>
 </head>
 
@@ -19,9 +19,9 @@
 </jsp:include>
 
 <c:if test="${requestScope.error1}">
-    <div>
-        <h3 class="testo-croce-error"> &times; </h3>
-        <h4>Input non valido riprova</h4>
+    <div id="blocco-messaggio-cambiamenti">
+        <h2>ERRORE!</h2>
+        <h3>Alcuni dati selezionati o inseriti non sono stati inviati o non rispettano il formato indicato, la esortiamo a riprovare.</h3>
     </div>
 </c:if>
 
@@ -52,6 +52,14 @@
         </div>
     </form>
     <%}%>
+
+    <!--SUCCESSO:-->
+    <% if(request.getAttribute("Successo")!=null){%>
+        <div id="blocco-messaggio-successo">
+            <h2>Ordine Effettuato!</h2>
+            <h3>L'ordine è stato effettuato con successo.</h3>
+        </div>
+    <% }%>
 
 
     <%  ArrayList<Ordine> ordini= (ArrayList<Ordine>) request.getAttribute("ordini");

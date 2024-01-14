@@ -56,11 +56,15 @@ public class RicercaOrdini extends HttpServlet {
                         dispatcher.forward(req,resp);
                     }else {
                         //input non validi
-                        resp.sendRedirect("visualizzaOrdini");
+                        req.setAttribute("error1",true);
+                        RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
+                        dispatcher.forward(req,resp);
                     }
                 }else {
                     //input non validi
-                    resp.sendRedirect("visualizzaOrdini");
+                    req.setAttribute("error1",true);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
+                    dispatcher.forward(req,resp);
                 }
             }else {
                 //non è un gestore, ridirezione pagina di errore, mancanza dei permessi
