@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
 import model.entity.ContenutoCarrello;
 import model.entity.Prodotto;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -3,7 +3,6 @@ package GestioneProdotto.Control;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-
 import java.io.IOException;
 
 @WebServlet(name = "modificaProdotto", value = "/modificaProdotto")

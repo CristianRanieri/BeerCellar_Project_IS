@@ -2,7 +2,6 @@ package model.DAO;
 
 import Utils.Connection.ConPool;
 import model.entity.Prodotto;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

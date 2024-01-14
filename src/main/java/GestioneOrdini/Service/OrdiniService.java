@@ -11,9 +11,7 @@ public class OrdiniService {
 
     public void effettuaOrdine(Ordine ordine){
         OrdineDAO ordineDAO = new OrdineDAO();
-
         boolean b=ordineDAO.creaOrdine(ordine);
-        System.out.println("creazione dell'ordine:"+ b);
     }
 
     //puo essere utilizzato solo dai gestori

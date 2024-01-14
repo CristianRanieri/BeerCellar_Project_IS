@@ -1,11 +1,9 @@
 package model.DAO;
 
 import Utils.Connection.ConPool;
-
 import model.entity.AcquistoProdotto;
 import model.entity.Ordine;
 import model.entity.Prodotto;
-
 import java.sql.*;
 import java.util.ArrayList;
 

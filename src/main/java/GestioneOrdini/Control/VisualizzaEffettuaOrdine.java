@@ -1,6 +1,5 @@
 package GestioneOrdini.Control;
 
-import Utils.ValidazioneInput.ValidaCarrello;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,11 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
-import model.entity.ContenutoCarrello;
-
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @WebServlet("/visualizzaEffettuaOrdine")
 public class VisualizzaEffettuaOrdine extends HttpServlet {

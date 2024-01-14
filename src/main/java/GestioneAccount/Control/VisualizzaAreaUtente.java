@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
-
 import java.io.IOException;
+
 @WebServlet("/visualizzaAreaUtente")
 public class VisualizzaAreaUtente extends HttpServlet {
     @Override

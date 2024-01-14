@@ -4,7 +4,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.entity.Account;
-
 import java.io.IOException;
 
 @WebServlet(name = "visualizzaCreaProdotto", value = "/visualizzaCreaProdotto")

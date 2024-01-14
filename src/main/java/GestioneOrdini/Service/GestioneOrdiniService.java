@@ -2,7 +2,6 @@ package GestioneOrdini.Service;
 
 import model.entity.Account;
 import model.entity.Ordine;
-
 import java.util.ArrayList;
 
 public class GestioneOrdiniService {

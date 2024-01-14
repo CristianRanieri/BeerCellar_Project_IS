@@ -4,7 +4,6 @@ import GestioneProdotto.Service.GestioneProdottoService;
 import model.entity.Carrello;
 import model.entity.ContenutoCarrello;
 import model.entity.Prodotto;
-
 import java.util.ArrayList;
 
 public class ValidaCarrello {
