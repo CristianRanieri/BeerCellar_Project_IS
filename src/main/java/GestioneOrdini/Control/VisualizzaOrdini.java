@@ -1,5 +1,6 @@
 package GestioneOrdini.Control;
 
+import GestioneOrdini.Service.GestioneOrdiniService;
 import GestioneOrdini.Service.OrdiniService;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import model.entity.Ordine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @WebServlet("/visualizzaOrdini")
 public class VisualizzaOrdini extends HttpServlet {
@@ -38,8 +40,17 @@ public class VisualizzaOrdini extends HttpServlet {
                 Account account= (Account) req.getSession().getAttribute("account");
 
                 //eseguo il service, prendo gli ordini
-                OrdiniService ordiniService = new OrdiniService();
+                GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                 ArrayList<Ordine> ordini = ordiniService.visualizzaOrdini(account, offset);
+                ordini.sort(new Comparator<Ordine>() {
+                    @Override
+                    public int compare(Ordine o1, Ordine o2) {
+                        if(o1.getId() < o2.getId())
+                            return 1;
+                        else
+                            return -1;
+                    }
+                });
 
                 //setto gli attributi utilizzati dalla jsp
                 req.setAttribute("ordini", ordini);

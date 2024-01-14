@@ -9,10 +9,8 @@
 <html>
 <head>
     <title>Effettua Ordine</title>
-
-
-    <link rel="stylesheet" href="./static/css/css_pagina_dati_ordine.css" type="text/css">
-    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_dati_ordine.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
 </head>
 <body>
 
@@ -39,12 +37,12 @@
             <div>
                 <div>
                     <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" pattern="^[a-zA-Z]{5,30}$" required>
+                    <input type="text" id="nome" name="nome" pattern="^[a-zA-Z]{2,30}$" required>
                 </div>
 
                 <div>
                     <label for="cognome">Cognome</label>
-                    <input type="text" id="cognome" name="cognome" pattern="^[a-zA-Z]{5,30}$" required>
+                    <input type="text" id="cognome" name="cognome" pattern="^[a-zA-Z]{2,30}$" required>
                 </div>
             </div>
         </div>

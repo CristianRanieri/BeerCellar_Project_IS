@@ -2,7 +2,6 @@ package GestioneCarrello.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.ValidazioneInput.PatternInput;
-import Utils.ValidazioneInput.ValidaCarrello;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

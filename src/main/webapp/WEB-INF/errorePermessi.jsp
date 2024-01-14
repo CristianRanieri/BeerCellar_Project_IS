@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Error Permessi</title>
-    <link rel="stylesheet" href="static/css/css_pagina_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_errore.css" type="text/css">
   </head>
 
   <jsp:include page="header.jsp">

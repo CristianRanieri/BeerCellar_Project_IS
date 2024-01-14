@@ -1,5 +1,6 @@
 package GestioneOrdini.Control;
 
+import GestioneOrdini.Service.GestioneOrdiniService;
 import GestioneOrdini.Service.OrdiniService;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import model.entity.Ordine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @WebServlet("/ricercaOrdini")
 public class RicercaOrdini extends HttpServlet {
@@ -41,8 +43,17 @@ public class RicercaOrdini extends HttpServlet {
 
                     if(b){
                         //gli input sono validi, eseguo il metodo di ricerca deglio ordini
-                        OrdiniService ordiniService = new OrdiniService();
+                        GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                         ArrayList<Ordine> ordini = ordiniService.ricercaOrdini(req.getParameter("tipoID"), Integer.parseInt(req.getParameter("numero")),offset);
+                        ordini.sort(new Comparator<Ordine>() {
+                            @Override
+                            public int compare(Ordine o1, Ordine o2) {
+                                if(o1.getId() < o2.getId())
+                                    return 1;
+                                else
+                                    return -1;
+                            }
+                        });
 
                         //setto gli attributi utilizzati dalla jsp
                         req.setAttribute("ordini", ordini);

@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>Registrazione</title>
-    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
-    <link rel="stylesheet" href="static/css/css_pagina_registrazione_e_login.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_registrazione_e_login.css" type="text/css">
 </head>
 <body>
 
@@ -39,7 +39,7 @@
 <div id="registrazione" method="post">
     <form id="registerForm" action="registrazione">
         <div class="form-row">
-            <input type="text" name="nome" placeholder="Nome" maxlength="30" pattern="^[a-zA-Z]{5,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 5 massimo 30." required>
+            <input type="text" name="nome" placeholder="Nome" maxlength="30" pattern="^[a-zA-Z]{2,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 2 massimo 30." required>
             <input type="email" name="email" placeholder="Email" name="email" pattern="^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." maxlength="30" required>
         </div>
         <div class="form-row">

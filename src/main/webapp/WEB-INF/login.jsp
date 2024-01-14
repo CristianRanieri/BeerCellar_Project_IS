@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
-    <link rel="stylesheet" href="static/css/css_pagina_registrazione_e_login.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_registrazione_e_login.css" type="text/css">
 </head>
 <body>
 

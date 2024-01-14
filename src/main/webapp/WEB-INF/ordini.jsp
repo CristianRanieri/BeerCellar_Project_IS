@@ -7,9 +7,9 @@
 <html>
 <head>
     <title>Ordini</title>
-    <link rel="stylesheet" href="./static/css/css_pagina_ordini_utente.css" type="text/css">
-    <link rel="stylesheet" href="./static/css/css_pagina_ordini_admin.css" type="text/css">
-    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_ordini_utente.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_ordini_admin.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
     <% int numeroOrdini = (int) request.getAttribute("numeroOrdini");%>
 </head>
 
@@ -61,7 +61,6 @@
         </div>
     <% }%>
 
-
     <%  ArrayList<Ordine> ordini= (ArrayList<Ordine>) request.getAttribute("ordini");
         for(Ordine ordine : ordini){%>
 
@@ -93,7 +92,7 @@
         <%for(AcquistoProdotto acquisto : ordine.getProdotti()){%>
                 <div class="divProdottiAcquistati">
                     <div class="pack-foto">
-                        <img class="pack-image" src="./static/image/bottle.png"> <!-- si deve inserire l'immagine-->
+                        <img class="pack-image" src="${pageContext.request.contextPath}<%="/upload/ID_"+acquisto.getProdotto().getId()+".png"%>"> <!-- si deve inserire l'immagine-->
                     </div>
 
                     <div class="pack">

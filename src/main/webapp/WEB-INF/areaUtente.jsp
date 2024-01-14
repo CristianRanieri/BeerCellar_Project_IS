@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>Area Utente</title>
-    <link rel="stylesheet" href="./static/css/css_area_utente.css" type="text/css">
-    <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_area_utente.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
 
 </head>
 <body>
@@ -48,7 +48,7 @@
             <div id="divInternoAProfilo">
                 <div class="form-row">
                     <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" value="${account.nome}" maxlength="30" pattern="^[a-zA-Z]{5,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 5 massimo 30." required>
+                    <input type="text" id="nome" name="nome" value="${account.nome}" maxlength="30" pattern="^[a-zA-Z]{2,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 2 massimo 30." required>
                 </div>
 
                 <div class="form-row">

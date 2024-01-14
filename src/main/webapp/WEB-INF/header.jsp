@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.entity.Account" %><%--
   Created by IntelliJ IDEA.
   User: 174907
   Date: 12/01/2024
@@ -35,11 +35,14 @@
         </form>
       </div>
 
-      <div>
-        <form action="visualizzaCarrello" method="get">
-          <input type="submit" value="&#xf07a;" class="icon-cart">
-        </form>
-      </div>
+
+      <%if (!((Account) session.getAttribute("account")).isGestore()){%>
+        <div>
+          <form action="visualizzaCarrello" method="get">
+            <input type="submit" value="&#xf07a;" class="icon-cart">
+          </form>
+        </div>
+      <%}%>
     </div>
   </div>
 
