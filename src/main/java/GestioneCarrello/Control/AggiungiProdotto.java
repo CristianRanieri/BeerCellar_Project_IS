@@ -69,7 +69,6 @@ public class AggiungiProdotto extends HttpServlet {
                     dispatcher.forward(req,resp);
                 }else {
                     //il prodotto non esiste o non in catalogo
-                    req.setAttribute("erroreInCatalogo",true);
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
                 }

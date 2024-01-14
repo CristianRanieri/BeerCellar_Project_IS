@@ -60,8 +60,7 @@ public class RimuoviProdotto extends HttpServlet {
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/carrello.jsp");
                     dispatcher.forward(req,resp);
                 }else {
-                    //il prodotto non esiste o non in catalogo
-                    req.setAttribute("erroreInCatalogo",true);
+                    //il prodotto non esiste o non in cataloglo
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
                 }
