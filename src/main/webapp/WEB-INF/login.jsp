@@ -25,9 +25,11 @@
       </div>
     </c:if>
 
-    <div class="buttons">
-      <form action="visualizzaRegistrazione"><button id="button_registrati">Registrati</button></form>
-      <form action="visualizzaLogin"><button id="button_login"  class="attivo">Login</button></form>
+    <div class="contenitore_bottoni_login_registrazione">
+      <div class="buttons">
+        <form action="visualizzaRegistrazione"><button id="button_registrati">Registrati</button></form>
+        <form action="visualizzaLogin"><button id="button_login"  class="attivo">Login</button></form>
+      </div>
     </div>
 
     <div id="login" style="display: flex">
