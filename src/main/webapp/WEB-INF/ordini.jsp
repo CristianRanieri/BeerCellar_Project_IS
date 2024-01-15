@@ -43,9 +43,9 @@
             </select>
 
             <%if(request.getParameter("numero")!=null){%>
-                <input type="text" name="numero" value="<%= request.getParameter("numero")%>">
+                <input type="text" name="numero" value="<%= request.getParameter("numero")%>" pattern="^\d{1,4}$" required>
             <%}else{%>
-                <input type="text" name="numero">
+                <input type="text" name="numero" pattern="^\d{1,4}$" required>
             <%}%>
 
             <button type="submit" value="Ricerca">RICERCA</button>

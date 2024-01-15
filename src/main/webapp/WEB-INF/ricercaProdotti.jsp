@@ -79,12 +79,13 @@
     <%for(Prodotto prodotto : ((ArrayList<Prodotto>)request.getAttribute("prodotti"))) {%>
     <div class="contenitore-prodotto">
         <div class="div_img">
-           <a href="visualizzaProdotto?id_prodotto=<%=prodotto.getId()%>"> <img  class="img_prodotto" src="images/bottle.png"></a>
+           <a href="visualizzaProdotto?id_prodotto=<%=prodotto.getId()%>"> <img  class="img_prodotto" src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>"></a>
         </div>
         <h3><%=prodotto.getNome()%></h3>
         <form action="visualizzaProdotto" method="get">
             <div class="div-button">
                 <input type="submit" value="Acquista Prodotto" class="button-acquista">
+                <input type="hidden" value="<%=prodotto.getId()%>" name="id_prodotto">
             </div>
         </form>
     </div>

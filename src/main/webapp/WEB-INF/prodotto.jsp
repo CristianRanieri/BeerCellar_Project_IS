@@ -46,7 +46,9 @@
         <p><%=prodotto.getFormato()%></p>
         <p><%=prodotto.getStile()%></p>
         <p><%=prodotto.getColore()%></p>
+        <p><%=prodotto.getBirrificio()%></p>
         <h3>€<%=prodotto.getPrezzo()%></h3>
+
 
         <%if (!((Account) session.getAttribute("account")).isGestore()) {%>
           <form action="aggiungiProdotto">
