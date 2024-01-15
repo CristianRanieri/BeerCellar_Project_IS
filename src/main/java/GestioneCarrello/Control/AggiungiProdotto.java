@@ -1,6 +1,7 @@
 package GestioneCarrello.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import model.entity.Prodotto;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 @WebServlet("/aggiungiProdotto")
 public class AggiungiProdotto extends HttpServlet {

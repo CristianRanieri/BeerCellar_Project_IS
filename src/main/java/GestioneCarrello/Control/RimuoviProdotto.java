@@ -1,6 +1,7 @@
 package GestioneCarrello.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import model.entity.Prodotto;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 @WebServlet("/rimuoviProdotto")
 public class RimuoviProdotto extends HttpServlet {
@@ -34,9 +36,10 @@ public class RimuoviProdotto extends HttpServlet {
 
         //controllo che sia loggato e che è un gestore
         //chi puo accedere?
-        if(account.getId() != -1 && account.isGestore()) {
-            //gestore loggato, pagina errore peressi
-            resp.sendRedirect("errorePermessi.jsp");
+        if(!permessi.contains(permesso)) {
+            //l'attore non ha i permessi per effettuare un ordine
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
+            dispatcher.forward(req,resp);
         }else {
             //account di tipo Utente loggato oppure non loggato
             //ho dei valori da validare?
