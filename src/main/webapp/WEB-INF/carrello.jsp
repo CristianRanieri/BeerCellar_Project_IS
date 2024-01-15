@@ -31,7 +31,7 @@
   <% }%>
 
   <!--CARRELLO:-->
-  <h3 id="h3_carrello">Carrello</h3>
+  <h2 id="h3_carrello">Carrello</h2>
 
   <% if(!carrello.isEmpty()){%>
   <div id="div_contenitore">

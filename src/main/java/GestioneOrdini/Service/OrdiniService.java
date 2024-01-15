@@ -21,9 +21,11 @@ public class OrdiniService {
 
         if(tipoID.equals("Utente"))
             ordini= ordineDAO.getOrdiniUtente(numero,offset);
-        else
-            ordini.add(ordineDAO.getOrdine(numero));
-
+        else {
+            Ordine ordine = ordineDAO.getOrdine(numero);
+            if(ordine !=null)
+                ordini.add(ordine);
+        }
         return ordini;
     }
 

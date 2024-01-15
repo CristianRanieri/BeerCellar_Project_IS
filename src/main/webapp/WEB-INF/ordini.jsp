@@ -62,7 +62,15 @@
     <% }%>
 
     <%  ArrayList<Ordine> ordini= (ArrayList<Ordine>) request.getAttribute("ordini");
-        for(Ordine ordine : ordini){%>
+     if(ordini.isEmpty()){%>
+        <% if(account.isGestore()){%>
+            <h2>Nessun ordine trovato.</h2>
+        <%}else {%>
+            <h2>Non hai ancora effettuato nessun ordine, affrettati ad aggiungere dei prodotti al carrello ed effttuare un acquisto!</h2>
+        <%}%>
+    <%}%>
+
+    <%for(Ordine ordine : ordini){%>
 
     <div class="divStoricoOrdini">
 
