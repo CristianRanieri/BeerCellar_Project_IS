@@ -29,9 +29,9 @@ public class EffettuaOrdine extends HttpServlet {
         Account account = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
         String attore;
-        if(account.getId() == -1)
+        if (account.getId() == -1)
             attore= "Ospite";
-        else if(account.isGestore())
+        else if (account.isGestore())
             attore = "Gestore";
         else
             attore = "Utente";
@@ -39,7 +39,7 @@ public class EffettuaOrdine extends HttpServlet {
         Permesso permesso = new Permesso(attore,"EffettuaOrdine","doPost");
 
         //controllo che sia loggato e che è un gestore
-        if(!permessi.contains(permesso)){
+        if (!permessi.contains(permesso)) {
             //l'attore non ha i permessi per effettuare un ordine
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
             dispatcher.forward(req,resp);
