@@ -14,7 +14,7 @@
 
       <div class="top-bar">
         <div class="contenitore_logo">
-          <img src="static/image/logo_project_4K_white.png" alt="logo">
+          <a href="index.jsp"><img src="static/image/logo_project_4K_white.png" alt="logo"></a>
         </div>
 
         <div id="div_ricerca">

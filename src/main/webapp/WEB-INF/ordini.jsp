@@ -100,7 +100,7 @@
         <%for(AcquistoProdotto acquisto : ordine.getProdotti()){%>
                 <div class="divProdottiAcquistati">
                     <div class="pack-foto">
-                        <img class="pack-image" src="${pageContext.request.contextPath}<%="/upload/ID_"+acquisto.getProdotto().getId()+".png"%>"> <!-- si deve inserire l'immagine-->
+                        <a href="visualizzaProdotto?id_prodotto=<%=acquisto.getProdotto().getId()%>"><img class="pack-image" src="${pageContext.request.contextPath}<%="/upload/ID_"+acquisto.getProdotto().getId()+".png"%>"></a>
                     </div>
 
                     <div class="pack">

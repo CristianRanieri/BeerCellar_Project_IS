@@ -52,7 +52,7 @@ public class EffettuaOrdine extends HttpServlet {
                 if (req.getParameter("nome") != null && req.getParameter("cognome") != null && req.getParameter("carta") != null && !req.getParameter("dataScadenza").isEmpty()
                         && req.getParameter("cvv") != null && req.getParameter("nomeCarta") != null && req.getParameter("indirizzo") != null
                         && req.getParameter("citta") != null && req.getParameter("cap") != null && req.getParameter("provincia") != null
-                        && PatternInput.nome(req.getParameter("nome")) && PatternInput.nome(req.getParameter("cognome"))
+                        && PatternInput.nomeCognome(req.getParameter("nome")) && PatternInput.nomeCognome(req.getParameter("cognome"))
                         && PatternInput.numeroCarta(req.getParameter("carta")) && PatternInput.data(new Date(Integer.parseInt(req.getParameter("dataScadenza").substring(0, 4)) - 1900, Integer.parseInt(req.getParameter("dataScadenza").substring(5, 7)) - 1, 1))
                         && PatternInput.numeroCCV(req.getParameter("cvv")) && PatternInput.nomeCognome(req.getParameter("nomeCarta"))
                         && PatternInput.stringaConSpazzi(req.getParameter("indirizzo")) && PatternInput.stringCaratteriSpeciali(req.getParameter("citta"))
