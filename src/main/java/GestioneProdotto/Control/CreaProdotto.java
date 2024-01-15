@@ -7,10 +7,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.entity.Account;
 import model.entity.Prodotto;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @MultipartConfig
 @WebServlet(name = "creaProdotto", value = "/creaProdotto")
@@ -67,11 +65,9 @@ public class CreaProdotto extends HttpServlet {
 
                     GestioneProdottoService gestioneProdottoService = new GestioneProdottoService();
                     gestioneProdottoService.creaProdotto(prodotto);
-
                     gestioneProdottoService.salvaImmagine(request.getPart("immagineBirra"), prodotto.getId(), request.getServletContext());
 
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prodotto.jsp?id=" + prodotto.getId());
-                    dispatcher.forward(request, response);
+                    response.sendRedirect("visualizzaProdotto?Successo=true&id_prodotto=" + prodotto.getId());
                 }
                 else {
                     request.setAttribute("errore-parametri-invalidi", true);

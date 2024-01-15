@@ -1,4 +1,20 @@
-<%@ page import="model.entity.Account" %>
+<%@ page import="model.entity.Account" %><%--
+  Created by IntelliJ IDEA.
+  User: 174907
+  Date: 12/01/2024
+  Time: 19:22
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+  <link rel="stylesheet" href="./static/css/css_generic.css" type="text/css">
+  <link rel="stylesheet" href="./static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
+  <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
 <div class="contenitore_TopBar"><!-- Spostare solo questo contenitore in una jsp da @include re in ogni altra jsp -->
 
   <div class="top-bar">
@@ -18,6 +34,7 @@
           <input type="submit" value="&#xf007;" class="icon-user">
         </form>
       </div>
+
 
       <%if (!((Account) session.getAttribute("account")).isGestore()){%>
         <div>
@@ -55,3 +72,6 @@
   </div>
 
 </div>
+
+</body>
+</html>

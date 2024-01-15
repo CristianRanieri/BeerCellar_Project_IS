@@ -2,7 +2,6 @@ package GestioneCarrello.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.ValidazioneInput.PatternInput;
-import Utils.ValidazioneInput.ValidaCarrello;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
 import model.entity.ContenutoCarrello;
 import model.entity.Prodotto;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -62,8 +60,7 @@ public class RimuoviProdotto extends HttpServlet {
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/carrello.jsp");
                     dispatcher.forward(req,resp);
                 }else {
-                    //il prodotto non esiste o non in catalogo
-                    req.setAttribute("erroreInCatalogo",true);
+                    //il prodotto non esiste o non in cataloglo
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
                 }

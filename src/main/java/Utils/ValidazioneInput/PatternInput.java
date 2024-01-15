@@ -20,6 +20,21 @@ public class PatternInput {
         return Pattern.compile("^[a-zA-Z]{2,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
     }
 
+    public static boolean tassoAlcolico(String tassoAlcolico){
+        return Pattern.compile("^\\d{1,2}\\.\\d{1,2}$", Pattern.CASE_INSENSITIVE).matcher(tassoAlcolico).matches();
+    }
+
+    //stringa da 5 a 30 caratteri miuscoli e maiuscoli
+    public static boolean nomeCognome(String nome){
+        return Pattern.compile("^[a-zA-Z ]{3,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
+    }
+
+    //stringa da 5 a 30 caratteri miuscoli e maiuscoli
+    public static boolean stringCaratteriSpeciali(String nome){
+        return Pattern.compile("^[^\\d]{3,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
+    }
+
+
     public static boolean numero(String numero){
         return Pattern.compile("^[0-9]{1,10}$", Pattern.CASE_INSENSITIVE).matcher(numero).matches();
     }

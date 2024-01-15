@@ -11,3 +11,15 @@ div#blocco-messaggio-cambiamenti > h2,div#blocco-messaggio-cambiamenti > h3{
     color: darkred;
 }
 
+
+div#blocco-messaggio-successo{
+    width: 100%;
+    background-color: rgba(0,235,0,0.5);
+    border-radius: 5px;
+    text-align : center;
+}
+
+div#blocco-messaggio-successo > h2,div#blocco-messaggio-successo > h3{
+    font-family: Bahnschrift,sans-serif;
+    color: darkgreen;
+}

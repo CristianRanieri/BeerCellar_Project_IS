@@ -9,12 +9,9 @@
 
 <html>
   <head>
-      <title>Carrello</title>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Media Query -->
-      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_generic.css" type="text/css">
-      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-      <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
+      <title>Carrello</title>
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
       <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_carrello.css" type="text/css">
   </head>
   <body>
@@ -53,7 +50,7 @@
                     <td>
                         <div class="div_tuttoIlProdotto">
                             <div class="div_immagineProdotto">
-                                <img src="static/image/bottle.png">
+                                <img src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>">
                             </div>
                             <div class="div_Prodotto">
                                 <div class="div_nomeProdotto"><label name="nomeProdotto"><%= prodotto.getNome()%></label><br></div>
@@ -90,7 +87,7 @@
             </div>
 
             <div id="div_ProcediOrdine">
-                <button id="button_procedi_ordine" type="submit" value="Procedi all'ordine">Procedi all'ordine</button>
+                <form action="visualizzaEffettuaOrdine"><button id="button_procedi_ordine" type="submit" value="Procedi all'ordine">Procedi all'ordine</button></form>
             </div>
 
         </div>
@@ -103,7 +100,7 @@
   </div>
   <%}%>
 
-  <jsp:include page="footer.jsp">
+  <jsp:include page="footer.html">
       <jsp:param name="footer" value=""/>
   </jsp:include>
 

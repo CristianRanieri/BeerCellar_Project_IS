@@ -7,7 +7,6 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.entity.Account;
 import model.entity.Prodotto;
-
 import java.io.IOException;
 
 @WebServlet(name = "visualizzaProdotto", value = "/visualizzaProdotto")

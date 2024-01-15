@@ -4,18 +4,22 @@
     <head>
         <meta charset="UTF-8">
         <title>Inserimento prodotto</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_modifica_prodotto.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_generic.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-        <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body>
-
         <jsp:include page="header.jsp">
             <jsp:param name="header" value=""/>
         </jsp:include>
+
+        <!--ERRORE:-->
+        <% if(request.getAttribute("errore-parametri-invalidi")!=null){%>
+            <div id="blocco-messaggio-cambiamenti">
+                <h3>Alcuni dati selezionati o inseriti non sono stati inviati o non rispettano il formato indicato, la esortiamo a riprovare.</h3>
+            </div>
+        <% }%>
+        <!--ERRORE:-->
 
         <form action="creaProdotto" enctype="multipart/form-data" method="post">
 
@@ -104,7 +108,7 @@
 
         </form>
 
-        <jsp:include page="footer.jsp">
+        <jsp:include page="footer.html">
             <jsp:param name="footer" value=""/>
         </jsp:include>
     </body>

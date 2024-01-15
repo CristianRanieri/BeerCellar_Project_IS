@@ -5,49 +5,51 @@
     <head>
         <meta charset="UTF-8">
         <title>Modifica prodotto</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_modifica_prodotto.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_generic.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-        <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Media Query -->
     </head>
     <body>
-        <%
-            Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");
-        %>
+    <%Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");%>
 
-        <jsp:include page="header.jsp">
-            <jsp:param name="header" value=""/>
-        </jsp:include>
+    <jsp:include page="header.jsp">
+        <jsp:param name="header" value=""/>
+    </jsp:include>
 
-        <form action="modificaProdotto" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="id_prodotto" value="<%=prodotto.getId()%>">
-            <h1>Modifica Prodotto</h1>
+    <!--ERRORE:-->
+    <% if(request.getAttribute("errore-parametri-invalidi")!=null){%>
+        <div id="blocco-messaggio-cambiamenti">
+            <h3>Alcuni dati selezionati o inseriti non sono stati inviati o non rispettano il formato indicato, la esortiamo a riprovare.</h3>
+        </div>
+    <% }%>
+    <!--ERRORE:-->
 
-            <div id="div_prodotto">
+    <form action="modificaProdotto" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="id_prodotto" value="<%=prodotto.getId()%>">
+        <h1>Modifica Prodotto</h1>
 
-                <div id="div_dati_prodotto">
+        <div id="div_prodotto">
 
-                    <h3 class="titolo">DATI PRODOTTO</h3>
+            <div id="div_dati_prodotto">
 
-                    <h3><label for="nomeBirra">Nome Birra</label></h3>
+                <h3 class="titolo">DATI PRODOTTO</h3>
 
-                    <input type="text" value="<%=prodotto.getNome()%>" id="nomeBirra" name="nomeBirra" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
+                <h3><label for="nomeBirra">Nome Birra</label></h3>
 
-                    <h3><label for="formato">Formato</label></h3>
-                    <select id="formato" name="formato" required>
-                        <%
-                        if (prodotto.getFormato().equalsIgnoreCase("Bottiglia")){
-                        %>
-                            <option value="Bottiglia" selected>Bottiglia</option>
-                            <option value="Lattina">Lattina</option>
-                            <option value="Fusto">Fusto</option>
-                        <%}
+                <input type="text" value="<%=prodotto.getNome()%>" id="nomeBirra" name="nomeBirra" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
+
+                <h3><label for="formato">Formato</label></h3>
+                <select id="formato" name="formato" required>
+
+                    <%if (prodotto.getFormato().equalsIgnoreCase("Bottiglia")){%>
+                        <option value="Bottiglia" selected>Bottiglia</option>
+                        <option value="Lattina">Lattina</option>
+                        <option value="Fusto">Fusto</option>
+                    <%}
                         else if (prodotto.getFormato().equalsIgnoreCase("Lattina")){%>
                             <option value="Bottiglia">Bottiglia</option>
                             <option value="Lattina" selected>Lattina</option>
                             <option value="Fusto">Fusto</option>
-                        <%}
+                    <%}
                         else if (prodotto.getFormato().equalsIgnoreCase("Fusto")){%>
                             <option value="Bottiglia">Bottiglia</option>
                             <option value="Lattina">Lattina</option>
@@ -145,8 +147,7 @@
             </div>
         </form>
 
-
-        <jsp:include page="footer.jsp">
+        <jsp:include page="footer.html">
             <jsp:param name="footer" value=""/>
         </jsp:include>
     </body>

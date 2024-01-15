@@ -1,11 +1,9 @@
 package model.DAO;
 
 import Utils.Connection.ConPool;
-
 import model.entity.AcquistoProdotto;
 import model.entity.Ordine;
 import model.entity.Prodotto;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -175,7 +173,7 @@ public class OrdineDAO {
 
             for(AcquistoProdotto acquisto : ordine.getProdotti()){
                 ps = con.prepareStatement("INSERT INTO AcquistoProdotto (IdOrdine,IdProdotto,Quantita,PrezzoAcquisto) VALUES (?,?,?,?)");
-                ps.setInt(1,ordine.getId());
+                ps.setInt(1,idOrdine);
                 ps.setInt(2,acquisto.getProdotto().getId());
                 ps.setInt(3, acquisto.getQuantita());
                 ps.setDouble(4,acquisto.getPrezzoAcquisto());

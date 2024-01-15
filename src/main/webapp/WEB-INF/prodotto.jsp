@@ -5,25 +5,28 @@
   <head>
     <meta charset="UTF-8">
     <title>Pagina Prodotto BeerCellar</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Media Query -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_generic.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotto_utente.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotto_admin.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-    <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
   </head>
 
   <body>
-
     <%Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");%>
 
     <jsp:include page="header.jsp">
       <jsp:param name="header" value=""/>
     </jsp:include>
 
-    <%
-      if (((Account) session.getAttribute("account")).isGestore()) {
-    %>
+    <!--SUCCESSO:-->
+    <% if(request.getParameter("Successo")!=null && ((Account)session.getAttribute("account")).isGestore()){%>
+      <div id="blocco-messaggio-successo">
+        <h2>Prodotto Inserito</h2>
+        <h3>L'inserimento del nuovo prodotto è avvenuto con successo.</h3>
+      </div>
+    <% }%>
+    <!--SUCCESSO:-->
+
+    <%if (((Account) session.getAttribute("account")).isGestore()) {%>
         <form action="visualizzaModificaProdotto" method="post">
           <div id="tasto_modifica_prodotto">
             <input type="hidden" name="id_prodotto" value="<%=prodotto.getId()%>">
@@ -45,10 +48,7 @@
         <p><%=prodotto.getColore()%></p>
         <h3>€<%=prodotto.getPrezzo()%></h3>
 
-        <%
-          if (!((Account) session.getAttribute("account")).isGestore()) {
-        %>
-
+        <%if (!((Account) session.getAttribute("account")).isGestore()) {%>
           <form action="aggiungiProdotto">
             <div class="contenitore_selettore">
               <input type="hidden" name="id" value="<%=prodotto.getId()%>">
@@ -73,8 +73,7 @@
       </div>
     </div>
 
-
-    <jsp:include page="footer.jsp">
+    <jsp:include page="footer.html">
       <jsp:param name="footer" value=""/>
     </jsp:include>
   </body>

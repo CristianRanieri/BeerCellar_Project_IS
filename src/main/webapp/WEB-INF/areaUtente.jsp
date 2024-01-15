@@ -3,68 +3,72 @@
 <html>
 <head>
     <title>Area Utente</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Media Query -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_generic.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_top_bar.css" type="text/css"><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
-    <script src="https://kit.fontawesome.com/8488ba2065.js" crossorigin="anonymous"></script><!-- questa inclusione va messa ovunque viene fatta la @include del contenitore -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_area_utente.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
+
 </head>
 <body>
 
+<jsp:include page="header.jsp">
+    <jsp:param name="header" value=""/>
+</jsp:include>
+
 <c:if test="${requestScope.error2}">
-   <div>
-       <h3 class="testo-croce-error"> &times; </h3>
-       <h4>Modifica credenziali account non effettuata, parametri non validi.</h4>
-   </div>
+    <div id="blocco-messaggio-cambiamenti">
+        <h3>Parametri inseriti non validi, modifica credenziali non effettuata.</h3>
+    </div>
 </c:if>
 
 <c:if test="${requestScope.error1}">
-    <div>
-        <h3 class="testo-croce-error"> &times; </h3>
-        <h4>Modifica credenziali account non effettuata, password inserita uguale a quella registrata.</h4>
+    <div id="blocco-messaggio-cambiamenti">
+        <h3>Password inserita è uguale a quella attuale, modifica credenziali non effettuata.</h3>
     </div>
 </c:if>
 
 <c:if test="${requestScope.corretto}">
-    <div>
-        <h3 class="testo-croce-error"> &times; </h3>
-        <h4>Modifica credenziali account effettuata correttamente.</h4>
+    <div id="blocco-messaggio-successo">
+        <h3>Modifica credenziali account effettuata correttamente.</h3>
     </div>
 </c:if>
 
+<div class="contenitore_pagina_area_utente">
 
-<form action="modificaCredenziali" method="post">
-
-    <div class="blocco-input-nep">
-        <label>&nbsp;&nbsp;&nbsp;Nome</label>
-        <div>
-            <input type="text" id="nome" name="nome" value="${account.nome}" maxlength="30" pattern="^[a-zA-Z]{5,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 5 massimo 30." required>
-        </div>
+    <div class="contenitore_seleziona_opzione_area_utente">
+        <form action="visualizzaAreaUtente">
+            <input type="submit" value="Profilo">
+            <input formaction="visualizzaOrdini" type="submit" value="Storico Ordini">
+            <input formaction="logout" type="submit" value="Esci">
+        </form>
     </div>
 
-    <div class="blocco-input-nep">
-        <label>&nbsp;&nbsp;&nbsp;Password</label>
-        <div>
-            <input type="password" name="pass" placeholder="**************" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale tra i seguenti !@#$%^&*" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
-        </div>
-    </div>
+    <div id="divProfilo">
+        <h1>Profilo</h1>
 
-    <div id="blocco-input-bottone">
-        <input type="submit" id="bottone-login" value="CAMBIA CREDENZIALI">
-    </div>
-</form>
+        <form action="modificaCredenziali" method="post">
+            <div id="divInternoAProfilo">
+                <div class="form-row">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" value="${account.nome}" maxlength="30" pattern="^[a-zA-Z]{2,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 2 massimo 30." required>
+                </div>
 
-<div id="blocco-logout-bottone">
-    <form action="logout">
-        <input type="submit" id="bottone-logout" value="LOGOUT">
-    </form>
+                <div class="form-row">
+                    <label for="email">E-mail</label>
+                    <input type="text" id="email" value="${account.email}" readonly>
+                </div>
+
+                <div class="form-row">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="pass" placeholder="**************" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale tra i seguenti !@#$%^&*" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" required>
+                </div>
+            </div>
+            <input type="submit" value="Salva Modifiche">
+        </form>
+    </div>
 </div>
 
-<div id="blocco-logout-bottone">
-    <form action="visualizzaOrdini">
-        <input type="submit" value="STORICO ORDINI">
-    </form>
-</div>
+<jsp:include page="footer.html">
+    <jsp:param name="footer" value=""/>
+</jsp:include>
 
 </body>
 </html>

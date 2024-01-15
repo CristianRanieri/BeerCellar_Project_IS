@@ -3,8 +3,6 @@ package model.DAO;
 import Utils.Connection.ConPool;
 import model.entity.Carrello;
 import model.entity.ContenutoCarrello;
-import model.entity.Prodotto;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

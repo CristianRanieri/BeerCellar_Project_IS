@@ -1,14 +1,10 @@
 package Utils.ValidazioneInput;
 
-import GestioneCarrello.Service.CarrelloService;
-import GestioneCarrello.Service.GestioneCarrelloService;
 import GestioneProdotto.Service.GestioneProdottoService;
 import model.entity.Carrello;
 import model.entity.ContenutoCarrello;
 import model.entity.Prodotto;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ValidaCarrello {
     /**
