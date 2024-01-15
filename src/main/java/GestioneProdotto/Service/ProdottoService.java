@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProdottoService {
     ProdottoDAO prodottoDAO = new ProdottoDAO();
@@ -53,4 +55,13 @@ public class ProdottoService {
     public void modificaProdotto(Prodotto prodotto){
         prodottoDAO.modificaProdotto(prodotto);
     }
+
+    public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore ,ArrayList<String> filtro, int offset){
+        return prodottoDAO.getProdottiConFiltro(formato, gestore, filtro, offset);
+    }
+
+    public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){
+        return prodottoDAO.getProdottiPerNome(nomi, gestore,offset);
+    }
+
 }

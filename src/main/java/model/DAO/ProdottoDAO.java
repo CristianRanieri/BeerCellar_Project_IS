@@ -35,8 +35,8 @@ public class ProdottoDAO {
     }
 
     //prendo 12 prodotti partendo da un valore di offset(parametro), i quali prodotti hanno un formato(parametro) e con le caratteristiche(parametro)
-    public List<Prodotto> getProdottiPerFormatoCaratterisitche(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
-        List<Prodotto> prodottos= new ArrayList<>();
+   /* public ArrayList<Prodotto> getProdottiConFiltro(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
+        ArrayList<Prodotto> prodottos= new ArrayList<>();
         String query= "SELECT * FROM Prodotto p WHERE p.formato=?";
 
         if (gestore==false)
@@ -45,11 +45,11 @@ public class ProdottoDAO {
         if(!caratterisitche.get(0).equals("tutti"))
             query+= " AND p.Stile=\""+ caratterisitche.get(0)+"\"";
         if(!caratterisitche.get(1).equals("tutti"))
-            query+= " AND p.Colore<="+ caratterisitche.get(1);
+            query+= " AND p.Colore=\""+ caratterisitche.get(1)+"\"";
         if(!caratterisitche.get(2).equals("tutti"))
-            query+= " AND p.TassoAlcolico=\""+ caratterisitche.get(2)+"\"";
+            query+= " AND p.TassoAlcolico<="+ caratterisitche.get(2);
 
-        query+= "LIMIT 12 OFFSET = ?";
+        query+= " LIMIT 10 OFFSET ?";
 
         try{
             PreparedStatement ps= con.prepareStatement(query);
@@ -65,6 +65,61 @@ public class ProdottoDAO {
         }
         return prodottos;
     }
+    */
+    public ArrayList<Prodotto> getProdottiConFiltro(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
+        ArrayList<Prodotto> prodottos= new ArrayList<>();
+        String query= "SELECT * FROM Prodotto p";
+
+        if(!formato.equals("tutti")){
+            query+= " WHERE p.formato=\""+ formato+"\"";
+        }
+
+        if (gestore==false){
+            if(formato.equals("tutti")){
+               query+= " WHERE p.InCatalogo= true";
+            }else{
+                query+= " AND p.InCatalogo= true";
+            }
+        }
+
+        if(!caratterisitche.get(0).equals("tutti")){
+            if(gestore==true && formato.equals("tutti"))
+                query+= " WHERE p.Stile=\""+ caratterisitche.get(0)+"\"";
+            else
+                query+= " AND p.Stile=\""+ caratterisitche.get(0)+"\"";
+        }
+
+        if(!caratterisitche.get(1).equals("tutti")){
+            if(gestore==true && formato.equals("tutti") && caratterisitche.get(0).equals("tutti"))
+                query+= " WHERE p.Colore=\""+ caratterisitche.get(1)+"\"";
+            else
+                query+= " AND p.Colore=\""+ caratterisitche.get(1)+"\"";
+        }
+
+
+        if(!caratterisitche.get(2).equals("tutti")){
+            if(gestore==true && formato.equals("tutti") && caratterisitche.get(0).equals("tutti")&& caratterisitche.get(1).equals("tutti"))
+                query+= " WHERE p.TassoAlcolico<="+ caratterisitche.get(2);
+            else
+                query+= " AND p.TassoAlcolico<="+ caratterisitche.get(2);
+        }
+
+        query+= " LIMIT 10 OFFSET ?";
+
+        try{
+            PreparedStatement ps= con.prepareStatement(query);
+            ps.setInt(1, offset);
+            ResultSet rs=ps.executeQuery();
+
+            while (rs.next()){
+                prodottos.add(this.creaIstanzaProdotto(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return prodottos;
+    }
+
 
     //ricerca prodotti per nome
     public ArrayList<Prodotto> getProdottiPerNome(List<String> nomi, boolean gestore, int offset){
@@ -78,13 +133,20 @@ public class ProdottoDAO {
             query+=")";
 
         for (String parola : nomi) {
-            query += " AND INSTR(p.Nome,\"" + parola + "\")";
-            query += " AND INSTR(p.Birrificio,\"" + parola + "\")";
+            query += " AND (INSTR(p.Nome, ?) != 0 OR INSTR(p.Birrificio, ?) != 0)";
         }
-        query+= "LIMIT 12 OFFSET = ?";
+        query+= " LIMIT 10 OFFSET ?";
 
         try{
-            PreparedStatement ps= con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
+
+            int paramIndex = 1;
+            for (String parola : nomi) {
+                ps.setString(paramIndex++, parola);
+                ps.setString(paramIndex++, parola);
+            }
+
+            ps.setInt(paramIndex, offset);
 
             ResultSet rs=ps.executeQuery();
             while (rs.next()){

@@ -9,7 +9,6 @@
     </head>
 
     <body>
-
     <jsp:include page="header.jsp">
         <jsp:param name="header" value=""/>
     </jsp:include>

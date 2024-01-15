@@ -10,6 +10,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#ConPool
+src/main/java/Utils/Connection/ConPool.java
+
 # Package Files #
 *.jar
 *.war
