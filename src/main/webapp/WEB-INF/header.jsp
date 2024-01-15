@@ -1,10 +1,4 @@
-<%@ page import="model.entity.Account" %><%--
-  Created by IntelliJ IDEA.
-  User: 174907
-  Date: 12/01/2024
-  Time: 19:22
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.entity.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>

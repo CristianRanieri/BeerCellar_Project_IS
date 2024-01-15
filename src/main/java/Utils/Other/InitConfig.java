@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-//questa classe serve per inserire le liste dello stile,colore e fascie  del tasso alcolico all'intero del applicationContext, le quali vengono
+//questa classe serve per inserire le liste dello stile,colore e fasce del tasso alcolico all'intero del applicationContext, le quali vengono
 // utilizzate per creare le select nella pagina della ricerca dei prodotti e nella pagina pagina di inserimento di un nuvo prodotto.
 @WebServlet(urlPatterns ="/myinit",loadOnStartup = 0)
 public class InitConfig extends HttpServlet {
