@@ -9,11 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
-import model.entity.Carrello;
 import model.entity.ContenutoCarrello;
 import model.entity.Prodotto;
-
-import javax.swing.text.html.parser.Parser;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -72,7 +69,6 @@ public class AggiungiProdotto extends HttpServlet {
                     dispatcher.forward(req,resp);
                 }else {
                     //il prodotto non esiste o non in catalogo
-                    req.setAttribute("erroreInCatalogo",true);
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
                 }

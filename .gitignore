@@ -45,7 +45,8 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-
+#ConPool
+src/main/java/Utils/Connection/ConPool.java
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

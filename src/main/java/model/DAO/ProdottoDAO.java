@@ -2,7 +2,6 @@ package model.DAO;
 
 import Utils.Connection.ConPool;
 import model.entity.Prodotto;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +97,8 @@ public class ProdottoDAO {
     }
 
     //crea un prodotto e lo carica nel database
-    public void creaProdotto(Prodotto prodotto){
+    public boolean creaProdotto(Prodotto prodotto){
+        int b=0;
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO Prodotto (Nome,Formato,Prezzo,Fermentazione,Stile,Colore,TassoAlcolico,Descrizione,Glutine,Birrificio,InCatalogo) VALUES (?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, prodotto.getNome());
@@ -113,7 +113,7 @@ public class ProdottoDAO {
             ps.setString(10, prodotto.getBirrificio());
             ps.setBoolean(11, prodotto.isInCatalogo());
 
-            ps.executeUpdate();
+            b = ps.executeUpdate();
 
             ResultSet rs=ps.getGeneratedKeys();
             rs.next();
@@ -121,6 +121,7 @@ public class ProdottoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return b == 1;
     }
 
     //modificare un prodotto

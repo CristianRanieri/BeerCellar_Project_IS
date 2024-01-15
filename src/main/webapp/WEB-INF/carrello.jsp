@@ -11,8 +11,8 @@
   <head>
       <meta charset="UTF-8">
       <title>Carrello</title>
-      <link rel="stylesheet" href="./static/css/css_errore.css" type="text/css">
-      <link rel="stylesheet" href="./static/css/css_pagina_carrello.css" type="text/css">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_carrello.css" type="text/css">
   </head>
   <body>
   <jsp:include page="header.jsp">
@@ -50,7 +50,7 @@
                     <td>
                         <div class="div_tuttoIlProdotto">
                             <div class="div_immagineProdotto">
-                                <img src="static/image/bottle.png">
+                                <img src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>">
                             </div>
                             <div class="div_Prodotto">
                                 <div class="div_nomeProdotto"><label name="nomeProdotto"><%= prodotto.getNome()%></label><br></div>
@@ -87,7 +87,7 @@
             </div>
 
             <div id="div_ProcediOrdine">
-                <button id="button_procedi_ordine" type="submit" value="Procedi all'ordine">Procedi all'ordine</button>
+                <form action="visualizzaEffettuaOrdine"><button id="button_procedi_ordine" type="submit" value="Procedi all'ordine">Procedi all'ordine</button></form>
             </div>
 
         </div>

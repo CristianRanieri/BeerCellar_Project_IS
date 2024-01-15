@@ -1,6 +1,6 @@
 package GestioneOrdini.Control;
 
-import GestioneOrdini.Service.OrdiniService;
+import GestioneOrdini.Service.GestioneOrdiniService;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,9 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
 import model.entity.Ordine;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @WebServlet("/ricercaOrdini")
 public class RicercaOrdini extends HttpServlet {
@@ -41,8 +41,17 @@ public class RicercaOrdini extends HttpServlet {
 
                     if(b){
                         //gli input sono validi, eseguo il metodo di ricerca deglio ordini
-                        OrdiniService ordiniService = new OrdiniService();
+                        GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                         ArrayList<Ordine> ordini = ordiniService.ricercaOrdini(req.getParameter("tipoID"), Integer.parseInt(req.getParameter("numero")),offset);
+                        ordini.sort(new Comparator<Ordine>() {
+                            @Override
+                            public int compare(Ordine o1, Ordine o2) {
+                                if(o1.getId() < o2.getId())
+                                    return 1;
+                                else
+                                    return -1;
+                            }
+                        });
 
                         //setto gli attributi utilizzati dalla jsp
                         req.setAttribute("ordini", ordini);
@@ -56,15 +65,19 @@ public class RicercaOrdini extends HttpServlet {
                         dispatcher.forward(req,resp);
                     }else {
                         //input non validi
-                        resp.sendRedirect("visualizzaOrdini");
+                        req.setAttribute("error1",true);
+                        RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
+                        dispatcher.forward(req,resp);
                     }
                 }else {
                     //input non validi
-                    resp.sendRedirect("visualizzaOrdini");
+                    req.setAttribute("error1",true);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
+                    dispatcher.forward(req,resp);
                 }
             }else {
                 //non è un gestore, ridirezione pagina di errore, mancanza dei permessi
-                //da aggiungere
+                resp.sendRedirect("errorePermessi.jsp");
             }
         }else {
             //l'utente non è loggato, ridirezione login

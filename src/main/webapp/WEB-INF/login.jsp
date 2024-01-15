@@ -10,7 +10,8 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="static/css/css_pagina_registrazione_e_login.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_registrazione_e_login.css" type="text/css">
 </head>
 <body>
 
@@ -19,21 +20,15 @@
 </jsp:include>
 
 <c:if test="${requestScope.error2}">
-  <div id="errore-registrazione">
-    <div>
-      <h3 class="testo-croce-error"> &times; </h3>
-      <h4>Email o password non valida</h4>
-    </div>
+  <div id="blocco-messaggio-cambiamenti">
+      <h3>Email o password non valida, le chiedeamo di riprovare.</h3>
   </div>
 </c:if>
 
 
 <c:if test="${requestScope.error1}">
-  <div id="errore-registrazione">
-    <div>
-      <h3 class="testo-croce-error"> &times; </h3>
-      <h4>Parametri inseriti non validi</h4>
-    </div>
+  <div id="blocco-messaggio-cambiamenti">
+    <h3>L'email o la password non è stata inserita o non rispettana il formato indicato, la esortiamo a riprovare.</h3>
   </div>
 </c:if>
 

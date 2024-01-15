@@ -4,8 +4,6 @@ import GestioneCarrello.Service.GestioneCarrelloService;
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
-
-import model.DAO.CarrelloDAO;
 import model.entity.Account;
 import model.entity.Carrello;
 import model.entity.ContenutoCarrello;

@@ -2,10 +2,8 @@ package GestioneAccount.Service;
 
 import jakarta.servlet.http.HttpSession;
 import model.DAO.AccountDAO;
-import model.DAO.CarrelloDAO;
 import model.entity.Account;
 import model.entity.Carrello;
-import model.entity.ContenutoCarrello;
 
 public class GestioneUtenteService {
     /**

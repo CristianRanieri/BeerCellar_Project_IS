@@ -2,8 +2,6 @@ package model.DAO;
 
 import Utils.Connection.ConPool;
 import model.entity.Account;
-import model.entity.ContenutoCarrello;
-
 import java.sql.*;
 
 public class AccountDAO {
