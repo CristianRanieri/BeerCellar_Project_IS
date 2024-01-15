@@ -48,21 +48,24 @@
 
   <div class="contenitore_filtri">
 
-    <form action="ricercaProdotti?formato=bottiglia" method="get">
+    <form action="ricercaProdottiFiltro" method="get">
+      <input type="hidden" value="Bottiglia" name="formato">
       <button class="image-button" type="submit">
         <img src="static/image/bottle.png">
         BOTTIGLIE
       </button>
     </form>
 
-    <form action="ricercaProdotti?formato=lattina" method="get">
+    <form action="ricercaProdottiFiltro" method="get">
+      <input type="hidden" value="Lattina" name="formato">
       <button class="image-button" type="submit">
         <img src="static/image/can.png">
         LATTINE
       </button>
     </form>
 
-    <form action="ricercaProdotti?formato=fusto" method="get">
+    <form action="ricercaProdottiFiltro" method="get">
+      <input type="hidden" value="Fusto" name="formato">
       <button class="image-button" type="submit">
         <img src="static/image/barrel.png">
         FUSTI
