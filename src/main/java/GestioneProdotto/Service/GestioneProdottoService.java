@@ -6,6 +6,8 @@ import model.entity.Prodotto;
 import java.io.IOException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestioneProdottoService {
     private ProdottoService prodottoService;
@@ -21,4 +23,13 @@ public class GestioneProdottoService {
     }
     public boolean creaProdotto(Prodotto prodotto){return prodottoService.creaProdotto(prodotto);}
     public void modificaProdotto(Prodotto prodotto){prodottoService.modificaProdotto(prodotto);}
+
+    public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore , ArrayList<String> filtro, int offset){
+        return prodottoService.ricercaProdottiFiltro(formato, gestore, filtro, offset);
+    }
+
+    public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){
+        return prodottoService.ricercaProdottiNome(nomi, gestore,offset);
+    }
+
 }

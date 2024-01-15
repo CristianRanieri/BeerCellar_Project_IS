@@ -35,8 +35,8 @@ public class ProdottoDAO {
     }
 
     //prendo 12 prodotti partendo da un valore di offset(parametro), i quali prodotti hanno un formato(parametro) e con le caratteristiche(parametro)
-    public List<Prodotto> getProdottiPerFormatoCaratterisitche(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
-        List<Prodotto> prodottos= new ArrayList<>();
+    public ArrayList<Prodotto> getProdottiConFiltro(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
+        ArrayList<Prodotto> prodottos= new ArrayList<>();
         String query= "SELECT * FROM Prodotto p WHERE p.formato=?";
 
         if (gestore==false)
@@ -45,11 +45,11 @@ public class ProdottoDAO {
         if(!caratterisitche.get(0).equals("tutti"))
             query+= " AND p.Stile=\""+ caratterisitche.get(0)+"\"";
         if(!caratterisitche.get(1).equals("tutti"))
-            query+= " AND p.Colore<="+ caratterisitche.get(1);
+            query+= " AND p.Colore=\""+ caratterisitche.get(1)+"\"";
         if(!caratterisitche.get(2).equals("tutti"))
-            query+= " AND p.TassoAlcolico=\""+ caratterisitche.get(2)+"\"";
+            query+= " AND p.TassoAlcolico<="+ caratterisitche.get(2);
 
-        query+= "LIMIT 12 OFFSET = ?";
+        query+= " LIMIT 10 OFFSET ?";
 
         try{
             PreparedStatement ps= con.prepareStatement(query);
@@ -81,7 +81,7 @@ public class ProdottoDAO {
             query += " AND INSTR(p.Nome,\"" + parola + "\")";
             query += " AND INSTR(p.Birrificio,\"" + parola + "\")";
         }
-        query+= "LIMIT 12 OFFSET = ?";
+        query+= " LIMIT 10 OFFSET ?";
 
         try{
             PreparedStatement ps= con.prepareStatement(query);
