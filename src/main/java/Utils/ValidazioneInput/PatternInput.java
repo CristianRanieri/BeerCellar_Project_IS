@@ -20,10 +20,6 @@ public class PatternInput {
         return Pattern.compile("^[a-zA-Z]{2,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
     }
 
-    public static boolean tassoAlcolico(String tassoAlcolico){
-        return Pattern.compile("^\\d{1,2}\\.\\d{1,2}$", Pattern.CASE_INSENSITIVE).matcher(tassoAlcolico).matches();
-    }
-
     //stringa da 5 a 30 caratteri miuscoli e maiuscoli
     public static boolean nomeCognome(String nome){
         return Pattern.compile("^[a-zA-Z ]{3,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
@@ -63,6 +59,10 @@ public class PatternInput {
 
     public static boolean prezzo(String prezzo){
         return Pattern.compile("^\\d{1,3}\\.\\d{2}$", Pattern.CASE_INSENSITIVE).matcher(prezzo).matches();
+    }
+
+    public static boolean tassoAlcolico(String tassoAlcolico){
+        return Pattern.compile("^\\d{1,2}\\.\\d{1,2}$", Pattern.CASE_INSENSITIVE).matcher(tassoAlcolico).matches();
     }
 
     public static boolean numeri2_4Cifre(String prezzo){

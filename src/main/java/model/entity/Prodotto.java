@@ -109,6 +109,18 @@ public class Prodotto {
         return id == prodotto.id && inCatalogo == prodotto.inCatalogo && Objects.equals(prezzo, prodotto.prezzo);
     }
 
+    public boolean isTheSame(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Prodotto)) return false;
+        Prodotto prodotto = (Prodotto) o;
+        return getId() == prodotto.getId() && isGlutine() == prodotto.isGlutine() && isInCatalogo() == prodotto.isInCatalogo() && getNome().equals(prodotto.getNome()) && getFormato().equals(prodotto.getFormato()) && getPrezzo().equals(prodotto.getPrezzo()) && getFermentazione().equals(prodotto.getFermentazione()) && getStile().equals(prodotto.getStile()) && getColore().equals(prodotto.getColore()) && getTassoAlcolico().equals(prodotto.getTassoAlcolico()) && getDescrizione().equals(prodotto.getDescrizione()) && getBirrificio().equals(prodotto.getBirrificio());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getFormato(), getPrezzo(), getFermentazione(), getStile(), getColore(), getTassoAlcolico(), getDescrizione(), isGlutine(), getBirrificio(), isInCatalogo());
+    }
+
     private int id;
     private String nome;
     private String formato;

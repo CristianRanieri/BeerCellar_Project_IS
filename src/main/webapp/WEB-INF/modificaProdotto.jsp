@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_modifica_prodotto.css" type="text/css">
     </head>
+
     <body>
     <%Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");%>
 
@@ -135,7 +136,7 @@
                     </div>
 
                     <h3><label for="immagineBirra">Immagine Birra</label></h3><!-- DA IMPLEMENTARE -->
-                    <input type="file" value="Scegli un'immagine" id="immagineBirra" name="immagineBirra" accept="image/*" required> <!-- per togliere choose file e mettere Scegli un'immagine si deve fare una personalizzazione e quindi sostituire lo style normale-->
+                    <input type="file" value="Scegli un'immagine" id="immagineBirra" name="immagineBirra" accept="image/*"> <!-- per togliere choose file e mettere Scegli un'immagine si deve fare una personalizzazione e quindi sostituire lo style normale-->
 
                     <br>
                     <h3><label for="nomeBirrificio">Nome Birrificio</label></h3>
