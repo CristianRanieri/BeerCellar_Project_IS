@@ -22,9 +22,21 @@ public class AggiungiProdotto extends HttpServlet {
         Account account = (Account)req.getSession().getAttribute("account");
         //controllo che sia loggato e che è un gestore
         //chi puo accedere?
-        if(account.getId() != -1 && account.isGestore()) {
-            //gestore loggato, pagina errore peressi
-            resp.sendRedirect("errorePermessi.jsp");
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
+        String attore;
+        if(account.getId() == -1)
+            attore= "Ospite";
+        else if(account.isGestore())
+            attore = "Gestore";
+        else
+            attore = "Utente";
+
+        Permesso permesso = new Permesso(attore,"AggiungiProdotto","doGet");
+
+        if(!permessi.contains(permesso)) {
+            //l'attore non ha i permessi per effettuare un ordine
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
+            dispatcher.forward(req,resp);
         }else {
             //account di tipo Utente loggato oppure non loggato
             //ho dei valori da validare?

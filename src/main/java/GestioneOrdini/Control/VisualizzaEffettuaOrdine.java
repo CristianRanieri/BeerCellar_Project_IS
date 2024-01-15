@@ -17,8 +17,9 @@ public class VisualizzaEffettuaOrdine extends HttpServlet {
         Account account = (Account)req.getSession().getAttribute("account");
         //controllo che sia loggato e che è un gestore
         if(account.getId() != -1 && account.isGestore()){
-            //rimandato pagina di errore
-            resp.sendRedirect("errorePermessi.jsp");
+            //l'attore non ha i permessi per effettuare un ordine
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
+            dispatcher.forward(req,resp);
         }else {
             if(account.getId() == -1){
                 resp.sendRedirect("visualizzaLogin");

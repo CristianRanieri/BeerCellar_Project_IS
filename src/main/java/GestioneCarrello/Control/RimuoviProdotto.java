@@ -20,6 +20,18 @@ public class RimuoviProdotto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account)req.getSession().getAttribute("account");
+
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
+        String attore;
+        if(account.getId() == -1)
+            attore= "Ospite";
+        else if(account.isGestore())
+            attore = "Gestore";
+        else
+            attore = "Utente";
+
+        Permesso permesso = new Permesso(attore,"RimuoviProdotto","doGet");
+
         //controllo che sia loggato e che è un gestore
         //chi puo accedere?
         if(account.getId() != -1 && account.isGestore()) {

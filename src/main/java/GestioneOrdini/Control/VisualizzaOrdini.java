@@ -1,6 +1,7 @@
 package GestioneOrdini.Control;
 
 import GestioneOrdini.Service.GestioneOrdiniService;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -19,6 +20,17 @@ public class VisualizzaOrdini extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String dove="/WEB-INF/ordini.jsp";
+        Account account1 = (Account)req.getSession().getAttribute("account");
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
+        String attore;
+        if(account1.getId() == -1)
+            attore= "Ospite";
+        else if(account1.isGestore())
+            attore = "Gestore";
+        else
+            attore = "Utente";
+
+        Permesso permesso = new Permesso(attore,"VisualizzaOrdini","doGet");
 
         //si controlla che l'utente sia loggato
         if(((Account)req.getSession().getAttribute("account")).getId() != -1){

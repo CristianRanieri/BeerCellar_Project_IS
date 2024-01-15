@@ -27,9 +27,10 @@ public class EffettuaOrdine extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account)req.getSession().getAttribute("account");
         //controllo che sia loggato e che è un gestore
-        if(account.getId() != -1 && account.isGestore()){
-            //rimandato pagina di errore
-            resp.sendRedirect("errorePermessi.jsp");
+        if(!permessi.contains(permesso)){
+            //l'attore non ha i permessi per effettuare un ordine
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
+            dispatcher.forward(req,resp);
         }else {
             if(account.getId() == -1){
                 resp.sendRedirect("visualizzaLogin");
