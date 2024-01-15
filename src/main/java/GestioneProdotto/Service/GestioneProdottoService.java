@@ -20,4 +20,5 @@ public class GestioneProdottoService {
         prodottoService.salvaImmagine(immagine, id, servletContext);
     }
     public boolean creaProdotto(Prodotto prodotto){return prodottoService.creaProdotto(prodotto);}
+    public void modificaProdotto(Prodotto prodotto){prodottoService.modificaProdotto(prodotto);}
 }

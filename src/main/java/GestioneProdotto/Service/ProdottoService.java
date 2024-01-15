@@ -7,9 +7,7 @@ import model.entity.Prodotto;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 public class ProdottoService {
     ProdottoDAO prodottoDAO = new ProdottoDAO();
@@ -39,14 +37,20 @@ public class ProdottoService {
      * @param servletContext il ServletContext per gestire il path
      */
     public void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
-        String destinazione = "upload" + File.separator + "ID_" + id +".png";
+        String destinazione = "upload" + File.separator + "ID_" + id + ".png";
         Path pathDestinazione = Paths.get(servletContext.getRealPath(destinazione));
 
         InputStream imageInputStream = immagine.getInputStream();
 
         // crea la cartella upload, se non esiste
         Files.createDirectories(pathDestinazione.getParent());
-        // salava l'immagine nella cartella upload
-        Files.copy(imageInputStream, pathDestinazione);
+
+        // Sovrascrive l'immagine se esiste già
+        CopyOption[] options = { StandardCopyOption.REPLACE_EXISTING };
+        Files.copy(imageInputStream, pathDestinazione, options);
+    }
+
+    public void modificaProdotto(Prodotto prodotto){
+        prodottoDAO.modificaProdotto(prodotto);
     }
 }

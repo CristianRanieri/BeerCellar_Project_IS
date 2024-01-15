@@ -69,7 +69,7 @@
 
       <div class="contenitore_descrizione">
         <h2>Descrizione</h2>
-        <p>Descrizione testuale del prodotto e/o del birrificio</p>
+        <p><%=prodotto.getDescrizione()%></p>
       </div>
     </div>
 
