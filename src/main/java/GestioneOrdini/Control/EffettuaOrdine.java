@@ -4,6 +4,7 @@ import GestioneOrdini.Service.GestioneOrdiniService;
 import GestioneOrdini.Service.PagamentoAdapter;
 import GestioneOrdini.Service.PagamentoService;
 import Utils.Other.Pagamento;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import Utils.ValidazioneInput.ValidaCarrello;
 import jakarta.servlet.RequestDispatcher;
@@ -26,6 +27,17 @@ public class EffettuaOrdine extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account)req.getSession().getAttribute("account");
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
+        String attore;
+        if(account.getId() == -1)
+            attore= "Ospite";
+        else if(account.isGestore())
+            attore = "Gestore";
+        else
+            attore = "Utente";
+
+        Permesso permesso = new Permesso(attore,"EffettuaOrdine","doPost");
+
         //controllo che sia loggato e che è un gestore
         if(!permessi.contains(permesso)){
             //l'attore non ha i permessi per effettuare un ordine

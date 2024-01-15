@@ -36,7 +36,8 @@ public class VisualizzaCarrello extends HttpServlet {
         //controllo che sia loggato e che è un gestore
         if(!permessi.contains(permesso)){
             //rimandato pagina di errore
-            resp.sendRedirect("errorePermessi.jsp");
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
+            dispatcher.forward(req,resp);
         }else {
             //controllare la validita del carrello
             if(!ValidaCarrello.validazioneCarrello(account.getCarrello()))
