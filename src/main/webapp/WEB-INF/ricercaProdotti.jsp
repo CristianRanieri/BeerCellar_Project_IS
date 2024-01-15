@@ -42,7 +42,7 @@
     </select>
 
     <select id="colore" name="colore">
-        <option value="tutti" >Stile</option>
+        <option value="tutti" >Colore</option>
         <% for(String colore : colori){%>
             <% if(request.getAttribute("colore")!=null && request.getAttribute("colore").equals(colore)){%>
                 <option value="<%= colore%>" selected> <%= colore%> </option>
@@ -66,7 +66,7 @@
 
 <!--Aggiunta del prodotto per il gestore-->
 <%if(((Account)session.getAttribute("account")).isGestore()){%>
-    <form action="creaProdotto" method="get">
+    <form action="visualizzaCreaProdotto" method="get">
         <div id="divButtonAggiungiP">
             <button type="submit" id="button_aggiungi_prodotto">Aggiungi Prodotto</button>
         </div>
