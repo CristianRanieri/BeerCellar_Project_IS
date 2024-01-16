@@ -10,6 +10,10 @@
 
   <body>
 
+    <jsp:include page="bannerMaggiorenne.jsp">
+      <jsp:param name="bannerMaggiorenne" value=""/>
+    </jsp:include>
+
     <div class="contenitore_TopBar"><!-- Spostare solo questo contenitore in una jsp da @include re in ogni altra jsp -->
 
       <div class="top-bar">

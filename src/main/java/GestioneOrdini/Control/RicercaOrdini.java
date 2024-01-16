@@ -28,7 +28,7 @@ public class RicercaOrdini extends HttpServlet {
             if(req.getParameter("tipoID")!=null && req.getParameter("numero")!=null && (req.getParameter("tipoID").equals("Utente") ||
                     req.getParameter("tipoID").equals("Ordine")) && PatternInput.numeri1_4Cifre(req.getParameter("numero"))
             ){
-                boolean b=true;
+                boolean b = true;
                 int offset=0;
                 //controllo valore offset, se è diverso da null deve rispettare il formato
                 if(req.getParameter("offset")!=null)
