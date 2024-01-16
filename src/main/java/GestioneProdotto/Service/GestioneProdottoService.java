@@ -31,5 +31,7 @@ public class GestioneProdottoService {
     public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){
         return prodottoService.ricercaProdottiNome(nomi, gestore,offset);
     }
-
+    public List<Prodotto> getProdottiPiuVenduti(){
+        return prodottoService.getProdottiPiuVenduti();
+    }
 }

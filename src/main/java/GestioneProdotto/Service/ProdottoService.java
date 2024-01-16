@@ -52,16 +52,42 @@ public class ProdottoService {
         Files.copy(imageInputStream, pathDestinazione, options);
     }
 
+    /**
+     * questa funzionalita permette di modificare un prodotto.
+     * @param prodotto prodotto contente i valori da modificare.
+     */
     public void modificaProdotto(Prodotto prodotto){
         prodottoDAO.modificaProdotto(prodotto);
     }
 
+    /**
+     *
+     * @param formato il formato delle birre da ricercare
+     * @param gestore se il valore è true ricerca anche i prodotti non in catalogo altrimenti solo quelli in catalogo.
+     * @param filtro lista dlle caratterisitche su cui i prodotti vengono filtriati (Stile,Colore,TassoAlcolico)
+     * @param offset il numero dal quale parte la selezione dei prodotti idonei al nome.
+     * @return la lista dei prodotti idonei al filtro.
+     */
     public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore ,ArrayList<String> filtro, int offset){
         return prodottoDAO.getProdottiConFiltro(formato, gestore, filtro, offset);
     }
 
+    /**
+     * Quesat funzionalita permette di ricercare dei prodotti nel catalogo tramite il nome della birra e birrificaio.
+     * @param nomi lista di nomi che vengono sulla quale viene effettuata la ricerca.
+     * @param gestore se il valore è true ricerca anche i prodotti non in catalogo altrimenti solo quelli in catalogo.
+     * @param offset il numero dal quale parte la selezione dei prodotti idonei al nome.
+     * @return la lista dei prodotti che hanno come sottostringa i nomi indicati.
+     */
     public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){
         return prodottoDAO.getProdottiPerNome(nomi, gestore,offset);
     }
 
+    /**
+     * questa operazione permette di ottenere i prodotti piu venduti.
+     * @return la lista dei prodotti piu venduti
+     */
+    public List<Prodotto> getProdottiPiuVenduti(){
+        return prodottoDAO.getProdottiPiuVenduti();
+    }
 }

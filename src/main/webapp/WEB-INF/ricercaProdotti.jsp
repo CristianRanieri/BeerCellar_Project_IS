@@ -11,10 +11,8 @@
 <html>
 <head>
     <title>Catalogo prodotti</title>
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotti_utente.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotti_admin.css" type="text/css">
-
 </head>
 <body>
 
@@ -90,32 +88,31 @@
         </form>
     </div>
     <%}%>
+</div>
 
-    <div style="margin: auto;display: block;width: 242px;">
-        <div style="display: inline-block">
-            <form action="<%=request.getAttribute("tipoRicerca")%>">
-                <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
-                <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
-                <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
-                <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
-                <input name="offset" id="offset2" type="hidden" value="">
-                <button class="buttonMostraProdotti" id="precedente" > Precedente </button>
-            </form>
-        </div>
 
-        <div style="display: inline-block">
-            <form action="<%=request.getAttribute("tipoRicerca")%>">
-                <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
-                <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
-                <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
-                <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
-                <input name="offset" id="offset" type="hidden" value="<%= numeroProdotti%>">
-                <button class="buttonMostraProdotti" id="successivo" > Successivo </button>
-            </form>
-        </div>
+<div style="margin: auto;display: block;width: 242px;">
+    <div style="display: inline-block">
+        <form action="<%=request.getAttribute("tipoRicerca")%>">
+            <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
+            <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
+            <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
+            <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
+            <input name="offset" id="offset2" type="hidden" value="">
+            <button class="buttonMostraProdotti" id="precedente" > Precedente </button>
+        </form>
     </div>
 
-
+    <div style="display: inline-block">
+        <form action="<%=request.getAttribute("tipoRicerca")%>">
+            <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
+            <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
+            <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
+            <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
+            <input name="offset" id="offset" type="hidden" value="<%= numeroProdotti%>">
+            <button class="buttonMostraProdotti" id="successivo" > Successivo </button>
+        </form>
+    </div>
 </div>
 
 <script>

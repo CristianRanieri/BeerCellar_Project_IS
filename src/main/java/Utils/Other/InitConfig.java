@@ -1,10 +1,12 @@
 package Utils.Other;
 
+import GestioneProdotto.Service.GestioneProdottoService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 //questa classe serve per inserire le liste dello stile,colore e fasce del tasso alcolico all'intero del applicationContext, le quali vengono
 // utilizzate per creare le select nella pagina della ricerca dei prodotti e nella pagina pagina di inserimento di un nuvo prodotto.
@@ -114,6 +116,10 @@ public class InitConfig extends HttpServlet {
         tassoAlcolico.add("30-49");
         tassoAlcolico.add("50-70");
         getServletContext().setAttribute("fascieTassoAlcolico",tassoAlcolico);
+
+        GestioneProdottoService prodottoService= new GestioneProdottoService();
+        getServletContext().setAttribute("dataProdottiPiuVenduti",new Date());
+        getServletContext().setAttribute("prodottiPiuVenduti", prodottoService.getProdottiPiuVenduti());
 
         super.init();
     }

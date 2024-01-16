@@ -19,7 +19,11 @@
 
         <div id="div_ricerca">
           <form action="ricercaProdottiNome" method="get">
-            <input type="text" name="ricerca" placeholder="&#xf002; Ricerca" class="input-barra">
+            <% if(request.getParameter("ricerca")!=null){%>
+              <input type="text" name="ricerca" value="<%=request.getParameter("ricerca")%>" placeholder="&#xf002; Ricerca" class="input-barra">
+            <%}else {%>
+              <input type="text" name="ricerca" placeholder="&#xf002; Ricerca" class="input-barra">
+            <%}%>
           </form>
         </div>
 

@@ -71,7 +71,7 @@
           <form action="aggiungiProdotto">
             <div class="contenitore_selettore">
               <input type="hidden" name="id" value="<%=prodotto.getId()%>">
-              <input type="number" name="quantita" value="1" min="1"/>
+              <input type="number" name="quantita" value="1" min="1" max="99">
             </div>
 
             <input type="submit" class="button_action" value="Aggiungi al carrello"/>

@@ -226,4 +226,24 @@ public class ProdottoDAO {
         return prodotto;
     }
 
+    public ArrayList<Prodotto> getProdottiPiuVenduti(){
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT p.IdProdotto, p.Nome,count(*) as numeroAcquisti FROM Prodotto p,AcquistoProdotto a WHERE p.idProdotto=a.idProdotto AND p.inCatalogo=true GROUP BY p.idProdotto ORDER BY numeroAcquisti DESC LIMIT 4 OFFSET 0");
+
+            ResultSet rs= ps.executeQuery();
+            Prodotto prodotto;
+            for(int i=0;i<=3 && rs.next();i++){
+                prodotto= new Prodotto();
+                prodotto.setId(rs.getInt("IdProdotto"));
+                prodotto.setNome(rs.getString("Nome"));
+                prodotti.add(prodotto);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return prodotti;
+    }
+
 }
