@@ -22,18 +22,9 @@ public class VisualizzaOrdini extends HttpServlet {
         String dove="/WEB-INF/ordini.jsp";
         Account account1 = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account1.getId() == -1)
-            attore= "Ospite";
-        else if(account1.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
-
-        Permesso permesso = new Permesso(attore,"VisualizzaOrdini","doGet");
 
         //si controlla che l'utente sia loggato
-        if(((Account)req.getSession().getAttribute("account")).getId() != -1){
+        if(Permesso.validazioneAccesso(permessi,account1,"VisualizzaOrdini","doGet")){
             //l'utente è loggato, controllo degli input
             boolean b=true;
             int offset=0;

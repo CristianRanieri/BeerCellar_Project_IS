@@ -18,18 +18,9 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account1.getId() == -1)
-            attore= "Ospite";
-        else if(account1.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
-
-        Permesso permesso = new Permesso(attore,"Logout","doGet");
 
         //si controlla che l'utente è loggato nella sessione
-        if(permessi.contains(permesso)) {
+        if(Permesso.validazioneAccesso(permessi,account1,"Logout","doGet")) {
             //l'utente è loggato
             AccountService accountService = new AccountService();
             accountService.logout(req.getSession());

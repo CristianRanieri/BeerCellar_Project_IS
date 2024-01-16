@@ -22,17 +22,8 @@ public class RicercaOrdini extends HttpServlet {
         String dove="/WEB-INF/ordini.jsp";
         Account account = (Account) req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"RicercaOrdini","doGet");
-
-        if(permessi.contains(permesso)){
+        if(Permesso.validazioneAccesso(permessi,account,"RicercaOrdini","doGet")){
             //è un gestore, quindi si effettua il controllo della validita degli input
             if(req.getParameter("tipoID")!=null && req.getParameter("numero")!=null && (req.getParameter("tipoID").equals("Utente") ||
                     req.getParameter("tipoID").equals("Ordine")) && PatternInput.numeri1_4Cifre(req.getParameter("numero"))

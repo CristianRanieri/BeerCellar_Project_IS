@@ -24,19 +24,9 @@ public class RicercaProdottiFiltro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
-
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"RicercaProdottiFiltro","doGet");
-
-        if(permessi.contains(permesso)) {
+        if(Permesso.validazioneAccesso(permessi,account,"RicercaProdottiFiltro","doGet")) {
 
             ArrayList<String> filtro = new ArrayList<>();
             String formato = request.getParameter("formato");

@@ -19,22 +19,10 @@ import java.util.ArrayList;
 public class VisualizzaCarrello extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Account account = (Account)req.getSession().getAttribute("account");
-
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"VisualizzaCarrello","doGet");
-
-        //controllo che sia loggato e che è un gestore
-        if(!permessi.contains(permesso)){
+        if(!Permesso.validazioneAccesso(permessi,account,"VisualizzaCarrello","doGet")){
             //rimandato pagina di errore
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
             dispatcher.forward(req,resp);

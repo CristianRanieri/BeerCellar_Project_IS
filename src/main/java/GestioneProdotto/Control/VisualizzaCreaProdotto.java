@@ -14,17 +14,8 @@ public class VisualizzaCreaProdotto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"VisualizzaCreaProdotto","doGet");
-
-        if(permessi.contains(permesso)){
+        if(Permesso.validazioneAccesso(permessi,account,"VisualizzaCreaProdotto","doGet")){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/creaProdotto.jsp");
             dispatcher.forward(request, response);
         }

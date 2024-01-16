@@ -22,19 +22,9 @@ public class ModificaProdotto extends HttpServlet {
         ArrayList<String> fermentazioni = (ArrayList<String>) request.getServletContext().getAttribute("fermentazioni");
         ArrayList<String> stili = (ArrayList<String>) request.getServletContext().getAttribute("stili");
         ArrayList<String> colori = (ArrayList<String>) request.getServletContext().getAttribute("colori");
-
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"ModificaProdotto","doPost");
-
-        if (permessi.contains(permesso)){
+        if (Permesso.validazioneAccesso(permessi,account,"ModificaProdotto","doPost")){
             if (
                     request.getParameter("id_prodotto") != null &&
                     request.getParameter("nomeBirra") != null &&

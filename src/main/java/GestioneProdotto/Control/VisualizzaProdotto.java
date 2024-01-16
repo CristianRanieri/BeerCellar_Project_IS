@@ -17,17 +17,8 @@ public class VisualizzaProdotto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"VisualizzaProdotto","doGet");
-
-        if(permessi.contains(permesso)) {
+        if(Permesso.validazioneAccesso(permessi,account,"VisualizzaProdotto","doGet")) {
 
             if (request.getParameter("id_prodotto") != null && PatternInput.numeri1_4Cifre(request.getParameter("id_prodotto"))) {
                 GestioneProdottoService gestioneProdottoService = new GestioneProdottoService();

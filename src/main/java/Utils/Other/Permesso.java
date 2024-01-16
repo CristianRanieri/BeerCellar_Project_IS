@@ -1,5 +1,8 @@
 package Utils.Other;
 
+import model.entity.Account;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Permesso {
@@ -41,6 +44,18 @@ public class Permesso {
         return Objects.equals(attore, permesso.attore) && Objects.equals(classe, permesso.classe) && Objects.equals(operazione, permesso.operazione);
     }
 
+    public static boolean validazioneAccesso(ArrayList<Permesso> permessi, Account account, String classe, String operazione){
+        String attore;
+        if(account.getId() == -1)
+            attore= "Ospite";
+        else if(account.isGestore())
+            attore = "Gestore";
+        else
+            attore = "Utente";
+
+        Permesso permesso = new Permesso(attore,classe,operazione);
+        return permessi.contains(permesso);
+    }
     private String attore;
     private String classe;
     private String operazione;

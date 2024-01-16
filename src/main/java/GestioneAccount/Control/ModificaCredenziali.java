@@ -20,18 +20,9 @@ public class ModificaCredenziali extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account1.getId() == -1)
-            attore= "Ospite";
-        else if(account1.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
-
-        Permesso permesso = new Permesso(attore,"ModificaCredenziali","doPost");
 
         //si controlla che l'utente è loggato nella sessione
-        if(permessi.contains(permesso)) {
+        if(Permesso.validazioneAccesso(permessi,account1,"ModificaCredenziali","doPost")) {
             //l'utente è loggato
             if(req.getParameter("nome")!=null && req.getParameter("pass")!=null && !req.getParameter("nome").equals("") && !req.getParameter("pass").equals("") &&
                     PatternInput.nome(req.getParameter("nome")) && PatternInput.password(req.getParameter("pass"))

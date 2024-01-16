@@ -22,27 +22,14 @@ public class RimuoviProdotto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account)req.getSession().getAttribute("account");
-
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"RimuoviProdotto","doGet");
-
-        //controllo che sia loggato e che è un gestore
-        //chi puo accedere?
-        if(!permessi.contains(permesso)) {
+        if(!Permesso.validazioneAccesso(permessi,account,"RimuoviProdotto","doGet")) {
             //l'attore non ha i permessi per effettuare un ordine
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
             dispatcher.forward(req,resp);
         }else {
             //account di tipo Utente loggato oppure non loggato
-            //ho dei valori da validare?
             //controllo i valori
             if(req.getParameter("id") != null && PatternInput.numeri1_4Cifre(req.getParameter("id")))
             {

@@ -21,19 +21,9 @@ public class CreaProdotto extends HttpServlet {
         ArrayList<String> fermentazioni = (ArrayList<String>) request.getServletContext().getAttribute("fermentazioni");
         ArrayList<String> stili = (ArrayList<String>) request.getServletContext().getAttribute("stili");
         ArrayList<String> colori = (ArrayList<String>) request.getServletContext().getAttribute("colori");
-
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account.getId() == -1)
-            attore= "Ospite";
-        else if(account.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"CreaProdotto","doPost");
-
-        if (permessi.contains(permesso)){
+        if (Permesso.validazioneAccesso(permessi,account,"CreaProdotto","doPost")){
             if (
                     request.getParameter("nomeBirra") != null &&
                     request.getParameter("formato") != null &&

@@ -17,17 +17,8 @@ public class VisualizzaRegistrazione extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account1.getId() == -1)
-            attore= "Ospite";
-        else if(account1.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
 
-        Permesso permesso = new Permesso(attore,"VisualizzaRegistrazione","doGet");
-
-        if(permessi.contains(permesso)){
+        if(Permesso.validazioneAccesso(permessi,account1,"VisualizzaRegistrazione","doGet")){
             req.setAttribute("reg",true);
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/registrazione.jsp");
             dispatcher.forward(req,resp);

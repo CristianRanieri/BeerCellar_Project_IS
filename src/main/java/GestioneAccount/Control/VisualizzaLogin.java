@@ -17,18 +17,9 @@ public class VisualizzaLogin extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account1.getId() == -1)
-            attore= "Ospite";
-        else if(account1.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
-
-        Permesso permesso = new Permesso(attore,"VisualizzaLogin","doGet");
 
         //controllo che non sia loggato
-        if(permessi.contains(permesso)){
+        if(Permesso.validazioneAccesso(permessi,account1,"VisualizzaLogin","doGet")){
             RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/login.jsp");
             dispatcher.forward(req,resp);
         }else {

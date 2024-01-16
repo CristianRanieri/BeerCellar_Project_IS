@@ -20,18 +20,9 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
-        String attore;
-        if(account1.getId() == -1)
-            attore= "Ospite";
-        else if(account1.isGestore())
-            attore = "Gestore";
-        else
-            attore = "Utente";
-
-        Permesso permesso = new Permesso(attore,"Login","doPost");
 
         //si controlla se l'utente è gia in sessione, se non è in sessione si procede con il login altrimenti viene indirizzato verso la sua area utente
-        if(permessi.contains(permesso)){
+        if(Permesso.validazioneAccesso(permessi,account1,"Login","doPost")){
             //validazione dell'input
             if (req.getParameter("email") != null && PatternInput.email(req.getParameter("email")) &&
                     req.getParameter("pass") != null && PatternInput.password(req.getParameter("pass"))
