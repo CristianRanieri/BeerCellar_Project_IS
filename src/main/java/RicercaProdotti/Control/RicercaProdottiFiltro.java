@@ -22,7 +22,7 @@ import java.util.Comparator;
 public class RicercaProdottiFiltro extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
         ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
 
@@ -35,23 +35,32 @@ public class RicercaProdottiFiltro extends HttpServlet {
                 formato = "tutti";
             }
 
-            if (request.getParameter("stile") != null && PatternInput.nome(request.getParameter("stile")) && !request.getParameter("stile").equals("null")) {
+            if (request.getParameter("stile") != null && PatternInput.stringaCaratteri(request.getParameter("stile")) && !request.getParameter("stile").equals("null")) {
                 filtro.add(request.getParameter("stile"));
                 request.setAttribute("stile", request.getParameter("stile"));
-            } else
+            } else {
+                if(request.getParameter("stile") != null && !PatternInput.stringaCaratteri(request.getParameter("stile")))
+                    request.setAttribute("error",true);
                 filtro.add("tutti");
+            }
 
-            if (request.getParameter("colore") != null && PatternInput.nome(request.getParameter("colore")) && !request.getParameter("colore").equals("null")) {
+            if (request.getParameter("colore") != null && PatternInput.stringaCaratteri(request.getParameter("colore")) && !request.getParameter("colore").equals("null")) {
                 filtro.add(request.getParameter("colore"));
                 request.setAttribute("colore", request.getParameter("colore"));
-            } else
+            } else{
+                if(request.getParameter("colore") != null && !PatternInput.stringaCaratteri(request.getParameter("colore")))
+                    request.setAttribute("error",true);
                 filtro.add("tutti");
+            }
 
             if (request.getParameter("tassoAlcolico") != null && PatternInput.tassoAlcolico(request.getParameter("tassoAlcolico")) && !request.getParameter("tassoAlcolico").equals("null")) {
                 filtro.add(request.getParameter("tassoAlcolico"));
                 request.setAttribute("tassoAlcolico", request.getParameter("tassoAlcolico"));
-            } else
+            } else{
+                if(request.getParameter("tassoAlcolico") != null && !PatternInput.tassoAlcolico(request.getParameter("tassoAlcolico")))
+                    request.setAttribute("error",true);
                 filtro.add("tutti");
+            }
 
             boolean b = true;
             int offset = 0;
@@ -76,6 +85,7 @@ public class RicercaProdottiFiltro extends HttpServlet {
                 dispatcher.forward(request, resp);
             } else {
                 //input non validi
+
                 RequestDispatcher dispatcher = request.getRequestDispatcher("ricercaProdottiFiltro");
                 dispatcher.forward(request, resp);
             }

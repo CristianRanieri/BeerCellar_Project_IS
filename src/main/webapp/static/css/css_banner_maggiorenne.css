@@ -1,0 +1,27 @@
+.age-verification-banner {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.banner-content {
+    text-align: center;
+    color: #fff;
+}
+
+#confirmButton, #rejectButton {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

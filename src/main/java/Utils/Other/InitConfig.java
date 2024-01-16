@@ -109,14 +109,6 @@ public class InitConfig extends HttpServlet {
         colori.sort(comparator);
         getServletContext().setAttribute("colori",colori);
 
-        ArrayList<String> tassoAlcolico= new ArrayList<>();
-        tassoAlcolico.add("0-6");
-        tassoAlcolico.add("7-14");
-        tassoAlcolico.add("15-29");
-        tassoAlcolico.add("30-49");
-        tassoAlcolico.add("50-70");
-        getServletContext().setAttribute("fascieTassoAlcolico",tassoAlcolico);
-
         GestioneProdottoService prodottoService= new GestioneProdottoService();
         getServletContext().setAttribute("dataProdottiPiuVenduti",new Date());
         getServletContext().setAttribute("prodottiPiuVenduti", prodottoService.getProdottiPiuVenduti());
