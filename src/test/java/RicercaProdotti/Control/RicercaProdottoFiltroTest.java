@@ -431,7 +431,7 @@ public class RicercaProdottoFiltroTest {
     
 
     //White
-    public void setUpWhite(String stile, String colore, String tassoAlcolico, String offset, int idUtente, boolean gestore, String destinazione){
+    public void setUpWhite(String stile, String colore, String tassoAlcolico, String offset, int idUtente, boolean gestore, String destinazione, String formato){
         // Simula il comportamento della servlet quando un account è già in sessione
         Mockito.lenient().when(account.getId()).thenReturn(idUtente);
         Mockito.lenient().when(account.isGestore()).thenReturn(gestore);
@@ -444,6 +444,7 @@ public class RicercaProdottoFiltroTest {
         Mockito.lenient().when(request.getParameter("colore")).thenReturn(colore);
         Mockito.lenient().when(request.getParameter("tassoAlcolico")).thenReturn(tassoAlcolico);
         Mockito.lenient().when(request.getParameter("offset")).thenReturn(offset);
+        Mockito.lenient().when(request.getParameter("formato")).thenReturn(formato);
 
         Mockito.lenient().when(request.getRequestDispatcher(destinazione)).thenReturn(requestDispatcher);
     }
@@ -451,7 +452,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGetWhiteErrore1() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUpWhite("IPA","Rossa","31.4", "10", -1,false, "/WEB-INF/ricercaProdotti.jsp");
+        this.setUpWhite("IPA","Rossa","31.4", "10", -1,false, "/WEB-INF/ricercaProdotti.jsp", "Lattina");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -462,7 +463,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGetWhiteErrore2() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUpWhite("IPA","Rossa","31.4", "10", 1,false,"/WEB-INF/ricercaProdotti.jsp");
+        this.setUpWhite("IPA","Rossa","31.4", "10", 1,false,"/WEB-INF/ricercaProdotti.jsp","Lattina");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -472,7 +473,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGetWhiteErrore3() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUpWhite("IPA","Rossa","31.4", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp");
+        this.setUpWhite("IPA","Rossa","31.4", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","Lattina");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -482,7 +483,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGetWhiteErrore4() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUpWhite("IPA","Rossa","31.4", "10f", -1,false, "ricercaProdottiFiltro");
+        this.setUpWhite("IPA","Rossa","31.4", "10f", -1,false, "ricercaProdottiFiltro","Lattina");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -492,7 +493,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGetWhiteErrore5() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUpWhite("IPA","Rossa","31.4", "10f", 1,false, "ricercaProdottiFiltro");
+        this.setUpWhite("IPA","Rossa","31.4", "10f", 1,false, "ricercaProdottiFiltro", "Lattina");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -502,10 +503,1650 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGetWhiteErrore6() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUpWhite("IPA","Rossa","31.4", "10f", 1,true, "ricercaProdottiFiltro");
+        this.setUpWhite("IPA","Rossa","31.4", "10f", 1,true, "ricercaProdottiFiltro","Lattina");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
         verify(requestDispatcher).forward(request,response);
     }
+
+
+
+
+    @Test
+    public void testDoGetWhiteErrore7() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore8() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore9() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore10() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore11() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore12() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore13() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore14() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore15() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore16() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore17() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore18() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore19() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore20() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore21() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore22() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore23() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore24() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,null,"null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore25() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore26() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£",null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore27() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore28() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£",null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore29() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore30() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£",null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore31() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore32() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore33() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore34() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore35() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore36() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore37() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore38() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore39() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore40() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore41() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore42() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"dd$£","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore43() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore44() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null",null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore45() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore46() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null",null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore47() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore48() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null",null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore49() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore50() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore51() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore52() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore53() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore54() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore55() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore56() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore57() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore58() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore59() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore60() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite(null,"null","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+
+
+
+    @Test
+    public void testDoGetWhiteErrore61() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore62() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore63() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore64() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore65() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore66() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore67() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore68() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore69() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore70() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore71() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore72() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore73() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore74() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore75() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore76() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore77() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore78() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore79() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore80() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£",null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore81() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore82() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£",null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore83() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore84() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£",null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore85() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore86() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore87() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore88() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore89() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore90() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore91() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore92() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore93() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore94() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore95() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore96() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","dd$£","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore97() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore98() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null",null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore99() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore100() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null",null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore101() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore102() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null",null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore103() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore104() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore105() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore106() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore107() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore108() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore109() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore110() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore111() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore112() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore113() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore114() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$","null","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+
+
+
+    @Test
+    public void testDoGetWhiteErrore115() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore116() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore117() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore118() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore119() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore120() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore121() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore122() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore123() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore124() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore125() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore126() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore127() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore128() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore129() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore130() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore131() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore132() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null",null,"null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore133() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore134() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£",null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore135() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore136() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£",null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore137() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore138() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£",null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore139() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore140() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore141() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore142() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore143() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore144() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore145() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore146() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore147() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore148() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore149() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore150() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","dd$£","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore151() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore152() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null",null, "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore153() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore155() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null",null, "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore156() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null",null, "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore157() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null",null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore158() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore159() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","ft%$", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore160() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore161() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","ft%$", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore162() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","ft%$", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore163() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore164() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore165() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10f", 1,true, "ricercaProdottiFiltro",null);
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore166() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore167() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10f", 1,true, "ricercaProdottiFiltro","La&&");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore168() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10", 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore169() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore170() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("null","null","null", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doPost(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
 }
