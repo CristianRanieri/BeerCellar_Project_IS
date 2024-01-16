@@ -26,6 +26,23 @@
     <% }%>
     <!--SUCCESSO:-->
 
+    <!--SUCCESSO:-->
+    <% if(request.getParameter("successo-modifica")!=null && ((Account)session.getAttribute("account")).isGestore()){%>
+      <div id="blocco-messaggio-successo">
+        <h2>Prodotto Modoficato</h2>
+        <h3>La modofica del prodotto è stata effettuata con successo.</h3>
+      </div>
+    <% }%>
+    <!--SUCCESSO:-->
+
+    <!--ERRORE:-->
+    <% if(request.getParameter("errore-nessuna-modifica")!=null){%>
+    <div id="blocco-messaggio-cambiamenti">
+      <h3>Nessun parametro modificato, cambiamento non effettuato.</h3>
+    </div>
+    <% }%>
+    <!--ERRORE:-->
+
     <%if (((Account) session.getAttribute("account")).isGestore()) {%>
         <form action="visualizzaModificaProdotto" method="post">
           <div id="tasto_modifica_prodotto">

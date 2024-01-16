@@ -80,7 +80,7 @@ public class ModificaProdotto extends HttpServlet {
                     ){
                         gestioneProdottoService.salvaImmagine(request.getPart("immagineBirra"), prodottoModificato.getId(), request.getServletContext());
                     }
-                    response.sendRedirect("visualizzaProdotto?corretta-modifica=true&id_prodotto=" + prodottoModificato.getId());
+                    response.sendRedirect("visualizzaProdotto?successo-modifica=true&id_prodotto=" + prodottoModificato.getId());
                 }
             }
             else {
