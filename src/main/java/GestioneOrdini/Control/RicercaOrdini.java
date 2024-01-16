@@ -70,7 +70,7 @@ public class RicercaOrdini extends HttpServlet {
                 }
             }else {
                 //input non validi
-                req.setAttribute("error1",true);
+                req.setAttribute("error2",true);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
                 dispatcher.forward(req,resp);
             }
