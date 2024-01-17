@@ -72,6 +72,7 @@ body {
     background-color: rgba(28, 17, 10, 0.2);
     border: 0.15em #1c110a solid;
     border-radius: 0.3em;
+    width: 100%;
 }
 
 .contenitore_immagine_homepage a img {
