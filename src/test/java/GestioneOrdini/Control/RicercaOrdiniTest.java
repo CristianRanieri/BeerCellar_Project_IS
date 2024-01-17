@@ -113,7 +113,6 @@ public class RicercaOrdiniTest {
         Mockito.lenient().when(request.getParameter("numero")).thenReturn(numero);
 
         Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/ordini.jsp")).thenReturn(requestDispatcher);
-
     }
 
     @Test
@@ -345,7 +344,6 @@ public class RicercaOrdiniTest {
         Mockito.lenient().when(request.getParameter("offset")).thenReturn(offset);
 
         Mockito.lenient().when(request.getRequestDispatcher(forward)).thenReturn(requestDispatcher);
-
     }
 
     @Test
@@ -375,4 +373,96 @@ public class RicercaOrdiniTest {
         verify(requestDispatcher).forward(request,response);
         verify(request).setAttribute("error1",true);
     }
+
+    @Test
+    public void testDoGetWhite4() throws Exception {
+        this.setUpWhite(null,"1", "1l0",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error2",true);
+    }
+
+
+    @Test
+    public void testDoGetWhite5() throws Exception {
+        this.setUpWhite("null","1", "1l0",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error2",true);
+    }
+
+    @Test
+    public void testDoGetWhite6() throws Exception {
+        this.setUpWhite("null",null, "1l0",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error2",true);
+    }
+
+    @Test
+    public void testDoGetWhite7() throws Exception {
+        this.setUpWhite("Utente","null", "1l0",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error2",true);
+    }
+
+    @Test
+    public void testDoGetWhite8() throws Exception {
+        this.setUpWhite("Ordine","null", "1l0",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error2",true);
+    }
+
+    @Test
+    public void testDoGetWhite9() throws Exception {
+        this.setUpWhite("Ordine","10", "1l0",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error1",true);
+    }
+
+    @Test
+    public void testDoGetWhite10() throws Exception {
+        this.setUpWhite("Ordine","10", null,1,true,"/WEB-INF/ordini.jsp");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("ricerca",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite11() throws Exception {
+        this.setUpWhite("Ordine","10", "ft$%5",1,true,"visualizzaOrdini");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+        verify(request).setAttribute("error1",true);
+    }
+
+    @Test
+    public void testDoGetWhite12() throws Exception {
+        this.setUpWhite("Ordine","10", "10",1,true,"/WEB-INF/ordini.jsp");
+        // Esegui la servlet
+        ricercaOrdiniServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("ricerca",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
 }

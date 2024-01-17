@@ -42,15 +42,6 @@ public class RicercaOrdini extends HttpServlet {
                     //gli input sono validi, eseguo il metodo di ricerca deglio ordini
                     GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                     ArrayList<Ordine> ordini = ordiniService.ricercaOrdini(req.getParameter("tipoID"), Integer.parseInt(req.getParameter("numero")),offset);
-                    ordini.sort(new Comparator<Ordine>() {
-                        @Override
-                        public int compare(Ordine o1, Ordine o2) {
-                            if(o1.getId() < o2.getId())
-                                return 1;
-                            else
-                                return -1;
-                        }
-                    });
 
                     //setto gli attributi utilizzati dalla jsp
                     req.setAttribute("ordini", ordini);
