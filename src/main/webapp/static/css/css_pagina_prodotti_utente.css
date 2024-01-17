@@ -17,28 +17,35 @@
     align-content: center;
     justify-content: center;
     margin: 0.3em;
-    background-color: transparent;
+    background-color: rgba(28, 17, 10, 0.2);
     border: 0.15em #1c110a solid;
-    border-radius: 10px;
+    border-radius: 0.3em;
     padding: 3em;
 }
 
 .div_img{
     text-align: center;
+    background-color: rgba(28, 17, 10, 0.2);
+    border: 0.15em #1c110a solid;
+    border-radius: 0.3em;
 }
 
 .img_prodotto{
-    width: 10em;
+    width: 100%;
+    border-radius: 0.3em;
 }
 
 .div-button{
-    text-align: center;
     margin-top: 0.5em ;
 }
 
 .button-acquista{
     color: white;
     background-color: #1c110a;
+}
+
+.button-acquista:hover{
+    outline: #f1f1f1 solid 0.17em;
 }
 
 #button_ricerca{

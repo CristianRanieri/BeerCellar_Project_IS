@@ -22,11 +22,6 @@
 
 body {
     background-color: rgb(241, 172, 121);
-    /*
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-     */
 }
 
 input {
