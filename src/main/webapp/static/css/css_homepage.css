@@ -1,6 +1,6 @@
 body {
     background: rgb(255,119,0);
-    background: radial-gradient(circle, rgba(255, 167, 97, 0.65) 0%, rgba(16, 16, 16, 0.71) 100%);
+    background: radial-gradient(circle, rgba(255, 183, 125, 0.65) 0%, rgba(61, 28, 0, 0.58) 100%);
 }
 
 .contenitore_scoperta {
@@ -59,6 +59,7 @@ body {
     border-radius: 0.3em;
     padding: 3% 5%;
     transition: 200ms;
+    max-width: 10em;
 }
 
 .contenitore_prodotto_homepage:hover {
@@ -82,6 +83,12 @@ body {
 
 .contenitore_bottone_acquista {
     margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.contenitore_bottone_acquista .button-acquista {
+    width: 100%;
 }
 
 .contenitore_bottone_acquista .button-acquista, .contenitore_scoperta .contenitore_bottone_scopri input {

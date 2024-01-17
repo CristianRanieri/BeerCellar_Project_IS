@@ -35,7 +35,7 @@
                 </div>
                 <h3><%=prodotto.getNome()%></h3>
                 <form action="visualizzaProdotto" method="get" class="contenitore_bottone_acquista">
-                    <input type="submit" value="Acquista Prodotto" class="button-acquista">
+                    <input type="submit" value="Acquista" class="button-acquista">
                     <input type="hidden" value="<%=prodotto.getId()%>" name="id_prodotto">
                 </form>
             </div>
