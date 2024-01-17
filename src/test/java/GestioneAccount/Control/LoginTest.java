@@ -294,8 +294,9 @@ public class LoginTest {
         verify(requestDispatcher).forward(request, response);
     }
 
-    public void setUpUtenteLoggato(String emil, String pass){
-        Mockito.lenient().when(account.getId()).thenReturn(1);
+    public void setUpUtenteLoggato(String emil, String pass, int idUtente, boolean gestore){
+        Mockito.lenient().when(account.getId()).thenReturn(idUtente);
+        Mockito.lenient().when(account.isGestore()).thenReturn(gestore);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
         Mockito.lenient().when(request.getSession()).thenReturn(session);
         Mockito.lenient().when(request.getServletContext()).thenReturn(servletContext);
@@ -308,13 +309,127 @@ public class LoginTest {
         Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
+
+    //white testing
     @Test
     public void testDoGetUtenteLoggato1() throws Exception {
-        this.setUpUtenteLoggato("utente5@gmail.com","Utente1234%");
+        this.setUpUtenteLoggato("utente5@gmail.com","Utente1234%", 1, true);
         // Esegui la servlet
         loginServlet.doGet(request, response);
         // Verifica il comportamento atteso
         verify(response).sendRedirect("visualizzaAreaUtente");
+    }
+
+    @Test
+    public void testDoGetUtenteLoggato2() throws Exception {
+        this.setUpUtenteLoggato("utente5@gmail.com","Utente1234%", 1, false);
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(response).sendRedirect("visualizzaAreaUtente");
+    }
+
+    @Test
+    public void testDoGetParametriInvalidi3() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide(null, null);
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+    @Test
+    public void testDoGetParametriInvalidi4() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide(null, "F$");
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+
+    @Test
+    public void testDoGetParametriInvalidi8() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide(null, "Utente1234%");
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+    @Test
+    public void testDoGetParametriInvalidi5() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide("email", null);
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+
+    @Test
+    public void testDoGetParametriInvalidi9() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide("email@gmail.com", null);
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+
+    @Test
+    public void testDoGetParametriInvalidi10() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide("email@gmail.com", "gygyG");
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+
+    @Test
+    public void testDoGetParametriInvalidi6() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide("email", "F$");
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+    @Test
+    public void testDoGetCorretto7() throws Exception {
+        this.setUpCorretto("utente5@gmail.com","Utente1234%");
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(response).sendRedirect("index.jsp");
+    }
+
+    @Test
+    public void testDoGetCorretto8() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide("utente5@gmail.com","Utenteeee1234%");
+        // Esegui la servlet
+        loginServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2", true);
+        verify(requestDispatcher).forward(request, response);
+    }
+
+    @Test
+    public void testDoGetCorretto10() throws Exception {
+        this.setUpCredenzialiInesistentiOInvalide("utente5@gmail.com","Utenteeee1234%");
+        // Esegui la servlet
+        loginServlet.doPost(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2", true);
+        verify(requestDispatcher).forward(request, response);
     }
 
 }
