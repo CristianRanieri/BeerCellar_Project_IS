@@ -110,7 +110,7 @@ public class OrdineDAO {
     }
 
     public Ordine getOrdine(int idOrdine){
-        Ordine ordine = new Ordine();
+        Ordine ordine = null;
         try{
             String qeuary="SELECT * FROM AcquistoProdotto WHERE IdOrdine=?";
 
@@ -120,6 +120,7 @@ public class OrdineDAO {
             ResultSet rs=ps.executeQuery();
 
             if(rs.next()){
+                ordine = new Ordine();
                 ps= con.prepareStatement(qeuary);
                 ps.setInt(1,rs.getInt("IdOrdine"));
 

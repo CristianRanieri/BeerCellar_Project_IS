@@ -43,9 +43,9 @@
             </select>
 
             <%if(request.getParameter("numero")!=null){%>
-                <input type="text" name="numero" value="<%= request.getParameter("numero")%>">
+                <input type="text" name="numero" value="<%= request.getParameter("numero")%>" pattern="^\d{1,4}$" required>
             <%}else{%>
-                <input type="text" name="numero">
+                <input type="text" name="numero" pattern="^\d{1,4}$" required>
             <%}%>
 
             <button type="submit" value="Ricerca">RICERCA</button>
@@ -62,7 +62,15 @@
     <% }%>
 
     <%  ArrayList<Ordine> ordini= (ArrayList<Ordine>) request.getAttribute("ordini");
-        for(Ordine ordine : ordini){%>
+     if(ordini.isEmpty()){%>
+        <% if(account.isGestore()){%>
+            <h2>Nessun ordine trovato.</h2>
+        <%}else {%>
+            <h2>Non hai ancora effettuato nessun ordine, affrettati ad aggiungere dei prodotti al carrello ed effttuare un acquisto!</h2>
+        <%}%>
+    <%}%>
+
+    <%for(Ordine ordine : ordini){%>
 
     <div class="divStoricoOrdini">
 
@@ -92,7 +100,7 @@
         <%for(AcquistoProdotto acquisto : ordine.getProdotti()){%>
                 <div class="divProdottiAcquistati">
                     <div class="pack-foto">
-                        <img class="pack-image" src="${pageContext.request.contextPath}<%="/upload/ID_"+acquisto.getProdotto().getId()+".png"%>"> <!-- si deve inserire l'immagine-->
+                        <a href="visualizzaProdotto?id_prodotto=<%=acquisto.getProdotto().getId()%>"><img class="pack-image" src="${pageContext.request.contextPath}<%="/upload/ID_"+acquisto.getProdotto().getId()+".png"%>"></a>
                     </div>
 
                     <div class="pack">

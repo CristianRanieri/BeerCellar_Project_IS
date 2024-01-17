@@ -1,6 +1,7 @@
 package GestioneAccount.Control;
 
 import GestioneAccount.Service.AccountService;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,14 +12,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/modificaCredenziali")
 public class ModificaCredenziali extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Account account1 = (Account)req.getSession().getAttribute("account");
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
 
         //si controlla che l'utente è loggato nella sessione
-        if(((Account)req.getSession().getAttribute("account")).getId() != -1) {
+        if(Permesso.validazioneAccesso(permessi,account1,"ModificaCredenziali","doPost")) {
             //l'utente è loggato
             if(req.getParameter("nome")!=null && req.getParameter("pass")!=null && !req.getParameter("nome").equals("") && !req.getParameter("pass").equals("") &&
                     PatternInput.nome(req.getParameter("nome")) && PatternInput.password(req.getParameter("pass"))

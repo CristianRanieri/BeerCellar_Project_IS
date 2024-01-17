@@ -11,10 +11,8 @@
 <html>
 <head>
     <title>Catalogo prodotti</title>
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotti_utente.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotti_admin.css" type="text/css">
-
 </head>
 <body>
 
@@ -79,42 +77,42 @@
     <%for(Prodotto prodotto : ((ArrayList<Prodotto>)request.getAttribute("prodotti"))) {%>
     <div class="contenitore-prodotto">
         <div class="div_img">
-           <a href="visualizzaProdotto?id_prodotto=<%=prodotto.getId()%>"> <img  class="img_prodotto" src="images/bottle.png"></a>
+           <a href="visualizzaProdotto?id_prodotto=<%=prodotto.getId()%>"> <img  class="img_prodotto" src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>"></a>
         </div>
         <h3><%=prodotto.getNome()%></h3>
         <form action="visualizzaProdotto" method="get">
             <div class="div-button">
                 <input type="submit" value="Acquista Prodotto" class="button-acquista">
+                <input type="hidden" value="<%=prodotto.getId()%>" name="id_prodotto">
             </div>
         </form>
     </div>
     <%}%>
+</div>
 
-    <div style="margin: auto;display: block;width: 242px;">
-        <div style="display: inline-block">
-            <form action="<%=request.getAttribute("tipoRicerca")%>">
-                <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
-                <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
-                <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
-                <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
-                <input name="offset" id="offset2" type="hidden" value="">
-                <button class="buttonMostraProdotti" id="precedente" > Precedente </button>
-            </form>
-        </div>
 
-        <div style="display: inline-block">
-            <form action="<%=request.getAttribute("tipoRicerca")%>">
-                <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
-                <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
-                <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
-                <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
-                <input name="offset" id="offset" type="hidden" value="<%= numeroProdotti%>">
-                <button class="buttonMostraProdotti" id="successivo" > Successivo </button>
-            </form>
-        </div>
+<div style="margin: auto;display: block;width: 242px;">
+    <div style="display: inline-block">
+        <form action="<%=request.getAttribute("tipoRicerca")%>">
+            <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
+            <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
+            <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
+            <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
+            <input name="offset" id="offset2" type="hidden" value="">
+            <button class="buttonMostraProdotti" id="precedente" > Precedente </button>
+        </form>
     </div>
 
-
+    <div style="display: inline-block">
+        <form action="<%=request.getAttribute("tipoRicerca")%>">
+            <input name="formato" type="hidden" value="<%= request.getParameter("formato")%>">
+            <input name="stile" type="hidden" value="<%= request.getParameter("stile")%>">
+            <input name="colore" type="hidden" value="<%= request.getParameter("colore")%>">
+            <input name="tassoAlcolico" type="hidden" value="<%= request.getParameter("tassoAlcolico")%>">
+            <input name="offset" id="offset" type="hidden" value="<%= numeroProdotti%>">
+            <button class="buttonMostraProdotti" id="successivo" > Successivo </button>
+        </form>
+    </div>
 </div>
 
 <script>

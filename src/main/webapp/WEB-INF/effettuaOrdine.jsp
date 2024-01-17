@@ -37,12 +37,12 @@
             <div>
                 <div>
                     <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" pattern="^[a-zA-Z]{2,30}$" required>
+                    <input type="text" id="nome" name="nome" pattern="^[a-zA-Z ]{3,30}$" required>
                 </div>
 
                 <div>
                     <label for="cognome">Cognome</label>
-                    <input type="text" id="cognome" name="cognome" pattern="^[a-zA-Z]{2,30}$" required>
+                    <input type="text" id="cognome" name="cognome" pattern="^[a-zA-Z ]{3,30}$" required>
                 </div>
             </div>
         </div>

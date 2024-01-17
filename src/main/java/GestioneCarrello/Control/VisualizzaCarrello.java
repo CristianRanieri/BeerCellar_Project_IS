@@ -1,5 +1,6 @@
 package GestioneCarrello.Control;
 
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.ValidaCarrello;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -12,17 +13,19 @@ import model.entity.ContenutoCarrello;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 @WebServlet("/visualizzaCarrello")
 public class VisualizzaCarrello extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Account account = (Account)req.getSession().getAttribute("account");
-        //controllo che sia loggato e che è un gestore
-        if(account.getId() != -1 && account.isGestore()){
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
+
+        if(!Permesso.validazioneAccesso(permessi,account,"VisualizzaCarrello","doGet")){
             //rimandato pagina di errore
-            resp.sendRedirect("errorePermessi.jsp");
+            RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
+            dispatcher.forward(req,resp);
         }else {
             //controllare la validita del carrello
             if(!ValidaCarrello.validazioneCarrello(account.getCarrello()))

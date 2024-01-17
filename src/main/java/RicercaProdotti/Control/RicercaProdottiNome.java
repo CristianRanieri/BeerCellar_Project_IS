@@ -1,6 +1,7 @@
 package RicercaProdotti.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -21,42 +22,47 @@ public class RicercaProdottiNome extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-
         Account account = (Account) request.getSession().getAttribute("account");
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) request.getServletContext().getAttribute("permessi");
 
-        String nomeRicerca = request.getParameter("ricerca");
+        if(Permesso.validazioneAccesso(permessi,account,"RicercaProdottiNome","doGet")) {
 
-        if(nomeRicerca != null) {
-            List<String> nomiProdotto = Arrays.stream(nomeRicerca.split(" ")).toList();
+            String nomeRicerca = request.getParameter("ricerca");
+            if (nomeRicerca != null) {
+                List<String> nomiProdotto = Arrays.stream(nomeRicerca.split(" ")).toList();
 
-            boolean b=true;
-            int offset=0;
-            //controllo valore offset, se è diverso da null deve rispettare il formato
-            if(request.getParameter("offset")!=null)
-                if(!PatternInput.numeri1_4Cifre(request.getParameter("offset"))) {
-                    b = false;
-                }else {
-                    offset= Integer.parseInt(request.getParameter("offset"));
+                boolean b = true;
+                int offset = 0;
+                //controllo valore offset, se è diverso da null deve rispettare il formato
+                if (request.getParameter("offset") != null)
+                    if (!PatternInput.numeri1_4Cifre(request.getParameter("offset"))) {
+                        b = false;
+                    } else {
+                        offset = Integer.parseInt(request.getParameter("offset"));
+                    }
+
+                if (b) {
+                    //gli input sono validi, eseguo il metodo di ricerca deglio ordini
+                    GestioneProdottoService prodottoService = new GestioneProdottoService();
+                    ArrayList<Prodotto> prodotti = prodottoService.ricercaProdottiNome(nomiProdotto, account.isGestore(), offset);
+
+                    request.setAttribute("prodotti", prodotti);
+                    request.setAttribute("tipoRicerca", "ricercaProdottiNome");
+                    request.setAttribute("nuoviProdotti", prodotti.size());
+                    request.setAttribute("numeroProdotti", prodotti.size() + offset);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/ricercaProdotti.jsp");
+                    dispatcher.forward(request, resp);
+                } else {
+                    //input non validi
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("ricercaProdottiFiltro");
+                    dispatcher.forward(request, resp);
                 }
-
-            if(b) {
-                //gli input sono validi, eseguo il metodo di ricerca deglio ordini
-                GestioneProdottoService prodottoService = new GestioneProdottoService();
-                ArrayList<Prodotto> prodotti = prodottoService.ricercaProdottiNome(nomiProdotto, account.isGestore(), offset);
-
-                request.setAttribute("prodotti", prodotti);
-                request.setAttribute("tipoRicerca","ricercaProdottiNome");
-                request.setAttribute("nuoviProdotti",prodotti.size());
-                request.setAttribute("numeroProdotti",prodotti.size()+offset);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/ricercaProdotti.jsp");
-                dispatcher.forward(request, resp);
-            }else {
-                //input non validi
+            } else {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("ricercaProdottiFiltro");
-                dispatcher.forward(request,resp);
+                dispatcher.forward(request, resp);
             }
-        }else{
-            RequestDispatcher dispatcher = request.getRequestDispatcher("ricercaProdottiFiltro");
+        } else {
+            RequestDispatcher dispatcher= request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
             dispatcher.forward(request,resp);
         }
 

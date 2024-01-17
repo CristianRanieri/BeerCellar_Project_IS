@@ -1,6 +1,7 @@
 package GestioneAccount.Control;
 
 import GestioneAccount.Service.AccountService;
+import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,14 +12,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.entity.Account;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Account account1 = (Account)req.getSession().getAttribute("account");
+        ArrayList<Permesso> permessi = (ArrayList<Permesso>) req.getServletContext().getAttribute("permessi");
 
         //si controlla se l'utente è gia in sessione, se non è in sessione si procede con il login altrimenti viene indirizzato verso la sua area utente
-        if(((Account)req.getSession().getAttribute("account")).getId() == -1){
+        if(Permesso.validazioneAccesso(permessi,account1,"Login","doPost")){
             //validazione dell'input
             if (req.getParameter("email") != null && PatternInput.email(req.getParameter("email")) &&
                     req.getParameter("pass") != null && PatternInput.password(req.getParameter("pass"))

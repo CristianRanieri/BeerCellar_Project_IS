@@ -31,7 +31,7 @@
   <% }%>
 
   <!--CARRELLO:-->
-  <h3 id="h3_carrello">Carrello</h3>
+  <h2 id="h3_carrello">Carrello</h2>
 
   <% if(!carrello.isEmpty()){%>
   <div id="div_contenitore">
@@ -50,7 +50,7 @@
                     <td>
                         <div class="div_tuttoIlProdotto">
                             <div class="div_immagineProdotto">
-                                <img src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>">
+                                <a href="visualizzaProdotto?id_prodotto=<%=prodotto.getId()%>"><img src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>"></a>
                             </div>
                             <div class="div_Prodotto">
                                 <div class="div_nomeProdotto"><label name="nomeProdotto"><%= prodotto.getNome()%></label><br></div>

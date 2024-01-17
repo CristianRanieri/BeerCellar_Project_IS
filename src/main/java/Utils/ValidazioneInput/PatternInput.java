@@ -5,14 +5,14 @@ import java.util.regex.Pattern;
 
 public class PatternInput {
     public static boolean email(String email){
-        return Pattern.compile("^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\\.[a-zA-Z]{2,4}$",  Pattern.CASE_INSENSITIVE).matcher(email).matches() && email.length()<=30;
+        return Pattern.compile("^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\\.[a-zA-Z]{2,4}$",  Pattern.CASE_INSENSITIVE).matcher(email).matches() && email.length()<=134 && email.length()>=7;
     }
 
     // Password di 8-16 caratteri con almeno una cifra, almeno una
     // lettera minuscola, almeno una lettera maiuscola, almeno un
     // carattere speciale senza spazi bianchi
     public static boolean password(String pass){
-        return Pattern.compile("^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#£$%^&_?*])[A-Za-z\\d!@#£$%^&_?*]{8,30}$",  Pattern.CASE_INSENSITIVE).matcher(pass).matches();
+        return Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#£$%^&_?*])[A-Za-z\\d!@#£$%^&_?*]{8,30}$").matcher(pass).matches();
     }
 
     //stringa da 5 a 30 caratteri miuscoli e maiuscoli
@@ -23,6 +23,11 @@ public class PatternInput {
     //stringa da 5 a 30 caratteri miuscoli e maiuscoli
     public static boolean nomeCognome(String nome){
         return Pattern.compile("^[a-zA-Z ]{3,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
+    }
+
+    //stringa da 3 a 30 caratteri fomrata solo da lettere minuscole o maiscole
+    public static boolean stringaCaratteri(String nome){
+        return Pattern.compile("^[a-zA-Z]{3,30}$",  Pattern.CASE_INSENSITIVE).matcher(nome).matches() && nome.length()<=30;
     }
 
     //stringa da 5 a 30 caratteri miuscoli e maiuscoli

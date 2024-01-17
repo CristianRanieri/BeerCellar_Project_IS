@@ -26,6 +26,23 @@
     <% }%>
     <!--SUCCESSO:-->
 
+    <!--SUCCESSO:-->
+    <% if(request.getParameter("successo-modifica")!=null && ((Account)session.getAttribute("account")).isGestore()){%>
+      <div id="blocco-messaggio-successo">
+        <h2>Prodotto Modoficato</h2>
+        <h3>La modofica del prodotto è stata effettuata con successo.</h3>
+      </div>
+    <% }%>
+    <!--SUCCESSO:-->
+
+    <!--ERRORE:-->
+    <% if(request.getParameter("errore-nessuna-modifica")!=null){%>
+    <div id="blocco-messaggio-cambiamenti">
+      <h3>Nessun parametro modificato, cambiamento non effettuato.</h3>
+    </div>
+    <% }%>
+    <!--ERRORE:-->
+
     <%if (((Account) session.getAttribute("account")).isGestore()) {%>
         <form action="visualizzaModificaProdotto" method="post">
           <div id="tasto_modifica_prodotto">
@@ -46,13 +63,15 @@
         <p><%=prodotto.getFormato()%></p>
         <p><%=prodotto.getStile()%></p>
         <p><%=prodotto.getColore()%></p>
+        <p><%=prodotto.getBirrificio()%></p>
         <h3>€<%=prodotto.getPrezzo()%></h3>
+
 
         <%if (!((Account) session.getAttribute("account")).isGestore()) {%>
           <form action="aggiungiProdotto">
             <div class="contenitore_selettore">
               <input type="hidden" name="id" value="<%=prodotto.getId()%>">
-              <input type="number" name="quantita" value="1" min="1"/>
+              <input type="number" name="quantita" value="1" min="1" max="99">
             </div>
 
             <input type="submit" class="button_action" value="Aggiungi al carrello"/>
