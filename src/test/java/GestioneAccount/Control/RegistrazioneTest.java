@@ -473,4 +473,128 @@ public class RegistrazioneTest {
         // Verifica il comportamento atteso
         verify(response).sendRedirect("visualizzaAreaUtente");
     }
+
+
+    //white testing
+    @Test
+    public void testDoGetWhite1() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com",null,"conferma","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite2() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com","pass","conferma","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+
+    @Test
+    public void testDoGetWhite3() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com","Utente1234%",null,"giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite4() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com","Utente1234%","conferma","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite5() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com","Utente1234%","Utente12334%","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite6() throws Exception {
+        this.setUpEmailRegistrata("Utente136@gmail.com","Utente1234%","Utente1234%","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite7() throws Exception {
+        this.setUpEmailRegistrata("Utente5@gmai.com","Utente1234%","Utente1234%","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(response).sendRedirect("index.jsp");
+    }
+
+    @Test
+    public void testDoGetWhite8() throws Exception {
+        this.setUpEmailRegistrata("Utente136@gmail.com","Utente1234%","Utente1234%","giorm");
+        // Esegui la servlet
+        registrazioneServlet.doPost(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error1",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite9() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com","dddddd","conferma",null);
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite10() throws Exception {
+        this.setUpEmailRegistrata("giorgi@gmail.com","dddddd","conferma","gy g66");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhite11() throws Exception {
+        this.setUpEmailRegistrata(null,"dddddd","conferma","Ciaole");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
+
+    @Test
+    public void testDoGetWhite12() throws Exception {
+        this.setUpEmailRegistrata("null","dddddd","conferma","Ciaole");
+        // Esegui la servlet
+        registrazioneServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(request).setAttribute("error2",true);
+        verify(requestDispatcher).forward(request,response);
+    }
+
 }

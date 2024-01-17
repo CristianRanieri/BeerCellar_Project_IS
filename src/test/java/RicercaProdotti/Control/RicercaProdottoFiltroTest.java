@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.verify;
 
@@ -3139,6 +3140,60 @@ public class RicercaProdottoFiltroTest {
         // Simula il comportamento della servlet quando un account è già in sessione
         this.setUpWhite("dd£$",null,"ft%$", "10f", 1,true, "ricercaProdottiFiltro","null");
         // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore271() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,null, "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore272() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"ft%$ ", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore273() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"4.4", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+    @Test
+    public void testDoGetWhiteErrore280() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        // Simula il comportamento della servlet quando un account è già in sessione
+        Mockito.lenient().when(account.getId()).thenReturn(-1);
+        Mockito.lenient().when(account.isGestore()).thenReturn(true);
+        Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
+        Mockito.lenient().when(request.getSession()).thenReturn(session);
+        Mockito.lenient().when(request.getServletContext()).thenReturn(servletContext);
+
+        // Simula i parametri di richiesta
+        Mockito.lenient().when(request.getParameter("stile")).thenReturn(null);
+        Mockito.lenient().when(request.getParameter("colore")).thenReturn(null);
+        Mockito.lenient().when(request.getParameter("tassoAlcolico")).thenReturn(null);
+        Mockito.lenient().when(request.getParameter("offset")).thenReturn(null);
+        Mockito.lenient().when(request.getParameter("formato")).thenReturn(null);
+        List<Permesso> permessi= new ArrayList<>();
+        Mockito.lenient().when(servletContext.getAttribute("permessi")).thenReturn(permessi);
+
+        Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp")).thenReturn(requestDispatcher);// Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
         verify(requestDispatcher).forward(request,response);
