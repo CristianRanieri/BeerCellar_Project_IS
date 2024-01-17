@@ -138,7 +138,6 @@ public class LoginTest {
         // Verifica il comportamento atteso
         verify(response).sendRedirect("index.jsp");
     }
-
     @Test
     public void tc_2_10() throws Exception {
         this.setUpCorretto("ciaoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@comevaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ttok","Ciao1234!?@#?");
