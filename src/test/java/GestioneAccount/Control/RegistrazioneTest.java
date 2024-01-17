@@ -204,7 +204,7 @@ public class RegistrazioneTest {
         verify(requestDispatcher).forward(request,response);
     }
 
-    @Test //TC_3_02
+    @Test //TC_3_01
     public void testDoGetNomeCorto() throws Exception {
         this.setUpEmailRegistrata("giorgino@gmail.com","1234aAa!","1234aAa!","A");
         // Esegui la servlet
@@ -286,7 +286,7 @@ public class RegistrazioneTest {
 
     @Test //TC_03_05
     public void testDoGetEmailLungaNomeLunghezza2() throws Exception {
-        this.setUpEmailRegistrata("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.info","1234aAa!","1234aAa!","Su");
+        this.setUpEmailRegistrata("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.info","1234aAa!","1234aAa!","Su");
         // Esegui la servlet
         registrazioneServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -436,7 +436,7 @@ public class RegistrazioneTest {
 
     @Test //TC_3_11
     public void testDoGetConfermaPasswordDiversaDaPasswordNomeLunghezza2() throws Exception {
-        this.setUpEmailRegistrata("giorgino@gmail.com","12345aAb!","12345aAb","Su");
+        this.setUpEmailRegistrata("giorgino@gmail.com","12345aAb!","12345aA!","Su");
         // Esegui la servlet
         registrazioneServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -456,7 +456,7 @@ public class RegistrazioneTest {
 
     @Test //TC_3_21
     public void testDoGetConfermaPasswordDiversaDaPasswordNomeLunghezza30() throws Exception {
-        this.setUpEmailRegistrata("giorgino@gmail.com","12345aAb!","12345aAb","Ginaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        this.setUpEmailRegistrata("giorgino@gmail.com","12345aAb!","12345aA!","Ginaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         // Esegui la servlet
         registrazioneServlet.doGet(request, response);
         // Verifica il comportamento atteso
