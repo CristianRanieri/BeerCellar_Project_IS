@@ -42,7 +42,7 @@
     <form id="registerForm" action="registrazione" method="post">
         <div class="form-row">
             <input type="text" name="nome" placeholder="Nome" maxlength="30" pattern="^[a-zA-Z]{2,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 2 massimo 30." required>
-            <input type="text" name="email" placeholder="Email" name="email" pattern="^[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." minlength="7" maxlength="134" required>
+            <input type="text" name="email" placeholder="Email" name="email" pattern="^(?=.{7,})[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." minlength="7" maxlength="134" required>
         </div>
         <div class="form-row">
             <input type="password" name="pass" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" placeholder="Password" required>
