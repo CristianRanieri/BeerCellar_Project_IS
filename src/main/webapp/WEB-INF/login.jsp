@@ -21,7 +21,7 @@
 
     <c:if test="${requestScope.error1}">
       <div id="blocco-messaggio-cambiamenti">
-        <h3>L'email o la password non è stata inserita o non rispettana il formato indicato, la esortiamo a riprovare.</h3>
+        <h3>L'email o la password non è stata inserita o non rispettano il formato indicato, la invitiamo a riprovare.</h3>
       </div>
     </c:if>
 
