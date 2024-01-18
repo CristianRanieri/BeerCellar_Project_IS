@@ -26,7 +26,7 @@
   <% if(request.getAttribute("cambiamenti")!=null){%>
   <div id="blocco-messaggio-cambiamenti">
       <h2> ATTENZIONE!</h2>
-      <h3>Per alcuni prodotti il prezzo è variato o non sono piu disponibili, quelli non disponibili sono stati rimossi dal catalogo.</h3>
+      <h3>Per alcuni prodotti il prezzo è variato o non sono piu disponibili, quelli non disponibili sono stati rimossi dal carrello.</h3>
   </div>
   <% }%>
 
