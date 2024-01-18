@@ -62,7 +62,7 @@ public class EffettuaOrdine extends HttpServlet {
                         ordine.setCitta(req.getParameter("citta"));
                         ordine.setIndirizzo(req.getParameter("indirizzo"));
                         ordine.setProvincia(req.getParameter("provincia"));
-
+/*
                         double prezzoTotale = 0;
                         ArrayList<AcquistoProdotto> prodotti = new ArrayList<>();
 
@@ -79,17 +79,19 @@ public class EffettuaOrdine extends HttpServlet {
 
                         GestioneOrdiniService gestioneOrdiniService = new GestioneOrdiniService();
                         gestioneOrdiniService.effettuaOrdine(ordine);
-
+*/
                         Pagamento pagamento = new Pagamento();
                         pagamento.setData(String.valueOf(new Date(Integer.parseInt(req.getParameter("dataScadenza").substring(0, 4)) - 1900, Integer.parseInt(req.getParameter("dataScadenza").substring(5, 7)) - 1, 1)));
                         pagamento.setCvv(req.getParameter("cvv"));
-                        pagamento.setValorePagamento(prezzoTotale);
                         pagamento.setNumeroCarta(req.getParameter("carta"));
-
+/*
                         PagamentoService pagamentoService = new PagamentoAdapter();
                         boolean b = pagamentoService.pagamento(pagamento);
-
-                        if (b) {
+*/
+                        GestioneOrdiniService ordiniService = new GestioneOrdiniService();
+                        try {
+                            //pagamento va a buon fine
+                            ordiniService.effettuaOrdine(ordine,pagamento);
                             Carrello carrello = new Carrello();
                             carrello.setContenutoCarrello(new ArrayList<ContenutoCarrello>());
 
@@ -98,9 +100,10 @@ public class EffettuaOrdine extends HttpServlet {
                             req.setAttribute("Successo", true);
                             RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
                             dispatcher.forward(req, resp);
-                        } else {
-                            req.setAttribute("Pagamento-Fallito", false);
-                            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/carrello.jsp");
+                        } catch (Exception e) {
+                            //pagamento fallito
+                            req.setAttribute("Pagamento-Fallito", true);
+                            RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaCarrello");
                             dispatcher.forward(req, resp);
                         }
                     } else {

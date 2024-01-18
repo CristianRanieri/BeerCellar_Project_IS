@@ -30,6 +30,14 @@
   </div>
   <% }%>
 
+  <!--Pagamento-Fallito:-->
+  <% if(request.getAttribute("Pagamento-Fallito")!=null){%>
+  <div id="blocco-messaggio-cambiamenti">
+      <h2>Pagamento Fallito!</h2>
+      <h3>Il pagamento dell'ordine è fallito, le consigliamo di fare più attenzione nell'inserimento dei dati oppure di utilizzare un'altra carta di credito.</h3>
+  </div>
+  <% }%>
+
   <!--CARRELLO:-->
   <h2 id="h3_carrello">Carrello</h2>
 
