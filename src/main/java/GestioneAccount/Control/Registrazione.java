@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountException;
 import GestioneAccount.Service.AccountService;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
@@ -36,10 +37,9 @@ public class Registrazione extends HttpServlet {
                 account.setPassword(req.getParameter("pass"));
 
                 AccountService accountService= new AccountService();
-                account = accountService.registraUtente(account);
-                if (account!=null){
+                try {
+                    accountService.registraUtente(account);
                     //la registrazione ha avuto successo
-
                     //si setta il carrello carrello
                     account.setCarrello(((Account)req.getSession().getAttribute("account")).getCarrello());
 
@@ -49,13 +49,12 @@ public class Registrazione extends HttpServlet {
                     //si effettua il redirect verso la pagina di home
                     resp.sendRedirect("index.jsp");
 
-                }else {
+                } catch (AccountException e) {
                     //la registrazione non ha avuto successo, l'email indicata è gia registrata, quindi si setta l'attributo di errore e si restituisce nuovalemnte la pagina di registrazione
                     req.setAttribute("error1", true);
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/registrazione.jsp");
                     dispatcher.forward(req, resp);
                 }
-
             }else {
                 //almeno un input non rispetta il formato, si setta l'attributo di errore e si restituisce nuovalemnte la pagina di registrazione
                 req.setAttribute("error2", true);

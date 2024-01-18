@@ -10,7 +10,7 @@ public class GestioneCredenzialiService {
      * @param account  da registrare nel databse.
      * @return account se la registrazione va a buon fine altrimenti null.
      */
-     public Account registraUtente(Account account){
+     public void registraUtente(Account account) throws AccountException {
          AccountDAO accountDAO= new AccountDAO();
          CarrelloDAO carrelloDAO= new CarrelloDAO();
 
@@ -20,11 +20,8 @@ public class GestioneCredenzialiService {
 
              //si crea il carrello dell'utente
              carrelloDAO.creaCarrello(account.getId());
-         }else {
-             //esiste gia un account con questa email
-             account = null;
-         }
-         return account;
+         }else
+             throw new AccountException("email gia in utilizzo");
      }
 
     /**
@@ -32,16 +29,15 @@ public class GestioneCredenzialiService {
      * @param account che contine la nuova passowrd e nome del account.
      * @return true se la password è diversa dal quella attuale altrimenti false.
      */
-    public boolean modificaDatiAccount(Account account){
+    public void modificaDatiAccount(Account account) throws AccountException {
         AccountDAO accountDAO= new AccountDAO();
         Account accountSearch = accountDAO.getUtenteByEmailPass(account);
 
        if(accountSearch==null){
             //le password sono diverse quidi si effettua la modifica
             accountDAO.updateNomePassword(account);
-            return true;
-        }
-        //le password sono uguali
-        return false;
+        }else
+           //le password sono uguali
+            throw new AccountException("le password sono uguali");
     }
 }

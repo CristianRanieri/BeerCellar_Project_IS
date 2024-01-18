@@ -12,7 +12,7 @@ public class GestioneUtenteService {
      * @param session sessione nel quale inserire l'account.
      * @return true nel caso in cui il login avviene con successo alotrimenti false.
      */
-    public boolean login(Account account, HttpSession session){
+    public void login(Account account, HttpSession session) throws AccountException {
         AccountDAO accountDAO= new AccountDAO();
         Carrello carrelloAttuale = account.getCarrello();
 
@@ -26,11 +26,9 @@ public class GestioneUtenteService {
                 //si setta il carrello in sessione nella nuova istanza di account
                 account.setCarrello(carrelloAttuale);
             }
-
             session.setAttribute("account", account);
-        }
-
-        return account!=null;
+        }else
+            throw new AccountException("credenziali non esistenti");
     }
 
     /**

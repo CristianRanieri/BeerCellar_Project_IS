@@ -113,10 +113,6 @@ public class RegistrazioneTest {
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
         Mockito.lenient().when(request.getParameter("confermaPass")).thenReturn(confermaPass);
-
-
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
     @Test //TC_3_12
@@ -159,9 +155,6 @@ public class RegistrazioneTest {
         Mockito.lenient().when(request.getParameter("confermaPass")).thenReturn(confermaPass);
 
         Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/registrazione.jsp")).thenReturn(requestDispatcher);
-
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
     @Test //TC_3_07

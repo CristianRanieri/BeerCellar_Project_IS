@@ -117,8 +117,6 @@ public class LoginTest {
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
 
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
     @Test
@@ -158,9 +156,6 @@ public class LoginTest {
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
 
         Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/login.jsp")).thenReturn(requestDispatcher);
-
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
     @Test
@@ -303,9 +298,6 @@ public class LoginTest {
         // Simula i parametri di richiesta
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
-
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
 

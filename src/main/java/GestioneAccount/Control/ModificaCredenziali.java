@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountException;
 import GestioneAccount.Service.AccountService;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
@@ -36,15 +37,14 @@ public class ModificaCredenziali extends HttpServlet {
                 account.setId(((Account) req.getSession().getAttribute("account")).getId());
 
                 AccountService accountService= new AccountService();
-                boolean b = accountService.modificaDatiAccount(account);
-
-                if(b){
+                try {
+                    accountService.modificaDatiAccount(account);
                     //la modifica è stata effettuata nel modo corretto, si setta un attributo per notificare la corretta modfica
                     req.setAttribute("corretto",true);
                     account= (Account)req.getSession().getAttribute("account");
                     account.setNome(req.getParameter("nome"));
                     account.setPassword(req.getParameter("pass"));
-                }else {
+                } catch (AccountException e) {
                     //la modifica non è andata a boun fine, la pasword inserita è uguale a quella registrata
                     req.setAttribute("error1",true);
                 }

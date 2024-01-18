@@ -9,16 +9,16 @@ public class AccountService {
         this.gestioneCredenzialiService = new GestioneCredenzialiService();
     }
 
-    public Account registraUtente(Account account){
-        return gestioneCredenzialiService.registraUtente(account);
+    public void registraUtente(Account account) throws AccountException {
+        gestioneCredenzialiService.registraUtente(account);
     }
 
-    public boolean modificaDatiAccount(Account account){
-        return gestioneCredenzialiService.modificaDatiAccount(account);
+    public void modificaDatiAccount(Account account) throws AccountException {
+        gestioneCredenzialiService.modificaDatiAccount(account);
     }
 
-    public boolean login(Account account,HttpSession session){
-        return gestioneUtenteService.login(account,session);
+    public void login(Account account,HttpSession session) throws AccountException {
+        gestioneUtenteService.login(account,session);
     }
 
     public void logout(HttpSession session){
