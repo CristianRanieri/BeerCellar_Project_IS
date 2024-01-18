@@ -29,8 +29,8 @@
     <!--SUCCESSO:-->
     <% if(request.getParameter("successo-modifica")!=null && ((Account)session.getAttribute("account")).isGestore()){%>
       <div id="blocco-messaggio-successo">
-        <h2>Prodotto Modoficato</h2>
-        <h3>La modofica del prodotto è stata effettuata con successo.</h3>
+        <h2>Prodotto Modificato</h2>
+        <h3>La modifica del prodotto è stata effettuata con successo.</h3>
       </div>
     <% }%>
     <!--SUCCESSO:-->
