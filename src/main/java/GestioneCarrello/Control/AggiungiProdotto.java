@@ -61,17 +61,10 @@ public class AggiungiProdotto extends HttpServlet {
                         account.getCarrello().getContenutoCarrello().add(c);
                     }
 
-                    //calcolo il prezzo totale
-                    double prezzoTotale=0;
-                    for(ContenutoCarrello contenutoCarrello : account.getCarrello().getContenutoCarrello()){
-                        prezzoTotale+= contenutoCarrello.getProdotto().getPrezzo()*contenutoCarrello.getQuantita();
-                    }
-                    req.setAttribute("prezzoTotale", BigDecimal.valueOf(prezzoTotale).setScale(2, RoundingMode.HALF_UP).doubleValue());
-
-                    RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/carrello.jsp");
-                    dispatcher.forward(req,resp);
+                    resp.sendRedirect("visualizzaCarrello");
                 }else {
                     //il prodotto non esiste o non in catalogo
+                    req.setAttribute("errore-prodotto-null",true);
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
                 }

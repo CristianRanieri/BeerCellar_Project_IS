@@ -34,17 +34,18 @@ public class VisualizzaProdotto extends HttpServlet {
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prodotto.jsp");
                             dispatcher.forward(request, response);
                         } else {
+                            request.setAttribute("errore-prodotto-null",true);
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                             dispatcher.forward(request, response);
                         }
                     }
                 } else {
-                    request.setAttribute("errore-prodotto-null", true);
+                    request.setAttribute("errore-prodotto-null",true);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(request, response);
                 }
             } else {
-                request.setAttribute("errore-prodotto-null", true);
+                request.setAttribute("errore-prodotto-null",true);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                 dispatcher.forward(request, response);
             }
