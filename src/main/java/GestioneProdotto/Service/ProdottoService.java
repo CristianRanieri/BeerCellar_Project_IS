@@ -4,12 +4,15 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Part;
 import model.DAO.ProdottoDAO;
 import model.entity.Prodotto;
+import org.apache.taglibs.standard.lang.jstl.ELException;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ProdottoService {
     ProdottoDAO prodottoDAO = new ProdottoDAO();
@@ -56,8 +59,21 @@ public class ProdottoService {
      * questa funzionalita permette di modificare un prodotto.
      * @param prodotto prodotto contente i valori da modificare.
      */
-    public void modificaProdotto(Prodotto prodotto){
-        prodottoDAO.modificaProdotto(prodotto);
+    public void modificaProdotto(Prodotto prodotto, Part immage, ServletContext context) throws ELException, Error, IOException {
+        Prodotto prodottoInDB = prodottoDAO.getProdottoById(prodotto.getId());
+
+        if(prodottoInDB!=null) {
+            if (prodottoInDB.isTheSame(prodotto) && immage.getSize() == 0) {
+                throw new ELException();
+            } else {
+                prodottoDAO.modificaProdotto(prodotto);
+
+                if (immage.getSize() != 0 && immage.getContentType().contains("image")){
+                    this.salvaImmagine(immage, prodotto.getId(), context);
+                }
+            }
+        }else
+            throw new Error();
     }
 
     /**

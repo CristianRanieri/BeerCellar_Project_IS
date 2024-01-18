@@ -3,6 +3,8 @@ package GestioneProdotto.Service;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Part;
 import model.entity.Prodotto;
+import org.apache.taglibs.standard.lang.jstl.ELException;
+
 import java.io.IOException;
 
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class GestioneProdottoService {
         prodottoService.salvaImmagine(immagine, id, servletContext);
     }
     public boolean creaProdotto(Prodotto prodotto){return prodottoService.creaProdotto(prodotto);}
-    public void modificaProdotto(Prodotto prodotto){prodottoService.modificaProdotto(prodotto);}
+    public void modificaProdotto(Prodotto prodotto,Part immage,ServletContext context) throws ELException, IOException {prodottoService.modificaProdotto(prodotto, immage, context);}
 
     public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore , ArrayList<String> filtro, int offset){
         return prodottoService.ricercaProdottiFiltro(formato, gestore, filtro, offset);
