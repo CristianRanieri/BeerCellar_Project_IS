@@ -21,7 +21,7 @@
 
 <c:if test="${requestScope.error2}">
     <div id="blocco-messaggio-cambiamenti">
-        <h3>Credenziali non valide, creazione registrazione non effettuata.</h3>
+        <h3>Credenziali non valide, registrazione non effettuata.</h3>
     </div>
 </c:if>
 
