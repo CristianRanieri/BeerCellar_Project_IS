@@ -1,11 +1,9 @@
 package RicercaProdotti.Control;
 
-import GestioneProdotto.Service.ProdottoService;
 import Utils.Other.Permesso;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSession;
 import model.entity.Account;
 
@@ -39,14 +37,12 @@ public class RicercaProdottoFiltroTest {
     @Mock
     private RequestDispatcher requestDispatcher;
     @Mock
-    private ProdottoService prodottoService;
-    @Mock
     private Account account;
     @InjectMocks
     private RicercaProdottiFiltro ricercaProdottiFiltroServlet;
 
     @BeforeEach
-    public void setUp() throws ServletException {
+    public void setUp(){
         ArrayList<Permesso> permessi = new ArrayList<>();
         //Gestione Account
         permessi.add(new Permesso("Ospite","Login","doPost"));

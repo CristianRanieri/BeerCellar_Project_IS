@@ -1,10 +1,8 @@
 package GestioneOrdini.Control;
 
-import GestioneOrdini.Service.OrdiniService;
 import Utils.Other.Permesso;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -40,16 +38,13 @@ public class RicercaOrdiniTest {
     private RequestDispatcher requestDispatcher;
 
     @Mock
-    private OrdiniService ordiniService;
-
-    @Mock
     private Account account;
 
     @InjectMocks
     private RicercaOrdini ricercaOrdiniServlet;
 
     @BeforeEach
-    public void setUp() throws ServletException {
+    public void setUp(){
         ArrayList<Permesso> permessi = new ArrayList<>();
         //Gestione Account
         permessi.add(new Permesso("Ospite","Login","doPost"));

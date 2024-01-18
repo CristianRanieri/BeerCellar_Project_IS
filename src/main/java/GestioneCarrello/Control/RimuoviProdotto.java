@@ -52,15 +52,7 @@ public class RimuoviProdotto extends HttpServlet {
                     if(cDaRimuovere!=null)
                         account.getCarrello().getContenutoCarrello().remove(cDaRimuovere);
 
-                    //calcolo il prezzo totale
-                    double prezzoTotale=0;
-                    for(ContenutoCarrello contenutoCarrello : account.getCarrello().getContenutoCarrello()){
-                        prezzoTotale+= contenutoCarrello.getProdotto().getPrezzo()*contenutoCarrello.getQuantita();
-                    }
-                    req.setAttribute("prezzoTotale", BigDecimal.valueOf(prezzoTotale).setScale(2, RoundingMode.HALF_UP).doubleValue());
-
-                    RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/carrello.jsp");
-                    dispatcher.forward(req,resp);
+                    resp.sendRedirect("visualizzaCarrello");
                 }else {
                     //il prodotto non esiste o non in cataloglo
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
