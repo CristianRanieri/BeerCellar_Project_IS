@@ -8,6 +8,17 @@
     padding: 5em;
 }
 
+.contenitore_glutine {
+    display: flex;
+    justify-content: center;
+    border-radius: 0.3em;
+    border: rgba(0, 128, 24, 0.66) solid 0.1em;
+    padding: 0.3em;
+    color: rgba(0, 128, 24, 0.66);
+    max-width: 9em;
+    text-shadow: rgba(28, 17, 10, 0.45) 1px 1px 2px;
+}
+
 .contenitore_immagine {
     min-width: 20em;
     max-width: 30em;

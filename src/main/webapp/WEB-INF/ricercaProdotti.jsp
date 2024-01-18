@@ -80,9 +80,16 @@
            <a href="visualizzaProdotto?id_prodotto=<%=prodotto.getId()%>"> <img  class="img_prodotto" src="${pageContext.request.contextPath}<%="/upload/ID_"+prodotto.getId()+".png"%>"></a>
         </div>
         <h3><%=prodotto.getNome()%></h3>
+        <%if (!prodotto.isGlutine()){%>
+            <div class="contenitore_glutine"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Gluten Free</div>
+        <%}%>
         <form action="visualizzaProdotto" method="get">
             <div class="div-button">
-                <input type="submit" value="Acquista Prodotto" class="button-acquista">
+                <%if(((Account)session.getAttribute("account")).isGestore()){%>
+                    <input type="submit" value="Vedi" class="button-acquista">
+                <%} else {%>
+                    <input type="submit" value="Acquista" class="button-acquista">
+                <%}%>
                 <input type="hidden" value="<%=prodotto.getId()%>" name="id_prodotto">
             </div>
         </form>

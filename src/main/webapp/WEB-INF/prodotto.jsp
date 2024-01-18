@@ -60,10 +60,15 @@
 
       <div class="contenitore_informazioni">
         <h2><%=prodotto.getNome()%></h2>
+        <%if (!prodotto.isGlutine()){%>
+          <div class="contenitore_glutine"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Gluten Free</div>
+        <%}%>
         <p><%=prodotto.getFormato()%></p>
         <p><%=prodotto.getStile()%></p>
         <p><%=prodotto.getColore()%></p>
         <p><%=prodotto.getBirrificio()%></p>
+        <p><%=prodotto.getFermentazione()%></p>
+        <p><%=prodotto.getTassoAlcolico()%>%</p>
         <h3>€<%=prodotto.getPrezzo()%></h3>
 
 
