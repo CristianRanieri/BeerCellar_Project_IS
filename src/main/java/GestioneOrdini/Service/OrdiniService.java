@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class OrdiniService {
 
@@ -65,7 +66,15 @@ public class OrdiniService {
             ordini= ordineDAO.getOrdiniAll(offset);
         else
             ordini= ordineDAO.getOrdiniUtente(account.getId(),offset);
-
+        ordini.sort(new Comparator<Ordine>() {
+            @Override
+            public int compare(Ordine o1, Ordine o2) {
+                if(o1.getId() < o2.getId())
+                    return 1;
+                else
+                    return -1;
+            }
+        });
         return ordini;
     }
 }
