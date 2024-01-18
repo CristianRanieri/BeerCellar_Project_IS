@@ -2,10 +2,7 @@ package GestioneOrdini.Service;
 
 import Utils.Other.Pagamento;
 import model.DAO.OrdineDAO;
-import model.entity.Account;
-import model.entity.AcquistoProdotto;
-import model.entity.ContenutoCarrello;
-import model.entity.Ordine;
+import model.entity.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -36,6 +33,10 @@ public class OrdiniService {
         if(b) {
             OrdineDAO ordineDAO = new OrdineDAO();
             ordineDAO.creaOrdine(ordine);
+
+            Carrello carrello = new Carrello();
+            carrello.setContenutoCarrello(new ArrayList<ContenutoCarrello>());
+            ordine.getAccount().setCarrello(carrello);
         }else {
             throw new Exception();
         }

@@ -20,9 +20,7 @@ public class GestioneProdottoService {
     public Prodotto getProdotto(int id){
         return prodottoService.getProdotto(id);
     }
-    public void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
-        prodottoService.salvaImmagine(immagine, id, servletContext);
-    }
+
     public void creaProdotto(Prodotto prodotto, Part image, ServletContext context) throws IOException {
         prodottoService.creaProdotto(prodotto, image, context);
     }

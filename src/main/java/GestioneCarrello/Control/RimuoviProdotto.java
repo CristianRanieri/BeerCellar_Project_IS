@@ -41,9 +41,8 @@ public class RimuoviProdotto extends HttpServlet {
                     carrelloService.rimuoviProdotto(Integer.parseInt(req.getParameter("id")), req.getSession());
                     resp.sendRedirect("visualizzaCarrello");
                 } catch (Exception e) {
-                    //il prodotto non esiste o non in cataloglo
-                    RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
-                    dispatcher.forward(req,resp);
+                    //il prodotto non è nel carrello
+                    resp.sendRedirect("visualizzaCarrello");
                 }
             }else {
                 //gli input non sono validi

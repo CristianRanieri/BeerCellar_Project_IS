@@ -1,6 +1,8 @@
 package GestioneProdotto.Service;
 
+import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import model.DAO.ProdottoDAO;
 import model.entity.Prodotto;
@@ -42,7 +44,7 @@ public class ProdottoService {
      * @param id codice univoco del prodotto
      * @param servletContext il ServletContext per gestire il path
      */
-    public void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
+    private void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
         String destinazione = "upload" + File.separator + "ID_" + id + ".png";
         Path pathDestinazione = Paths.get(servletContext.getRealPath(destinazione));
 
@@ -81,11 +83,10 @@ public class ProdottoService {
      *
      * @param formato il formato delle birre da ricercare
      * @param gestore se il valore è true ricerca anche i prodotti non in catalogo altrimenti solo quelli in catalogo.
-     * @param filtro lista dlle caratterisitche su cui i prodotti vengono filtriati (Stile,Colore,TassoAlcolico)
      * @param offset il numero dal quale parte la selezione dei prodotti idonei al nome.
      * @return la lista dei prodotti idonei al filtro.
      */
-    public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore ,ArrayList<String> filtro, int offset){
+    public ArrayList<Prodotto> ricercaProdottiFiltro(String formato,boolean gestore,ArrayList<String> filtro,int offset){
         return prodottoDAO.getProdottiConFiltro(formato, gestore, filtro, offset);
     }
 
@@ -96,9 +97,7 @@ public class ProdottoService {
      * @param offset il numero dal quale parte la selezione dei prodotti idonei al nome.
      * @return la lista dei prodotti che hanno come sottostringa i nomi indicati.
      */
-    public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){
-        return prodottoDAO.getProdottiPerNome(nomi, gestore,offset);
-    }
+    public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){return prodottoDAO.getProdottiPerNome(nomi, gestore,offset);}
 
     /**
      * questa operazione permette di ottenere i prodotti piu venduti.

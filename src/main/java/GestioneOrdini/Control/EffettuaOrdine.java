@@ -51,7 +51,6 @@ public class EffettuaOrdine extends HttpServlet {
                 ) {
                     //controllo validita carrello
                     if (ValidaCarrello.validazioneCarrello(account.getCarrello())) {
-
                         //Gli input sono validi
                         Ordine ordine = new Ordine();
                         ordine.setAccount(account);
@@ -62,40 +61,16 @@ public class EffettuaOrdine extends HttpServlet {
                         ordine.setCitta(req.getParameter("citta"));
                         ordine.setIndirizzo(req.getParameter("indirizzo"));
                         ordine.setProvincia(req.getParameter("provincia"));
-/*
-                        double prezzoTotale = 0;
-                        ArrayList<AcquistoProdotto> prodotti = new ArrayList<>();
 
-                        for (ContenutoCarrello cc : account.getCarrello().getContenutoCarrello()) {
-                            AcquistoProdotto acquistoProdotto = new AcquistoProdotto();
-                            acquistoProdotto.setProdotto(cc.getProdotto());
-                            acquistoProdotto.setQuantita(cc.getQuantita());
-                            acquistoProdotto.setPrezzoAcquisto(cc.getProdotto().getPrezzo());
-                            prodotti.add(acquistoProdotto);
-                            prezzoTotale += cc.getProdotto().getPrezzo() * cc.getQuantita();
-                        }
-                        ordine.setPrezzoTotale(BigDecimal.valueOf(prezzoTotale).setScale(2, RoundingMode.HALF_UP).doubleValue());
-                        ordine.setProdotti(prodotti);
-
-                        GestioneOrdiniService gestioneOrdiniService = new GestioneOrdiniService();
-                        gestioneOrdiniService.effettuaOrdine(ordine);
-*/
                         Pagamento pagamento = new Pagamento();
                         pagamento.setData(String.valueOf(new Date(Integer.parseInt(req.getParameter("dataScadenza").substring(0, 4)) - 1900, Integer.parseInt(req.getParameter("dataScadenza").substring(5, 7)) - 1, 1)));
                         pagamento.setCvv(req.getParameter("cvv"));
                         pagamento.setNumeroCarta(req.getParameter("carta"));
-/*
-                        PagamentoService pagamentoService = new PagamentoAdapter();
-                        boolean b = pagamentoService.pagamento(pagamento);
-*/
+
                         GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                         try {
                             //pagamento va a buon fine
                             ordiniService.effettuaOrdine(ordine,pagamento);
-                            Carrello carrello = new Carrello();
-                            carrello.setContenutoCarrello(new ArrayList<ContenutoCarrello>());
-
-                            account.setCarrello(carrello);
 
                             req.setAttribute("Successo", true);
                             RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");

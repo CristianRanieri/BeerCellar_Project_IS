@@ -60,26 +60,21 @@ public class CarrelloService {
         //controllare che il prodotto esite e che sia in catalogo
         Account account = (Account) session.getAttribute("account");
 
-        ProdottoDAO prodottoDAO = new ProdottoDAO();
-
-        Prodotto prodotto = prodottoDAO.getProdottoById(Integer.parseInt(String.valueOf(idProdotto)));
-        if (prodotto != null && prodotto.isInCatalogo()) {
-            //il prodotto esiste ed è in catalogo
-            //controllo che il prodotto non sia nel carrello
-            ContenutoCarrello cDaRimuovere = null;
-            for (ContenutoCarrello cc : account.getCarrello().getContenutoCarrello()) {
-                if (cc.getProdotto().getId() == Integer.parseInt(String.valueOf(idProdotto))){
-                    //il prodotto è gia presente, aumento solo la quantita
-                    cDaRimuovere = cc;
-                }
+        //controllo che il prodotto non sia nel carrello
+        ContenutoCarrello cDaRimuovere = null;
+        for (ContenutoCarrello cc : account.getCarrello().getContenutoCarrello()) {
+            if (cc.getProdotto().getId() == Integer.parseInt(String.valueOf(idProdotto))){
+                //il prodotto è presente, quindi lo memorizzo
+                cDaRimuovere = cc;
             }
-
-            //il prodotto non è presente, lo rimuovo
-            if (cDaRimuovere != null)
-                account.getCarrello().getContenutoCarrello().remove(cDaRimuovere);
-        }else {
-            throw new Exception();
         }
+
+        if (cDaRimuovere != null)
+            //il prodotto è presente, lo rimuovo
+            account.getCarrello().getContenutoCarrello().remove(cDaRimuovere);
+        else
+            //il prodotto non è presente, lancio eccezione
+            throw new Exception();
     }
 
 }
