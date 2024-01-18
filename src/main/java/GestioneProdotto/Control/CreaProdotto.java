@@ -65,8 +65,7 @@ public class CreaProdotto extends HttpServlet {
                 prodotto.setDescrizione(request.getParameter("descrizione"));
 
                 GestioneProdottoService gestioneProdottoService = new GestioneProdottoService();
-                gestioneProdottoService.creaProdotto(prodotto);
-                gestioneProdottoService.salvaImmagine(request.getPart("immagineBirra"), prodotto.getId(), request.getServletContext());
+                gestioneProdottoService.creaProdotto(prodotto,request.getPart("immagineBirra"),request.getServletContext());
 
                 response.sendRedirect("visualizzaProdotto?Successo=true&id_prodotto=" + prodotto.getId());
             }

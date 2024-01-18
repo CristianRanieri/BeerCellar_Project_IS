@@ -23,8 +23,10 @@ public class GestioneProdottoService {
     public void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
         prodottoService.salvaImmagine(immagine, id, servletContext);
     }
-    public boolean creaProdotto(Prodotto prodotto){return prodottoService.creaProdotto(prodotto);}
-    public void modificaProdotto(Prodotto prodotto,Part immage,ServletContext context) throws ELException, IOException {prodottoService.modificaProdotto(prodotto, immage, context);}
+    public void creaProdotto(Prodotto prodotto, Part image, ServletContext context) throws IOException {
+        prodottoService.creaProdotto(prodotto, image, context);
+    }
+    public void modificaProdotto(Prodotto prodotto,Part image,ServletContext context) throws ELException, IOException {prodottoService.modificaProdotto(prodotto, image, context);}
 
     public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore , ArrayList<String> filtro, int offset){
         return prodottoService.ricercaProdottiFiltro(formato, gestore, filtro, offset);
