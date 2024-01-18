@@ -6,6 +6,7 @@ import Utils.Other.Permesso;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSession;
 import model.entity.Account;
 
@@ -54,7 +55,7 @@ public class LoginTest {
     private Login loginServlet;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws ServletException {
         ArrayList<Permesso> permessi = new ArrayList<>();
         //Gestione Account
         permessi.add(new Permesso("Ospite","Login","doPost"));

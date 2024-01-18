@@ -1,5 +1,7 @@
 package GestioneCarrello.Control;
 
+import GestioneCarrello.Service.CarrelloService;
+import GestioneCarrello.Service.GestioneCarrelloService;
 import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
@@ -34,26 +36,11 @@ public class RimuoviProdotto extends HttpServlet {
             if(req.getParameter("id") != null && PatternInput.numeri1_4Cifre(req.getParameter("id")))
             {
                 //giu input sono validi
-                //controllare che il prodotto esite e che sia in catalogo
-                GestioneProdottoService serviceProdotto = new GestioneProdottoService();
-                Prodotto prodotto= serviceProdotto.getProdotto(Integer.parseInt(req.getParameter("id")));
-                if(prodotto != null && prodotto.isInCatalogo()){
-                    //il prodotto esiste ed è in catalogo
-                    //controllo che il prodotto non sia nel carrello
-                    ContenutoCarrello cDaRimuovere= null;
-                    for(ContenutoCarrello cc: account.getCarrello().getContenutoCarrello()){
-                        if(cc.getProdotto().getId() == Integer.parseInt(req.getParameter("id"))) {
-                            //il prodotto è gia presente, aumento solo la quantita
-                            cDaRimuovere = cc;
-                        }
-                    }
-
-                    //il prodotto non è presente, lo rimuovo
-                    if(cDaRimuovere!=null)
-                        account.getCarrello().getContenutoCarrello().remove(cDaRimuovere);
-
+                GestioneCarrelloService carrelloService= new GestioneCarrelloService();
+                try {
+                    carrelloService.rimuoviProdotto(Integer.parseInt(req.getParameter("id")), req.getSession());
                     resp.sendRedirect("visualizzaCarrello");
-                }else {
+                } catch (Exception e) {
                     //il prodotto non esiste o non in cataloglo
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
