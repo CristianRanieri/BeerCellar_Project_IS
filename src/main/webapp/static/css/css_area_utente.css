@@ -4,6 +4,14 @@
     margin-top: 3em;
 }
 
+.contenitore_id_utente {
+    color: rgba(28, 17, 10, 0.52);
+}
+
+.toggle-icon {
+    cursor: pointer;
+}
+
 .contenitore_seleziona_opzione_area_utente {
     display: flex;
     flex-direction: column;
