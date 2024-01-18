@@ -52,9 +52,9 @@
 
 
     <% if(request.getAttribute("tassoAlcolico")!= null){%>
-        <input type="text" id="tasso_alcolico" name="tassoAlcolico" value="<%=request.getAttribute("tassoAlcolico")%>">
+        <input type="text" id="tasso_alcolico" name="tassoAlcolico" value="<%=request.getAttribute("tassoAlcolico")%>" placeholder="Tasso Alcolico(es. 6.0)">
     <%} else{%>
-        <input type="text" id="tasso_alcolico" name="tassoAlcolico">
+        <input type="text" id="tasso_alcolico" name="tassoAlcolico" placeholder="Tasso Alcolico(es. 6.0)">
     <%}%>
 
     <button type="submit" id="button_ricerca">Ricerca</button>
