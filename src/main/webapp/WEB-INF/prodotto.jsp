@@ -63,12 +63,12 @@
         <%if (!prodotto.isGlutine()){%>
           <div class="contenitore_glutine"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Gluten Free</div>
         <%}%>
-        <p><%=prodotto.getFormato()%></p>
-        <p><%=prodotto.getStile()%></p>
-        <p><%=prodotto.getColore()%></p>
-        <p><%=prodotto.getBirrificio()%></p>
-        <p><%=prodotto.getFermentazione()%></p>
-        <p><%=prodotto.getTassoAlcolico()%>%</p>
+        <p><b>Formato:</b> <%=prodotto.getFormato()%></p>
+        <p><b>Stile:</b> <%=prodotto.getStile()%></p>
+        <p><b>Colore:</b> <%=prodotto.getColore()%></p>
+        <p><b>Birrificio:</b> <%=prodotto.getBirrificio()%></p>
+        <p><b>Fermentazione:</b> <%=prodotto.getFermentazione()%></p>
+        <p><b>Tasso Alcolico:</b> <%=prodotto.getTassoAlcolico()%>%</p>
         <h3>€<%=prodotto.getPrezzo()%></h3>
 
 
