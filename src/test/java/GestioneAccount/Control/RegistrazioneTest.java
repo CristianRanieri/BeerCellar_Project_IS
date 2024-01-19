@@ -279,7 +279,7 @@ public class RegistrazioneTest {
 
     @Test //TC_03_05
     public void testDoGetEmailLungaNomeLunghezza2() throws Exception {
-        this.setUpEmailRegistrata("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.info","1234aAa!","1234aAa!","Su");
+        this.setUpEmailRegistrata("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.info","1234aAa!","1234aAa!","Su");
         // Esegui la servlet
         registrazioneServlet.doGet(request, response);
         // Verifica il comportamento atteso
