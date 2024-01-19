@@ -23,7 +23,7 @@ public class CarrelloService {
         carrelloDAO.caricaCarrello(carrello, id);
     }
 
-    public void aggiungiProdotto(int idProdotto, int quantita, HttpSession session) throws Exception {
+    public void aggiungiProdotto(int idProdotto, int quantita, HttpSession session) throws CarrelloException {
         //controllare che il prodotto esite e che sia in catalogo
         Account account= (Account) session.getAttribute("account");
 
@@ -43,7 +43,6 @@ public class CarrelloService {
                     b=false;
                 }
             }
-
             //il prodotto non è gia presente, lo inserisco
             if(b) {
                 ContenutoCarrello c= new ContenutoCarrello();
@@ -51,12 +50,12 @@ public class CarrelloService {
                 c.setQuantita(quantita);
                 account.getCarrello().getContenutoCarrello().add(c);
             }
-        }else {
-            throw new Exception();
-        }
+        }else
+            //il prodotto non esiste o non è in catalogo
+            throw new CarrelloException("il prodotto non esiste o non è in catalogo");
     }
 
-    public void rimuoviProdotto(int idProdotto,HttpSession session) throws Exception {
+    public void rimuoviProdotto(int idProdotto,HttpSession session) throws CarrelloException {
         //controllare che il prodotto esite e che sia in catalogo
         Account account = (Account) session.getAttribute("account");
 
@@ -74,7 +73,7 @@ public class CarrelloService {
             account.getCarrello().getContenutoCarrello().remove(cDaRimuovere);
         else
             //il prodotto non è presente, lancio eccezione
-            throw new Exception();
+            throw new CarrelloException("il prodotto non è presente nel carrello");
     }
 
 }

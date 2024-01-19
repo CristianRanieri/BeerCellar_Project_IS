@@ -30,6 +30,13 @@
   </div>
   <% }%>
 
+  <!--ERRORE:-->
+  <% if(request.getAttribute("Input-Invalido")!=null){%>
+  <div id="blocco-messaggio-cambiamenti">
+      <h3>Input non validi.</h3>
+  </div>
+  <% }%>
+
   <!--Pagamento-Fallito:-->
   <% if(request.getAttribute("Pagamento-Fallito")!=null){%>
   <div id="blocco-messaggio-cambiamenti">

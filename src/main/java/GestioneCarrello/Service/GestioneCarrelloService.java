@@ -12,8 +12,8 @@ public class GestioneCarrelloService {
         carrelloService.caricaCarrello(carrello,id);
     }
 
-    public void rimuoviProdotto(int idProdotto, HttpSession session) throws Exception{ carrelloService.rimuoviProdotto(idProdotto, session);}
+    public void rimuoviProdotto(int idProdotto, HttpSession session) throws CarrelloException { carrelloService.rimuoviProdotto(idProdotto, session);}
 
-    public void aggiungiProdotto(int idProdotto, int quantita, HttpSession session) throws Exception {carrelloService.aggiungiProdotto(idProdotto, quantita, session);}
+    public void aggiungiProdotto(int idProdotto, int quantita, HttpSession session) throws CarrelloException {carrelloService.aggiungiProdotto(idProdotto, quantita, session);}
     private CarrelloService carrelloService;
 }

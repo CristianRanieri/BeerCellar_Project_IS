@@ -1,5 +1,6 @@
 package GestioneCarrello.Control;
 
+import GestioneCarrello.Service.CarrelloException;
 import GestioneCarrello.Service.CarrelloService;
 import GestioneCarrello.Service.GestioneCarrelloService;
 import GestioneProdotto.Service.GestioneProdottoService;
@@ -32,7 +33,6 @@ public class AggiungiProdotto extends HttpServlet {
             dispatcher.forward(req,resp);
         }else {
             //account di tipo Utente loggato oppure non loggato
-            //ho dei valori da validare?
             //controllo i valori
             if(req.getParameter("id") != null && PatternInput.numeri1_4Cifre(req.getParameter("id")) &&
                     req.getParameter("quantita") != null && PatternInput.numeri1_2Cifre(req.getParameter("quantita"))
@@ -41,7 +41,7 @@ public class AggiungiProdotto extends HttpServlet {
                 try {
                     carrelloService.aggiungiProdotto(Integer.parseInt(req.getParameter("id")),Integer.parseInt(req.getParameter("quantita")),req.getSession());
                     resp.sendRedirect("visualizzaCarrello");
-                } catch (Exception e) {
+                } catch (CarrelloException e) {
                     //il prodotto non esiste o non in catalogo
                     req.setAttribute("errore-prodotto-null",true);
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
@@ -50,8 +50,8 @@ public class AggiungiProdotto extends HttpServlet {
             }else {
                 //gli input non sono validi
                 //almeno un input non rispetta il formato, si setta l'attributo di errore e si restituisce la pagina di un errore
-                req.setAttribute("error1", true);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/carrello.jsp");
+                req.setAttribute("Input-Invalido", true);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaCarrello");
                 dispatcher.forward(req, resp);
             }
         }

@@ -1,5 +1,6 @@
 package GestioneCarrello.Control;
 
+import GestioneCarrello.Service.CarrelloException;
 import GestioneCarrello.Service.CarrelloService;
 import GestioneCarrello.Service.GestioneCarrelloService;
 import GestioneProdotto.Service.GestioneProdottoService;
@@ -40,15 +41,15 @@ public class RimuoviProdotto extends HttpServlet {
                 try {
                     carrelloService.rimuoviProdotto(Integer.parseInt(req.getParameter("id")), req.getSession());
                     resp.sendRedirect("visualizzaCarrello");
-                } catch (Exception e) {
+                } catch (CarrelloException e) {
                     //il prodotto non è nel carrello
                     resp.sendRedirect("visualizzaCarrello");
                 }
             }else {
                 //gli input non sono validi
                 //almeno un input non rispetta il formato, si setta l'attributo di errore e si restituisce la pagina di un errore
-                req.setAttribute("error1", true);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/carrello.jsp");
+                req.setAttribute("Input-Invalido", true);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaCarrello");
                 dispatcher.forward(req, resp);
             }
         }
