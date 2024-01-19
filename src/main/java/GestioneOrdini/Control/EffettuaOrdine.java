@@ -1,6 +1,7 @@
 package GestioneOrdini.Control;
 
 import GestioneOrdini.Service.GestioneOrdiniService;
+import GestioneOrdini.Service.OrdiniException;
 import GestioneOrdini.Service.PagamentoAdapter;
 import GestioneOrdini.Service.PagamentoService;
 import Utils.Other.Pagamento;
@@ -75,7 +76,7 @@ public class EffettuaOrdine extends HttpServlet {
                             req.setAttribute("Successo", true);
                             RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaOrdini");
                             dispatcher.forward(req, resp);
-                        } catch (Exception e) {
+                        } catch (OrdiniException e) {
                             //pagamento fallito
                             req.setAttribute("Pagamento-Fallito", true);
                             RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaCarrello");

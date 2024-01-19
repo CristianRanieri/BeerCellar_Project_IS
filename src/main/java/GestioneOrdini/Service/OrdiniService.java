@@ -12,7 +12,7 @@ import java.util.Comparator;
 
 public class OrdiniService {
 
-    public void effettuaOrdine(Ordine ordine,Pagamento pagamento) throws Exception {
+    public void effettuaOrdine(Ordine ordine,Pagamento pagamento) throws OrdiniException {
         double prezzoTotale = 0;
         ArrayList<AcquistoProdotto> prodotti = new ArrayList<>();
 
@@ -38,9 +38,9 @@ public class OrdiniService {
             Carrello carrello = new Carrello();
             carrello.setContenutoCarrello(new ArrayList<ContenutoCarrello>());
             ordine.getAccount().setCarrello(carrello);
-        }else {
-            throw new Exception();
-        }
+        }else
+            //pagamento fallito
+            throw new OrdiniException("pagamento fallito");
     }
 
     //puo essere utilizzato solo dai gestori
