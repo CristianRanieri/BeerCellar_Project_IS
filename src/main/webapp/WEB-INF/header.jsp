@@ -18,7 +18,10 @@
 
       <div class="top-bar">
         <div class="contenitore_logo">
-          <a href="index.jsp"><img src="static/image/logo_project_4K_white.png" alt="logo"></a>
+          <a href="index.jsp"><img src="${pageContext.request.contextPath}/static/image/logo_project_4K_white.png" alt="logo"></a>
+        </div>
+        <div class="contenitore_logo_short">
+          <a href="index.jsp"><img src="${pageContext.request.contextPath}/static/image/logo_short_white.png" alt="logo"></a>
         </div>
 
         <div id="div_ricerca">
