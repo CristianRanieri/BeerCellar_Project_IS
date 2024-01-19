@@ -6,6 +6,8 @@
         <title>Home</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_homepage.css" type="text/css">
+    </head>
+
     <body>
         <jsp:include page="header.jsp">
             <jsp:param name="header" value=""/>
@@ -17,12 +19,6 @@
                 <input type="submit" value="Scopri il catalogo">
             </form>
         </div>
-
-
-
-
-
-
 
         <h2 class="h2_padding">Prodotti piu venduti</h2>
         <div class="contenitore_prodotti_homepage">

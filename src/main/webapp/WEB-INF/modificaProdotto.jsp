@@ -112,6 +112,7 @@
                         <textarea  id="descrizioneProdotto" name="descrizione" minlength="8" maxlength="255" required><%=prodotto.getDescrizione()%></textarea>
                     </div>
                     <br>
+
                     <div class="div_glutine">
                         <label for="gluten">
                         <h3>Con Glutine</h3>
@@ -122,6 +123,7 @@
                         <%}%>
                         </label>
                     </div>
+
                     <div class="div_glutine">
                         <label for="inCatalogo">
                         <h3>In Catalogo</h3>
@@ -141,6 +143,7 @@
                     <input type="text" id="nomeBirrificio" name="nomeBirrificio" value="<%=prodotto.getBirrificio()%>" pattern="^[a-zA-Z0-9 ]{3,30}$" title="Nome formato da lettere minuscole, maiuscole, numeri e spazzi da 3 a 30 caratteri" required>
                 </div>
             </div>
+
             <div id="div_bottone_modifica">
                 <input type="submit" value="MODIFICA PRODOTTO" id="bottone_modifica_prodotto">
             </div>
