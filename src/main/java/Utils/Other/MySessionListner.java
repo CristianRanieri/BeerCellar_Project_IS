@@ -1,5 +1,6 @@
 package Utils.Other;
 
+import GestioneAccount.Service.AccountService;
 import GestioneCarrello.Service.GestioneCarrelloService;
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;
@@ -30,9 +31,10 @@ public class MySessionListner implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent se) {
         // Questo metodo viene chiamato quando una sessione viene chiusa o invalidata
         GestioneCarrelloService gestioneCarrelloService= new GestioneCarrelloService();
+        AccountService accountService = new AccountService();
         Account account= (Account) se.getSession().getAttribute("account");
 
-        if(account.getId()!=-1 && !account.isGestore())
+        if(accountService.isLogged(se.getSession()) && !account.isGestore())
             gestioneCarrelloService.caricaCarrello(account.getCarrello(), account.getId());
     }
 }
