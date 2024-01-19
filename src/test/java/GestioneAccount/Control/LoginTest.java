@@ -16,41 +16,26 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class LoginTest {
-
     @Mock
     private HttpServletRequest request;
-
     @Mock
     private HttpServletResponse response;
-
     @Mock
     private HttpSession session;
-
     @Mock
     private ServletContext servletContext;
-
     @Mock
     private RequestDispatcher requestDispatcher;
-
-    @Mock
-    private AccountService accountService;
-
     @Mock
     private Account account;
-
     @InjectMocks
     private Login loginServlet;
 

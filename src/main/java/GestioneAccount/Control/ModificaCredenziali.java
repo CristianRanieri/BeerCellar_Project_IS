@@ -26,7 +26,7 @@ public class ModificaCredenziali extends HttpServlet {
         if(Permesso.validazioneAccesso(permessi,account1,"ModificaCredenziali","doPost")) {
             //l'utente è loggato
             if(req.getParameter("nome")!=null && req.getParameter("pass")!=null && !req.getParameter("nome").equals("") && !req.getParameter("pass").equals("") &&
-                    PatternInput.nome(req.getParameter("nome")) && PatternInput.password(req.getParameter("pass"))
+                    PatternInput.stringaDa2_30(req.getParameter("nome")) && PatternInput.password(req.getParameter("pass"))
             ){
                 //credenziali valide, si procede con la modifica
                 //si instanziano gli oggetti per eseguire il metodo modificaDatiAccount

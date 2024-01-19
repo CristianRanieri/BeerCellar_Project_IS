@@ -24,7 +24,7 @@ public class Registrazione extends HttpServlet {
         //si controlla se l'utente è gia in sessione, se non è in sessione si procede con la registrazione altrimenti viene indirizzato verso la sua area utente
         if(Permesso.validazioneAccesso(permessi,account1,"Registrazione","doPost")){
             //validazione dell'input
-            if (req.getParameter("nome") != null && PatternInput.nome(req.getParameter("nome")) &&
+            if (req.getParameter("nome") != null && PatternInput.stringaDa2_30(req.getParameter("nome")) &&
                     req.getParameter("email") != null && PatternInput.email(req.getParameter("email")) &&
                     req.getParameter("pass") != null && PatternInput.password(req.getParameter("pass")) &&
                     req.getParameter("confermaPass") != null && PatternInput.password(req.getParameter("confermaPass")) && req.getParameter("confermaPass").equals(req.getParameter("pass"))

@@ -5,11 +5,9 @@
         <title>Area Utente</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_area_utente.css" type="text/css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
-
     </head>
 
     <body>
-
         <jsp:include page="header.jsp">
             <jsp:param name="header" value=""/>
         </jsp:include>
@@ -22,7 +20,7 @@
 
         <c:if test="${requestScope.error1}">
             <div id="blocco-messaggio-cambiamenti">
-                <h3>Password inserita è uguale a quella attuale, modifica credenziali non effettuata.</h3>
+                <h3>La password inserita è uguale a quella attuale, modifica credenziali non effettuata.</h3>
             </div>
         </c:if>
 
@@ -81,7 +79,7 @@
                     <div id="divInternoAProfilo">
                         <div class="form-row">
                             <label for="nome">Nome</label>
-                            <input type="text" id="nome" name="nome" value="${account.nome}" maxlength="30" pattern="^[a-zA-Z]{2,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 2 massimo 30." required>
+                            <input type="text" id="nome" name="nome" value="${account.nome}" maxlength="30" pattern="^[a-zA-Z ]{2,30}$" title="Utilizare solo lettere minuscole, maiuscole e spazzi, minimo 2 massimo 30 caratteri." required>
                         </div>
 
                         <div class="form-row">

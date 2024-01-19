@@ -43,6 +43,7 @@ public class CreaProdotto extends HttpServlet {
                     PatternInput.nome(request.getParameter("stile"))  &&
                     PatternInput.nome(request.getParameter("colore"))  &&
                     PatternInput.tassoAlcolico(request.getParameter("tassoAlcolico"))  &&
+                    (Double.parseDouble(request.getParameter("tassoAlcolico")) <= 70.0) &&
                     request.getPart("immagineBirra").getContentType().contains("image")  &&
                     PatternInput.stringaConSpazzi(request.getParameter("nomeBirrificio")) &&
                     formati.contains(request.getParameter("formato")) &&

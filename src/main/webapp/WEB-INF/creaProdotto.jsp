@@ -33,7 +33,7 @@
 
                     <h3><label for="nomeBirra">Nome Birra</label></h3>
 
-                    <input type="text" id="nomeBirra" name="nomeBirra" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
+                    <input type="text" id="nomeBirra" name="nomeBirra" title="Nome formato da lettere minuscole, maiuscole, numeri e spazzi da 3 a 30 caratteri" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
 
                     <h3><label for="formato">Formato</label></h3>
                     <select id="formato" name="formato" required>
@@ -44,7 +44,7 @@
                     </select>
 
                     <h3><label for="prezzo">Prezzo</label></h3>
-                    <input type="text" id="prezzo" name="prezzo" pattern="^\d{1,3}\.\d{2}$" required>
+                    <input type="text" id="prezzo" name="prezzo" pattern="^\d{1,3}\.\d{1,2}$" title="Prezzo formato da 1 a 5 cifre separate da un punto, dopo il punto massimo 2 cifre. es. 14.45" required>
 
                     <h3><label for="fermentazione">Fermentazione</label></h3>
                     <select id="fermentazione" name="fermentazione" required>
@@ -59,8 +59,7 @@
                     <h3><label for="stile">Stile</label></h3>
                     <select id="stile" name="stile" required>
                         <option value="" disabled selected></option>
-                        <%
-                        ArrayList<String> stili = (ArrayList<String>) application.getAttribute("stili");
+                        <% ArrayList<String> stili = (ArrayList<String>) application.getAttribute("stili");
                         for (String stile : stili){%>
                             <option value="<%=stile%>"><%=stile%></option>
                         <%}%>
@@ -69,15 +68,14 @@
                     <h3><label for="colore">Colore</label></h3>
                     <select id="colore" name="colore" required>
                         <option value="" disabled selected></option>
-                        <%
-                        ArrayList<String> colori = (ArrayList<String>) application.getAttribute("colori");
+                        <% ArrayList<String> colori = (ArrayList<String>) application.getAttribute("colori");
                         for (String colore : colori){%>
                             <option value="<%=colore%>"><%=colore%></option>
                         <%}%>
                     </select>
 
                     <h3><label for="tassoAlcolico">Tasso Alcolico(%)</label></h3>
-                    <input type="text" id="tassoAlcolico" name="tassoAlcolico" pattern="^\d{1,2}\.\d{1,2}$" required>
+                    <input type="text" id="tassoAlcolico" name="tassoAlcolico" pattern="^\d{1,2}\.\d{1,2}$" title="Numero formato da 2 a 4 cifre separate da un punto, massimo 2 cifre dopo il punto" required>
                 </div>
 
                 <div id="div_descrizioneProdotto">
@@ -94,11 +92,11 @@
                     </div>
 
                     <h3><label for="immagineBirra">Immagine Birra</label></h3>
-                    <input type="file" id="immagineBirra" name="immagineBirra" accept="image/*" required> <!-- per togliere choose file e mettere Scegli un'immagine si deve fare una personalizzazione e quindi sostituire lo style normale-->
+                    <input type="file" id="immagineBirra" name="immagineBirra" accept="image/*" required>
 
                     <br>
                     <h3><label for="nomeBirrificio">Nome Birrificio</label></h3>
-                    <input type="text" id="nomeBirrificio" name="nomeBirrificio" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
+                    <input type="text" id="nomeBirrificio" name="nomeBirrificio" pattern="^[a-zA-Z0-9 ]{3,30}$" title="Nome formato da lettere minuscole, maiuscole, numeri e spazzi da 3 a 30 caratteri" required>
                 </div>
             </div>
 

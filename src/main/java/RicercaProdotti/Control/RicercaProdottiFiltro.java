@@ -53,7 +53,7 @@ public class RicercaProdottiFiltro extends HttpServlet {
                 filtro.add("tutti");
             }
 
-            if (request.getParameter("tassoAlcolico") != null && PatternInput.tassoAlcolico(request.getParameter("tassoAlcolico"))) {
+            if (request.getParameter("tassoAlcolico") != null && (PatternInput.tassoAlcolico(request.getParameter("tassoAlcolico")) || PatternInput.numeri1_2Cifre(request.getParameter("tassoAlcolico")))) {
                 filtro.add(request.getParameter("tassoAlcolico"));
                 request.setAttribute("tassoAlcolico", request.getParameter("tassoAlcolico"));
             } else{

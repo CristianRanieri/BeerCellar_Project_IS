@@ -210,7 +210,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGet7() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUp("IPA","Rossa","3");
+        this.setUp("IPA","Rossa","3.");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -297,7 +297,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGet15() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUp("IPAStringaDiTrentaCaratteriIPA","Scura","7");
+        this.setUp("IPAStringaDiTrentaCaratteriIPA","Scura","7.");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -3165,6 +3165,26 @@ public class RicercaProdottoFiltroTest {
     public void testDoGetWhiteErrore273() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
         this.setUpWhite("dd£$",null,"4.4", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore274() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"4.", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore275() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("lllll","llll","40", null, 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
