@@ -11,6 +11,7 @@ import org.apache.taglibs.standard.lang.jstl.ELException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ProtocolException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,12 @@ public class ProdottoService {
      * @param id del prodotto da ricercare.
      * @return istanza del prodotto se viene trovato altrimenti null.
      */
-    public Prodotto getProdotto(int id){
-        return prodottoDAO.getProdottoById(id);
+    public Prodotto getProdotto(int id) throws ProdottoException {
+        Prodotto prodotto= prodottoDAO.getProdottoById(id);
+        if(prodotto!=null)
+            return prodotto;
+        else
+            throw new ProdottoException("Il prodotto non esiste");
     }
 
     /**
@@ -62,12 +67,12 @@ public class ProdottoService {
      * questa funzionalita permette di modificare un prodotto.
      * @param prodotto prodotto contente i valori da modificare.
      */
-    public void modificaProdotto(Prodotto prodotto, Part image, ServletContext context) throws ELException, Error, IOException {
+    public void modificaProdotto(Prodotto prodotto, Part image, ServletContext context) throws IOException, ModificaException, ProdottoException {
         Prodotto prodottoInDB = prodottoDAO.getProdottoById(prodotto.getId());
 
         if(prodottoInDB!=null) {
             if (prodottoInDB.isTheSame(prodotto) && image.getSize() == 0) {
-                throw new ELException();
+                throw new ModificaException("Il prodotto non ha subito modifiche");
             } else {
                 prodottoDAO.modificaProdotto(prodotto);
 
@@ -76,7 +81,7 @@ public class ProdottoService {
                 }
             }
         }else
-            throw new Error();
+            throw new ProdottoException("Il prodotto non esiste");
     }
 
     /**

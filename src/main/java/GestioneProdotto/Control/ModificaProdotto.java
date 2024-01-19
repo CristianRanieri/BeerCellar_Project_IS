@@ -1,6 +1,8 @@
 package GestioneProdotto.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
+import GestioneProdotto.Service.ModificaException;
+import GestioneProdotto.Service.ProdottoException;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.*;
@@ -69,12 +71,13 @@ public class ModificaProdotto extends HttpServlet {
                     try {
                         gestioneProdottoService.modificaProdotto(prodottoModificato, request.getPart("immagineBirra"), request.getServletContext());
                         response.sendRedirect("visualizzaProdotto?successo-modifica=true&id_prodotto=" + prodottoModificato.getId());
-                    } catch (Error e) {
+                    } catch (ProdottoException e) {
                         //il prodotto non esiste
                         request.setAttribute("errore-prodotto-null", true);
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                         dispatcher.forward(request, response);
-                    } catch (ELException e2) {
+                    } catch (ModificaException e2) {
+                        //il prodotto non ha subito modifiche
                         response.sendRedirect("visualizzaProdotto?errore-nessuna-modifica=true&id_prodotto=" + prodottoModificato.getId());
                     }
                 } else {

@@ -17,14 +17,14 @@ public class GestioneProdottoService {
     public GestioneProdottoService(){
         prodottoService = new ProdottoService();
     }
-    public Prodotto getProdotto(int id){
+    public Prodotto getProdotto(int id) throws ProdottoException {
         return prodottoService.getProdotto(id);
     }
 
     public void creaProdotto(Prodotto prodotto, Part image, ServletContext context) throws IOException {
         prodottoService.creaProdotto(prodotto, image, context);
     }
-    public void modificaProdotto(Prodotto prodotto,Part image,ServletContext context) throws ELException, IOException {prodottoService.modificaProdotto(prodotto, image, context);}
+    public void modificaProdotto(Prodotto prodotto,Part image,ServletContext context) throws ProdottoException, ModificaException, IOException {prodottoService.modificaProdotto(prodotto, image, context);}
 
     public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore , ArrayList<String> filtro, int offset){
         return prodottoService.ricercaProdottiFiltro(formato, gestore, filtro, offset);

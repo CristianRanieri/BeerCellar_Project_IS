@@ -51,7 +51,6 @@ public class CreaProdotto extends HttpServlet {
                     colori.contains(request.getParameter("colore"))
             ){
                 Prodotto prodotto = new Prodotto();
-
                 prodotto.setNome(request.getParameter("nomeBirra"));
                 prodotto.setFormato(request.getParameter("formato"));
                 prodotto.setPrezzo(Double.valueOf(request.getParameter("prezzo")));
