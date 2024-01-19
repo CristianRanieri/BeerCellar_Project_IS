@@ -81,7 +81,7 @@
         </div>
         <h3><%=prodotto.getNome()%></h3>
         <%if (!prodotto.isGlutine()){%>
-            <div class="contenitore_glutine"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Gluten Free</div>
+            <div class="contenitore_glutine"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i></div>
         <%}%>
         <form action="visualizzaProdotto" method="get">
             <div class="div-button">
