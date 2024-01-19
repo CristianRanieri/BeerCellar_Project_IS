@@ -81,4 +81,21 @@ public class CarrelloDAO {
         }
     }
 
+    public ArrayList<ContenutoCarrello> getCarrelloAll(){
+        ArrayList<ContenutoCarrello> carrelli = new ArrayList<>();
+        try {
+            PreparedStatement ps= con.prepareStatement("SELECT * FROM ContenutoCarrello");
+            ResultSet rs=ps.executeQuery();
+
+            while (rs.next()) {
+                ContenutoCarrello contenutoCarrello= new ContenutoCarrello();
+                contenutoCarrello.setQuantita(rs.getInt("Quantita"));
+                carrelli.add(contenutoCarrello);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return carrelli;
+    }
+
 }

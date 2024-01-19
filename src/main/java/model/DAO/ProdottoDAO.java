@@ -35,37 +35,6 @@ public class ProdottoDAO {
     }
 
     //prendo 12 prodotti partendo da un valore di offset(parametro), i quali prodotti hanno un formato(parametro) e con le caratteristiche(parametro)
-   /* public ArrayList<Prodotto> getProdottiConFiltro(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
-        ArrayList<Prodotto> prodottos= new ArrayList<>();
-        String query= "SELECT * FROM Prodotto p WHERE p.formato=?";
-
-        if (gestore==false)
-            query+= " AND p.InCatalogo= true";
-
-        if(!caratterisitche.get(0).equals("tutti"))
-            query+= " AND p.Stile=\""+ caratterisitche.get(0)+"\"";
-        if(!caratterisitche.get(1).equals("tutti"))
-            query+= " AND p.Colore=\""+ caratterisitche.get(1)+"\"";
-        if(!caratterisitche.get(2).equals("tutti"))
-            query+= " AND p.TassoAlcolico<="+ caratterisitche.get(2);
-
-        query+= " LIMIT 10 OFFSET ?";
-
-        try{
-            PreparedStatement ps= con.prepareStatement(query);
-            ps.setString(1, formato);
-            ps.setInt(2, offset);
-            ResultSet rs=ps.executeQuery();
-
-            while (rs.next()){
-                prodottos.add(this.creaIstanzaProdotto(rs));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return prodottos;
-    }
-    */
     public ArrayList<Prodotto> getProdottiConFiltro(String formato, boolean gestore ,ArrayList<String> caratterisitche, int offset){
         ArrayList<Prodotto> prodottos= new ArrayList<>();
         String query= "SELECT * FROM Prodotto p";
@@ -243,6 +212,20 @@ public class ProdottoDAO {
             throw new RuntimeException(e);
         }
 
+        return prodotti;
+    }
+
+    public ArrayList<Prodotto> getProdottiAll(){
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Prodotto");
+            ResultSet rs= ps.executeQuery();
+            while (rs.next()){
+                prodotti.add(this.creaIstanzaProdotto(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return prodotti;
     }
 

@@ -11,19 +11,11 @@
 
   </div>
     <div class="contenitore_elementi_pagina_errore">
-      <h2>ERRORE</h2>
-      <h1>OH NO!</h1>
-      <h3>Ma &egrave; tutto OK!</h3>
+      <h1>ERRORE</h1>
+      <h2>VALIDAZIONE DATI NEL DATABASE</h2>
+      <p>E avvenuto un errore durante la fase di avvio del sistema.</p>
+      <p><%= application.getAttribute("errore-validazione")%></p>
 
-      <% if(request.getAttribute("errore-prodotto-null")!=null){%>
-        <p>Il prodotto di cui hai fatto richiesta al momento non &egrave; disponibile. Ritorna al nostro catalogo.</p>
-      <%}else {%>
-        <p>Non hai i permessi per accedere a questa pagina. Ritorna al nostro catalogo.</p>
-      <%}%>
-
-      <form action="index.jsp">
-        <button type="submit" value="TORNA ALLA HOME">Torna alla Home</button>
-      </form>
     </div>
 
     <div class="background_image">

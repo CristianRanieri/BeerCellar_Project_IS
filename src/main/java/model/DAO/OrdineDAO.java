@@ -187,4 +187,41 @@ public class OrdineDAO {
         return b==1;
     }
 
+    public ArrayList<Ordine> getOrdiniAll(){
+        ArrayList<Ordine> ordini = new ArrayList<>();
+        try{
+            String qeuary="SELECT * FROM AcquistoProdotto WHERE IdOrdine=?";
+            PreparedStatement ps= con.prepareStatement("SELECT * FROM Ordine ORDER BY IdOrdine");
+
+            ResultSet rs=ps.executeQuery();
+
+            while (rs.next()){
+                ps= con.prepareStatement(qeuary);
+                ps.setInt(1,rs.getInt("IdOrdine"));
+
+                Ordine ordine= new Ordine();
+                ordine.setId(rs.getInt("IdOrdine"));
+                ordine.setData(rs.getDate("DataOrdine"));
+                ordine.setIndirizzo(rs.getString("Indirizzo"));
+                ordine.setCitta(rs.getString("citta"));
+                ordine.setProvincia(rs.getString("provincia"));
+                ordine.setPrezzoTotale(rs.getDouble("prezzoTotale"));
+                ordine.setCAP(rs.getString("CAP"));
+                ordini.add(ordine);
+
+                ResultSet rs2=ps.executeQuery();
+                ArrayList<AcquistoProdotto> acquisti= new ArrayList<>();
+                while (rs2.next()){
+                    AcquistoProdotto acquisto = new AcquistoProdotto();
+                    acquisto.setPrezzoAcquisto(rs2.getDouble("PrezzoAcquisto"));
+                    acquisto.setQuantita(rs2.getInt("Quantita"));
+                    acquisti.add(acquisto);
+                }
+                ordine.setProdotti(acquisti);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ordini;
+    }
 }

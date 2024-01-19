@@ -3,6 +3,7 @@ package model.DAO;
 import Utils.Connection.ConPool;
 import model.entity.Account;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class AccountDAO {
     private static final Connection con;
@@ -98,4 +99,25 @@ public class AccountDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public ArrayList<Account> getAccountAll(){
+        ArrayList<Account> accountList = new ArrayList<>();
+        try {
+            PreparedStatement ps= con.prepareStatement("SELECT * FROM Utente");
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Account account=new Account();
+                account.setId(rs.getInt("IdUtente"));
+                account.setEmail(rs.getString("email"));
+                account.setNome(rs.getString("nome"));
+                account.setPassword(rs.getString("pass"));
+                account.setGestore(rs.getBoolean("gestore"));
+                accountList.add(account);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return accountList;
+    }
+
 }
