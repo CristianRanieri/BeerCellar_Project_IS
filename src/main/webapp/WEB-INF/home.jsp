@@ -12,7 +12,7 @@
         </jsp:include>
 
         <div class="contenitore_scoperta">
-            <form action="" method="post" class="contenitore_bottone_scopri">
+            <form action="ricercaProdottiFiltro" method="post" class="contenitore_bottone_scopri">
                 <h1>Dal classico al fuori dagli schemi: trova la tua birra ideale qui!</h1>
                 <input type="submit" value="Scopri il catalogo">
             </form>
