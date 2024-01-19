@@ -5,6 +5,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Pagina Prodotto BeerCellar</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotto_utente.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotto_admin.css" type="text/css">

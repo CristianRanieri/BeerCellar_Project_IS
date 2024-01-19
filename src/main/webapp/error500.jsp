@@ -2,6 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Errore 500 BeerCellar</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_errore.css" type="text/css">
     </head>
 

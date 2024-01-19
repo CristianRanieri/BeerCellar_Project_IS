@@ -4,6 +4,8 @@
 <html>
     <head>
         <title>Home</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_homepage.css" type="text/css">
     </head>

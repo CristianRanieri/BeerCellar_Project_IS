@@ -7,6 +7,8 @@
 <html>
     <head>
         <title>Ordini</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_ordini_utente.css" type="text/css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_ordini_admin.css" type="text/css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
