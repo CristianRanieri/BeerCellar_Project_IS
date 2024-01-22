@@ -17,6 +17,12 @@ import java.util.ArrayList;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
+    private AccountService accountService= new AccountService();
+
+    public void setAccountService(AccountService accountService){
+        this.accountService= accountService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
@@ -34,7 +40,7 @@ public class Login extends HttpServlet {
                 account.setEmail(req.getParameter("email"));
                 account.setPassword(req.getParameter("pass"));
                 account.setCarrello(((Account)req.getSession().getAttribute("account")).getCarrello());
-                AccountService accountService= new AccountService();
+    //            AccountService accountService= new AccountService();
 
                 try {
                     accountService.login(account,req.getSession());

@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountException;
 import GestioneAccount.Service.AccountService;
 
 import Utils.Other.Permesso;
@@ -20,6 +21,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +39,8 @@ public class LoginTest {
     private RequestDispatcher requestDispatcher;
     @Mock
     private Account account;
+    @Mock
+    private AccountService accountService;
     @InjectMocks
     private Login loginServlet;
 
@@ -91,7 +96,7 @@ public class LoginTest {
         Mockito.lenient().when(servletContext.getAttribute("permessi")).thenReturn(permessi);
     }
 
-    public void setUpCorretto(String emil, String pass){
+    public void setUpCorretto(String emil, String pass) throws AccountException {
         // Simula il comportamento della servlet quando un account è già in sessione
         Mockito.lenient().when(account.getId()).thenReturn(-1);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
@@ -102,6 +107,8 @@ public class LoginTest {
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
 
+        Mockito.lenient().doNothing().when(accountService).login(any(Account.class),any(HttpSession.class));
+        loginServlet.setAccountService(accountService);
     }
 
     @Test
@@ -130,7 +137,7 @@ public class LoginTest {
         verify(response).sendRedirect("index.jsp");
     }
 
-    public void setUpCredenzialiInesistentiOInvalide(String emil,String pass){
+    public void setUpCredenzialiInesistentiOInvalide(String emil,String pass) throws AccountException {
         Mockito.lenient().when(account.getId()).thenReturn(-1);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
         Mockito.lenient().when(request.getSession()).thenReturn(session);
@@ -141,6 +148,9 @@ public class LoginTest {
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
 
         Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/login.jsp")).thenReturn(requestDispatcher);
+
+        Mockito.lenient().doThrow(new AccountException("")).when(accountService).login(any(Account.class),any(HttpSession.class));
+        loginServlet.setAccountService(accountService);
     }
 
     @Test
@@ -283,6 +293,7 @@ public class LoginTest {
         // Simula i parametri di richiesta
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
+
     }
 
 
