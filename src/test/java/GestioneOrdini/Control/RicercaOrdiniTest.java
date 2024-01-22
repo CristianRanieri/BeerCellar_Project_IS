@@ -1,5 +1,8 @@
 package GestioneOrdini.Control;
 
+import GestioneAccount.Service.AccountException;
+import GestioneOrdini.Service.GestioneOrdiniService;
+import GestioneOrdini.Service.OrdiniException;
 import Utils.Other.Permesso;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -7,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.entity.Account;
+import model.entity.Ordine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,29 +21,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class RicercaOrdiniTest {
-
     @Mock
     private HttpServletRequest request;
-
     @Mock
     private HttpServletResponse response;
-
     @Mock
     private HttpSession session;
-
     @Mock
     private ServletContext servletContext;
-
     @Mock
     private RequestDispatcher requestDispatcher;
-
     @Mock
     private Account account;
-
+    @Mock
+    private GestioneOrdiniService ordiniService;
     @InjectMocks
     private RicercaOrdini ricercaOrdiniServlet;
 
@@ -93,6 +93,9 @@ public class RicercaOrdiniTest {
         permessi.add(new Permesso("Gestore", "RicercaProdottiFiltro", "doGet"));
         permessi.add(new Permesso("Gestore", "RicercaProdottiNome", "doGet"));
         Mockito.lenient().when(servletContext.getAttribute("permessi")).thenReturn(permessi);
+
+        Mockito.lenient().when(ordiniService.ricercaOrdini(any(String.class),any(Integer.class),any(Integer.class))).thenReturn(new ArrayList<Ordine>());
+        ricercaOrdiniServlet.setOrdiniService(ordiniService);
     }
 
     public void setUpCorretto(String tipoID, String numero){
@@ -193,7 +196,6 @@ public class RicercaOrdiniTest {
         Mockito.lenient().when(request.getParameter("numero")).thenReturn(numero);
 
         Mockito.lenient().when(request.getRequestDispatcher("visualizzaOrdini")).thenReturn(requestDispatcher);
-
     }
 
     @Test

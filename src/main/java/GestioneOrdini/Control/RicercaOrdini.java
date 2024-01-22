@@ -17,6 +17,10 @@ import java.util.Comparator;
 
 @WebServlet("/ricercaOrdini")
 public class RicercaOrdini extends HttpServlet {
+    private GestioneOrdiniService ordiniService= new GestioneOrdiniService();
+    public void setOrdiniService(GestioneOrdiniService ordiniService){
+        this.ordiniService= ordiniService;
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String dove="/WEB-INF/ordini.jsp";
@@ -40,7 +44,6 @@ public class RicercaOrdini extends HttpServlet {
 
                 if(b){
                     //gli input sono validi, eseguo il metodo di ricerca deglio ordini
-                    GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                     ArrayList<Ordine> ordini = ordiniService.ricercaOrdini(req.getParameter("tipoID"), Integer.parseInt(req.getParameter("numero")),offset);
 
                     //setto gli attributi utilizzati dalla jsp
