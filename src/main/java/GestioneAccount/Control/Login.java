@@ -40,7 +40,6 @@ public class Login extends HttpServlet {
                 account.setEmail(req.getParameter("email"));
                 account.setPassword(req.getParameter("pass"));
                 account.setCarrello(((Account)req.getSession().getAttribute("account")).getCarrello());
-    //            AccountService accountService= new AccountService();
 
                 try {
                     accountService.login(account,req.getSession());

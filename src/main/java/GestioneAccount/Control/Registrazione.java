@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 @WebServlet("/registrazione")
 public class Registrazione extends HttpServlet {
+    private AccountService accountService= new AccountService();
+    public void setAccountService(AccountService accountService){
+        this.accountService= accountService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
@@ -36,7 +41,6 @@ public class Registrazione extends HttpServlet {
                 account.setNome(req.getParameter("nome"));
                 account.setPassword(req.getParameter("pass"));
 
-                AccountService accountService= new AccountService();
                 try {
                     accountService.registraUtente(account);
                     //la registrazione ha avuto successo

@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountException;
 import GestioneAccount.Service.AccountService;
 import Utils.Other.Permesso;
 import jakarta.servlet.RequestDispatcher;
@@ -24,31 +25,22 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class RegistrazioneTest {
-
     @Mock
     private HttpServletRequest request;
-
     @Mock
     private HttpServletResponse response;
-
     @Mock
     private HttpSession session;
-
     @Mock
     private ServletContext servletContext;
-
     @Mock
     private RequestDispatcher requestDispatcher;
-
     @Mock
     private AccountService accountService;
-
     @Mock
     private Account account;
-
     @InjectMocks
     private Registrazione registrazioneServlet;
-
     @BeforeEach
     public void setUp() throws ServletException {
         ArrayList<Permesso> permessi = new ArrayList<>();
@@ -101,7 +93,7 @@ public class RegistrazioneTest {
         Mockito.lenient().when(servletContext.getAttribute("permessi")).thenReturn(permessi);
     }
 
-    public void setUpCorretto(String emil, String pass, String confermaPass, String nome, int id){
+    public void setUpCorretto(String emil, String pass, String confermaPass, String nome, int id) throws AccountException {
         // Simula il comportamento della servlet quando un account è già in sessione
         Mockito.lenient().when(account.getId()).thenReturn(id);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
@@ -113,6 +105,9 @@ public class RegistrazioneTest {
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
         Mockito.lenient().when(request.getParameter("confermaPass")).thenReturn(confermaPass);
+
+        Mockito.lenient().doNothing().when(accountService).registraUtente(any(Account.class));
+        registrazioneServlet.setAccountService(accountService);
     }
 
     @Test //TC_3_12
@@ -142,7 +137,7 @@ public class RegistrazioneTest {
         verify(response).sendRedirect("index.jsp");
     }
 
-    public void setUpEmailRegistrata(String emil, String pass, String confermaPass, String nome){
+    public void setUpEmailRegistrata(String emil, String pass, String confermaPass, String nome) throws AccountException {
         Mockito.lenient().when(account.getId()).thenReturn(-1);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
         Mockito.lenient().when(request.getSession()).thenReturn(session);
@@ -155,6 +150,9 @@ public class RegistrazioneTest {
         Mockito.lenient().when(request.getParameter("confermaPass")).thenReturn(confermaPass);
 
         Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/registrazione.jsp")).thenReturn(requestDispatcher);
+
+        Mockito.lenient().doThrow(new AccountException("")).when(accountService).registraUtente(any(Account.class));
+        registrazioneServlet.setAccountService(accountService);
     }
 
     @Test //TC_3_07
@@ -532,7 +530,7 @@ public class RegistrazioneTest {
 
     @Test
     public void testDoGetWhite7() throws Exception {
-        this.setUpEmailRegistrata("Utente5@gmai.com","Utente1234%","Utente1234%","giorm");
+        this.setUpCorretto("Utente5@gmai.com","Utente1234%","Utente1234%","giorm",-1);
         // Esegui la servlet
         registrazioneServlet.doGet(request, response);
         // Verifica il comportamento atteso
