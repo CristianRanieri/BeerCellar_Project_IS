@@ -21,6 +21,12 @@ import java.util.Comparator;
 @WebServlet(name = "ricercaProdottiFiltro", value= "/ricercaProdottiFiltro")
 public class RicercaProdottiFiltro extends HttpServlet {
 
+    private GestioneProdottoService prodottoService = new GestioneProdottoService();
+
+    public void setProdottoService(GestioneProdottoService prodottoService){
+        this.prodottoService=prodottoService;
+    }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
@@ -73,7 +79,7 @@ public class RicercaProdottiFiltro extends HttpServlet {
 
             if (b) {
                 //gli input sono validi, eseguo il metodo di ricerca deglio ordini
-                GestioneProdottoService prodottoService = new GestioneProdottoService();
+                //GestioneProdottoService prodottoService = new GestioneProdottoService();
                 ArrayList<Prodotto> prodotti = prodottoService.ricercaProdottiFiltro(formato, account.isGestore(), filtro, offset);
 
                 request.setAttribute("prodotti", prodotti);

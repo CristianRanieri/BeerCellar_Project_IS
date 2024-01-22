@@ -1,5 +1,6 @@
 <%@ page import="model.entity.Prodotto" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="model.entity.Account" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -33,7 +34,11 @@
                 </div>
                 <h3><%=prodotto.getNome()%></h3>
                 <form action="visualizzaProdotto" method="get" class="contenitore_bottone_acquista">
-                    <input type="submit" value="Acquista" class="button-acquista">
+                    <% if(((Account)session.getAttribute("account")).isGestore()){%>
+                        <input type="submit" value="Vedi" class="button-acquista">
+                    <%}else {%>
+                        <input type="submit" value="Acquista" class="button-acquista">
+                    <%}%>
                     <input type="hidden" value="<%=prodotto.getId()%>" name="id_prodotto">
                 </form>
             </div>

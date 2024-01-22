@@ -1,5 +1,6 @@
 package RicercaProdotti.Control;
 
+import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.Other.Permesso;
 
 import jakarta.servlet.RequestDispatcher;
@@ -7,6 +8,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import model.entity.Account;
 
+import model.entity.Prodotto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +41,8 @@ public class RicercaProdottoFiltroTest {
     private RequestDispatcher requestDispatcher;
     @Mock
     private Account account;
+    @Mock
+    private GestioneProdottoService prodottoService;
     @InjectMocks
     private RicercaProdottiFiltro ricercaProdottiFiltroServlet;
 
@@ -124,6 +129,9 @@ public class RicercaProdottoFiltroTest {
         colori.add("Scura");
         colori.add("Rossa");
         Mockito.lenient().when(servletContext.getAttribute("colori")).thenReturn(colori);
+
+        Mockito.lenient().when(prodottoService.ricercaProdottiFiltro(any(String.class),any(Boolean.class),any(ArrayList.class),any(Integer.class))).thenReturn(new ArrayList<Prodotto>());
+        ricercaProdottiFiltroServlet.setProdottoService(prodottoService);
     }
 
     public void setUp(String stile, String colore, String tassoAlcolico){

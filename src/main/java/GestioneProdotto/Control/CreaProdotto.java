@@ -39,6 +39,7 @@ public class CreaProdotto extends HttpServlet {
                     PatternInput.stringaConSpazzi(request.getParameter("nomeBirra"))  &&
                     PatternInput.nome(request.getParameter("formato"))  &&
                     PatternInput.prezzo(request.getParameter("prezzo"))  &&
+                    Double.parseDouble(request.getParameter("prezzo"))>0.00 &&
                     PatternInput.nome(request.getParameter("fermentazione"))  &&
                     PatternInput.nome(request.getParameter("stile"))  &&
                     PatternInput.nome(request.getParameter("colore"))  &&
