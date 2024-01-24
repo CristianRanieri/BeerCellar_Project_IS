@@ -1,5 +1,8 @@
 package GestioneCarrello.Control;
 
+import GestioneCarrello.Service.CarrelloException;
+import GestioneCarrello.Service.CarrelloService;
+import GestioneCarrello.Service.GestioneCarrelloService;
 import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
@@ -34,43 +37,19 @@ public class RimuoviProdotto extends HttpServlet {
             if(req.getParameter("id") != null && PatternInput.numeri1_4Cifre(req.getParameter("id")))
             {
                 //giu input sono validi
-                //controllare che il prodotto esite e che sia in catalogo
-                GestioneProdottoService serviceProdotto = new GestioneProdottoService();
-                Prodotto prodotto= serviceProdotto.getProdotto(Integer.parseInt(req.getParameter("id")));
-                if(prodotto != null && prodotto.isInCatalogo()){
-                    //il prodotto esiste ed è in catalogo
-                    //controllo che il prodotto non sia nel carrello
-                    ContenutoCarrello cDaRimuovere= null;
-                    for(ContenutoCarrello cc: account.getCarrello().getContenutoCarrello()){
-                        if(cc.getProdotto().getId() == Integer.parseInt(req.getParameter("id"))) {
-                            //il prodotto è gia presente, aumento solo la quantita
-                            cDaRimuovere = cc;
-                        }
-                    }
-
-                    //il prodotto non è presente, lo rimuovo
-                    if(cDaRimuovere!=null)
-                        account.getCarrello().getContenutoCarrello().remove(cDaRimuovere);
-
-                    //calcolo il prezzo totale
-                    double prezzoTotale=0;
-                    for(ContenutoCarrello contenutoCarrello : account.getCarrello().getContenutoCarrello()){
-                        prezzoTotale+= contenutoCarrello.getProdotto().getPrezzo()*contenutoCarrello.getQuantita();
-                    }
-                    req.setAttribute("prezzoTotale", BigDecimal.valueOf(prezzoTotale).setScale(2, RoundingMode.HALF_UP).doubleValue());
-
-                    RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/carrello.jsp");
-                    dispatcher.forward(req,resp);
-                }else {
-                    //il prodotto non esiste o non in cataloglo
-                    RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
-                    dispatcher.forward(req,resp);
+                GestioneCarrelloService carrelloService= new GestioneCarrelloService();
+                try {
+                    carrelloService.rimuoviProdotto(Integer.parseInt(req.getParameter("id")), req.getSession());
+                    resp.sendRedirect("visualizzaCarrello");
+                } catch (CarrelloException e) {
+                    //il prodotto non è nel carrello
+                    resp.sendRedirect("visualizzaCarrello");
                 }
             }else {
                 //gli input non sono validi
                 //almeno un input non rispetta il formato, si setta l'attributo di errore e si restituisce la pagina di un errore
-                req.setAttribute("error1", true);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/carrello.jsp");
+                req.setAttribute("Input-Invalido", true);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaCarrello");
                 dispatcher.forward(req, resp);
             }
         }

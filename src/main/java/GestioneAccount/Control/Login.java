@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountException;
 import GestioneAccount.Service.AccountService;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
@@ -16,6 +17,12 @@ import java.util.ArrayList;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
+    private AccountService accountService= new AccountService();
+
+    public void setAccountService(AccountService accountService){
+        this.accountService= accountService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account1 = (Account)req.getSession().getAttribute("account");
@@ -34,14 +41,12 @@ public class Login extends HttpServlet {
                 account.setPassword(req.getParameter("pass"));
                 account.setCarrello(((Account)req.getSession().getAttribute("account")).getCarrello());
 
-                AccountService accountService= new AccountService();
-                boolean b = accountService.login(account,req.getSession());
-                if(b){
+                try {
+                    accountService.login(account,req.getSession());
                     //il login è stato effettuato con successo
                     //si effettua il redirect verso la pagina di home
                     resp.sendRedirect("index.jsp");
-
-                }else{
+                } catch (AccountException e) {
                     //non esiste un account nel database con quelle credenziali
                     req.setAttribute("error2", true);
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/login.jsp");

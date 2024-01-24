@@ -26,7 +26,22 @@
   <% if(request.getAttribute("cambiamenti")!=null){%>
   <div id="blocco-messaggio-cambiamenti">
       <h2> ATTENZIONE!</h2>
-      <h3>Per alcuni prodotti il prezzo è variato o non sono piu disponibili, quelli non disponibili sono stati rimossi dal catalogo.</h3>
+      <h3>Per alcuni prodotti il prezzo è variato o non sono piu disponibili, quelli non disponibili sono stati rimossi dal carrello.</h3>
+  </div>
+  <% }%>
+
+  <!--ERRORE:-->
+  <% if(request.getAttribute("Input-Invalido")!=null){%>
+  <div id="blocco-messaggio-cambiamenti">
+      <h3>Input non validi.</h3>
+  </div>
+  <% }%>
+
+  <!--Pagamento-Fallito:-->
+  <% if(request.getAttribute("Pagamento-Fallito")!=null){%>
+  <div id="blocco-messaggio-cambiamenti">
+      <h2>Pagamento Fallito!</h2>
+      <h3>Il pagamento dell'ordine è fallito, le consigliamo di fare più attenzione nell'inserimento dei dati oppure di utilizzare un'altra carta di credito.</h3>
   </div>
   <% }%>
 

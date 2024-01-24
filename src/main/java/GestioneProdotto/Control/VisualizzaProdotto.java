@@ -1,6 +1,7 @@
 package GestioneProdotto.Control;
 
 import GestioneProdotto.Service.GestioneProdottoService;
+import GestioneProdotto.Service.ProdottoException;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.*;
@@ -22,8 +23,9 @@ public class VisualizzaProdotto extends HttpServlet {
 
             if (request.getParameter("id_prodotto") != null && PatternInput.numeri1_4Cifre(request.getParameter("id_prodotto"))) {
                 GestioneProdottoService gestioneProdottoService = new GestioneProdottoService();
-                Prodotto prodotto = gestioneProdottoService.getProdotto(Integer.parseInt(request.getParameter("id_prodotto")));
-                if (prodotto != null) {
+
+                try {
+                    Prodotto prodotto = gestioneProdottoService.getProdotto(Integer.parseInt(request.getParameter("id_prodotto")));
                     if (prodotto.isInCatalogo()) {
                         request.setAttribute("prodotto", prodotto);
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prodotto.jsp");
@@ -34,17 +36,19 @@ public class VisualizzaProdotto extends HttpServlet {
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prodotto.jsp");
                             dispatcher.forward(request, response);
                         } else {
+                            request.setAttribute("errore-prodotto-null",true);
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                             dispatcher.forward(request, response);
                         }
                     }
-                } else {
-                    request.setAttribute("errore-prodotto-null", true);
+                } catch (ProdottoException e) {
+                    request.setAttribute("errore-prodotto-null",true);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(request, response);
                 }
+
             } else {
-                request.setAttribute("errore-prodotto-null", true);
+                request.setAttribute("errore-prodotto-null",true);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                 dispatcher.forward(request, response);
             }

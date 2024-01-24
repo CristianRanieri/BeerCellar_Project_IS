@@ -1,9 +1,19 @@
 package Utils.Other;
 
 import GestioneProdotto.Service.GestioneProdottoService;
+import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
+import model.DAO.AccountDAO;
+import model.DAO.CarrelloDAO;
+import model.DAO.OrdineDAO;
+import model.DAO.ProdottoDAO;
+import model.entity.Account;
+import model.entity.ContenutoCarrello;
+import model.entity.Ordine;
+import model.entity.Prodotto;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -112,6 +122,28 @@ public class InitConfig extends HttpServlet {
         GestioneProdottoService prodottoService= new GestioneProdottoService();
         getServletContext().setAttribute("dataProdottiPiuVenduti",new Date());
         getServletContext().setAttribute("prodottiPiuVenduti", prodottoService.getProdottiPiuVenduti());
+
+        //validita del sistema
+
+        AccountDAO accountDAO= new AccountDAO();
+        for(Account account: accountDAO.getAccountAll())
+            if(!(PatternInput.numeri1_4Cifre(String.valueOf(account.getId())) && account.getPassword()!=null && account.getNome()!=null && account.getEmail()!=null))
+                getServletContext().setAttribute("errore-validazione","L'account con id:"+account.getId()+" ha causato dei problemi durante la fase di inizializzazione del sistema.");
+
+        CarrelloDAO carrelloDAO= new CarrelloDAO();
+        for (ContenutoCarrello c: carrelloDAO.getCarrelloAll())
+            if (!PatternInput.numeri1_2Cifre(String.valueOf(c.getQuantita())))
+                getServletContext().setAttribute("errore-validazione","Il contenuto di un carrello ha causato dei problemi durante la fase di inizializzazione del sistema.");
+
+        OrdineDAO ordineDAO = new OrdineDAO();
+        for (Ordine ordine: ordineDAO.getOrdiniAll())
+            if (!(ordine.getProdotti()!=null && ordine.getData()!=null && ordine.getCAP()!=null && ordine.getCitta()!=null && ordine.getIndirizzo()!=null && ordine.getProvincia()!=null))
+                getServletContext().setAttribute("errore-validazione","L'ordine con id:"+ ordine.getId()+"ha causato dei promblemi durante la fase di inizializzazione del sistema.");
+
+        ProdottoDAO prodottoDAO = new ProdottoDAO();
+        for (Prodotto prodotto: prodottoDAO.getProdottiAll())
+            if (!(PatternInput.numeri1_4Cifre(String.valueOf(prodotto.getId())) && prodotto.getBirrificio()!=null && prodotto.getNome()!=null && prodotto.getColore()!=null && prodotto.getDescrizione()!=null && prodotto.getFermentazione()!=null && prodotto.getFormato()!=null && prodotto.getStile()!=null))
+                getServletContext().setAttribute("errore-validazione","Il prodotto con id:"+ prodotto.getId()+"ha causato dei promblemi durante la fase di inizializzazione del sistema.");
 
         super.init();
     }

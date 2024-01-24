@@ -39,10 +39,12 @@ public class CreaProdotto extends HttpServlet {
                     PatternInput.stringaConSpazzi(request.getParameter("nomeBirra"))  &&
                     PatternInput.nome(request.getParameter("formato"))  &&
                     PatternInput.prezzo(request.getParameter("prezzo"))  &&
+                    Double.parseDouble(request.getParameter("prezzo"))>0.00 &&
                     PatternInput.nome(request.getParameter("fermentazione"))  &&
                     PatternInput.nome(request.getParameter("stile"))  &&
                     PatternInput.nome(request.getParameter("colore"))  &&
                     PatternInput.tassoAlcolico(request.getParameter("tassoAlcolico"))  &&
+                    (Double.parseDouble(request.getParameter("tassoAlcolico")) <= 70.0) &&
                     request.getPart("immagineBirra").getContentType().contains("image")  &&
                     PatternInput.stringaConSpazzi(request.getParameter("nomeBirrificio")) &&
                     formati.contains(request.getParameter("formato")) &&
@@ -51,7 +53,6 @@ public class CreaProdotto extends HttpServlet {
                     colori.contains(request.getParameter("colore"))
             ){
                 Prodotto prodotto = new Prodotto();
-
                 prodotto.setNome(request.getParameter("nomeBirra"));
                 prodotto.setFormato(request.getParameter("formato"));
                 prodotto.setPrezzo(Double.valueOf(request.getParameter("prezzo")));
@@ -65,8 +66,7 @@ public class CreaProdotto extends HttpServlet {
                 prodotto.setDescrizione(request.getParameter("descrizione"));
 
                 GestioneProdottoService gestioneProdottoService = new GestioneProdottoService();
-                gestioneProdottoService.creaProdotto(prodotto);
-                gestioneProdottoService.salvaImmagine(request.getPart("immagineBirra"), prodotto.getId(), request.getServletContext());
+                gestioneProdottoService.creaProdotto(prodotto,request.getPart("immagineBirra"),request.getServletContext());
 
                 response.sendRedirect("visualizzaProdotto?Successo=true&id_prodotto=" + prodotto.getId());
             }

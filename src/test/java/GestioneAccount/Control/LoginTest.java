@@ -1,5 +1,6 @@
 package GestioneAccount.Control;
 
+import GestioneAccount.Service.AccountException;
 import GestioneAccount.Service.AccountService;
 
 import Utils.Other.Permesso;
@@ -16,12 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -29,28 +27,20 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class LoginTest {
-
     @Mock
     private HttpServletRequest request;
-
     @Mock
     private HttpServletResponse response;
-
     @Mock
     private HttpSession session;
-
     @Mock
     private ServletContext servletContext;
-
     @Mock
     private RequestDispatcher requestDispatcher;
-
-    @Mock
-    private AccountService accountService;
-
     @Mock
     private Account account;
-
+    @Mock
+    private AccountService accountService;
     @InjectMocks
     private Login loginServlet;
 
@@ -106,7 +96,7 @@ public class LoginTest {
         Mockito.lenient().when(servletContext.getAttribute("permessi")).thenReturn(permessi);
     }
 
-    public void setUpCorretto(String emil, String pass){
+    public void setUpCorretto(String emil, String pass) throws AccountException {
         // Simula il comportamento della servlet quando un account è già in sessione
         Mockito.lenient().when(account.getId()).thenReturn(-1);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
@@ -117,8 +107,8 @@ public class LoginTest {
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
 
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
+        Mockito.lenient().doNothing().when(accountService).login(any(Account.class),any(HttpSession.class));
+        loginServlet.setAccountService(accountService);
     }
 
     @Test
@@ -138,7 +128,6 @@ public class LoginTest {
         // Verifica il comportamento atteso
         verify(response).sendRedirect("index.jsp");
     }
-
     @Test
     public void tc_2_10() throws Exception {
         this.setUpCorretto("ciaoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@comevaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ttok","Ciao1234!?@#?");
@@ -148,7 +137,7 @@ public class LoginTest {
         verify(response).sendRedirect("index.jsp");
     }
 
-    public void setUpCredenzialiInesistentiOInvalide(String emil,String pass){
+    public void setUpCredenzialiInesistentiOInvalide(String emil,String pass) throws AccountException {
         Mockito.lenient().when(account.getId()).thenReturn(-1);
         Mockito.lenient().when(session.getAttribute("account")).thenReturn(account);
         Mockito.lenient().when(request.getSession()).thenReturn(session);
@@ -160,8 +149,8 @@ public class LoginTest {
 
         Mockito.lenient().when(request.getRequestDispatcher("/WEB-INF/login.jsp")).thenReturn(requestDispatcher);
 
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
+        Mockito.lenient().doThrow(new AccountException("")).when(accountService).login(any(Account.class),any(HttpSession.class));
+        loginServlet.setAccountService(accountService);
     }
 
     @Test
@@ -305,8 +294,6 @@ public class LoginTest {
         Mockito.lenient().when(request.getParameter("email")).thenReturn(emil);
         Mockito.lenient().when(request.getParameter("pass")).thenReturn(pass);
 
-        // Simula il comportamento del metodo di login nel service
-        Mockito.lenient().when(accountService.login(any(Account.class), any(HttpSession.class))).thenReturn(true);
     }
 
 

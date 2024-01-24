@@ -1,15 +1,21 @@
 package GestioneProdotto.Service;
 
+import Utils.ValidazioneInput.PatternInput;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import model.DAO.ProdottoDAO;
 import model.entity.Prodotto;
+import org.apache.taglibs.standard.lang.jstl.ELException;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ProtocolException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ProdottoService {
     ProdottoDAO prodottoDAO = new ProdottoDAO();
@@ -19,8 +25,12 @@ public class ProdottoService {
      * @param id del prodotto da ricercare.
      * @return istanza del prodotto se viene trovato altrimenti null.
      */
-    public Prodotto getProdotto(int id){
-        return prodottoDAO.getProdottoById(id);
+    public Prodotto getProdotto(int id) throws ProdottoException {
+        Prodotto prodotto= prodottoDAO.getProdottoById(id);
+        if(prodotto!=null)
+            return prodotto;
+        else
+            throw new ProdottoException("Il prodotto non esiste");
     }
 
     /**
@@ -28,8 +38,9 @@ public class ProdottoService {
      * @param prodotto Oggetto prodotto da memorizzare
      * @return true se il prodotto è stato creato con successo false altrimenti.
      */
-    public boolean creaProdotto(Prodotto prodotto){
-        return prodottoDAO.creaProdotto(prodotto);
+    public void creaProdotto(Prodotto prodotto, Part image, ServletContext context) throws IOException {
+        prodottoDAO.creaProdotto(prodotto);
+        this.salvaImmagine(image, prodotto.getId(), context);
     }
 
     /**
@@ -38,7 +49,7 @@ public class ProdottoService {
      * @param id codice univoco del prodotto
      * @param servletContext il ServletContext per gestire il path
      */
-    public void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
+    private void salvaImmagine(Part immagine, int id, ServletContext servletContext) throws IOException {
         String destinazione = "upload" + File.separator + "ID_" + id + ".png";
         Path pathDestinazione = Paths.get(servletContext.getRealPath(destinazione));
 
@@ -56,19 +67,31 @@ public class ProdottoService {
      * questa funzionalita permette di modificare un prodotto.
      * @param prodotto prodotto contente i valori da modificare.
      */
-    public void modificaProdotto(Prodotto prodotto){
-        prodottoDAO.modificaProdotto(prodotto);
+    public void modificaProdotto(Prodotto prodotto, Part image, ServletContext context) throws IOException, ModificaException, ProdottoException {
+        Prodotto prodottoInDB = prodottoDAO.getProdottoById(prodotto.getId());
+
+        if(prodottoInDB!=null) {
+            if (prodottoInDB.isTheSame(prodotto) && image.getSize() == 0) {
+                throw new ModificaException("Il prodotto non ha subito modifiche");
+            } else {
+                prodottoDAO.modificaProdotto(prodotto);
+
+                if (image.getSize() != 0 && image.getContentType().contains("image")){
+                    this.salvaImmagine(image, prodotto.getId(), context);
+                }
+            }
+        }else
+            throw new ProdottoException("Il prodotto non esiste");
     }
 
     /**
      *
      * @param formato il formato delle birre da ricercare
      * @param gestore se il valore è true ricerca anche i prodotti non in catalogo altrimenti solo quelli in catalogo.
-     * @param filtro lista dlle caratterisitche su cui i prodotti vengono filtriati (Stile,Colore,TassoAlcolico)
      * @param offset il numero dal quale parte la selezione dei prodotti idonei al nome.
      * @return la lista dei prodotti idonei al filtro.
      */
-    public ArrayList<Prodotto> ricercaProdottiFiltro(String formato, boolean gestore ,ArrayList<String> filtro, int offset){
+    public ArrayList<Prodotto> ricercaProdottiFiltro(String formato,boolean gestore,ArrayList<String> filtro,int offset){
         return prodottoDAO.getProdottiConFiltro(formato, gestore, filtro, offset);
     }
 
@@ -79,9 +102,7 @@ public class ProdottoService {
      * @param offset il numero dal quale parte la selezione dei prodotti idonei al nome.
      * @return la lista dei prodotti che hanno come sottostringa i nomi indicati.
      */
-    public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){
-        return prodottoDAO.getProdottiPerNome(nomi, gestore,offset);
-    }
+    public ArrayList<Prodotto> ricercaProdottiNome(List<String> nomi, boolean gestore, int offset){return prodottoDAO.getProdottiPerNome(nomi, gestore,offset);}
 
     /**
      * questa operazione permette di ottenere i prodotti piu venduti.

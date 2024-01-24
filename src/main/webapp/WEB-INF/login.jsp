@@ -3,6 +3,8 @@
 <html>
   <head>
       <title>Login</title>
+      <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+      <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
       <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
       <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_registrazione_e_login.css" type="text/css">
   </head>
@@ -14,7 +16,7 @@
 
     <c:if test="${requestScope.error2}">
       <div id="blocco-messaggio-cambiamenti">
-          <h3>Email o password non valida, le chiedeamo di riprovare.</h3>
+          <h3>Email o password non valida, le chiediamo di riprovare.</h3>
       </div>
     </c:if>
 
@@ -36,7 +38,7 @@
       <form id="loginForm" action="login" method="post">
         <div class="form-row">
           <input type="text" name="email" pattern="^(?=.{7,})[a-zA-Z0-9._%]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$" title="Dopo la @ almeno un carattere, seguito da un punto e un altro carattere." minlength="7" maxlength="134" placeholder="Email" required>
-          <input type="password" name="pass" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" placeholder="Password" required>
+          <input type="password" name="pass" minlength="8" maxlength="30" title="Da 8 a 30 caratteri, tra cui un numero, una maiuscola, una maiuscola e un carattere speciale," pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#£$%^&_?*])[A-Za-z\d!@#£$%^&_?*]{8,30}$" placeholder="Password" required>
         </div>
         <div class="form-row">
           <button type="submit">Accedi</button>

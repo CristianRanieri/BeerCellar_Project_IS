@@ -43,15 +43,6 @@ public class VisualizzaOrdini extends HttpServlet {
                 //eseguo il service, prendo gli ordini
                 GestioneOrdiniService ordiniService = new GestioneOrdiniService();
                 ArrayList<Ordine> ordini = ordiniService.visualizzaOrdini(account, offset);
-                ordini.sort(new Comparator<Ordine>() {
-                    @Override
-                    public int compare(Ordine o1, Ordine o2) {
-                        if(o1.getId() < o2.getId())
-                            return 1;
-                        else
-                            return -1;
-                    }
-                });
 
                 //setto gli attributi utilizzati dalla jsp
                 req.setAttribute("ordini", ordini);

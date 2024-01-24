@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 174907
-  Date: 27/12/2023
-  Time: 17:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,12 +30,12 @@
             <div>
                 <div>
                     <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" pattern="^[a-zA-Z ]{3,30}$" required>
+                    <input type="text" id="nome" name="nome" pattern="^[a-zA-Z ]{3,30}$" title="Utilizare solo lettere minuscole, maiuscole o spazzi, minimo 3 massimo 30 caratteri." required>
                 </div>
 
                 <div>
                     <label for="cognome">Cognome</label>
-                    <input type="text" id="cognome" name="cognome" pattern="^[a-zA-Z ]{3,30}$" required>
+                    <input type="text" id="cognome" name="cognome" pattern="^[a-zA-Z ]{3,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 3 massimo 30." required>
                 </div>
             </div>
         </div>
@@ -53,7 +46,7 @@
                 <div>
                     <div>
                         <label for="numeroCarta">Numero Carta</label>
-                        <input type="text" id="numeroCarta" name="carta" pattern="^\d{4}\s\d{4}\s\d{4}\s\d{4}$" required>
+                        <input type="text" id="numeroCarta" name="carta" pattern="^\d{4}\s\d{4}\s\d{4}\s\d{4}$" title="Utilizare il formato **** **** **** ****." placeholder="**** **** **** ****" required>
                     </div>
                 </div>
                 <div>
@@ -67,13 +60,13 @@
                 <div>
                     <div>
                         <label for="codiceCVV">Codice CVV</label>
-                        <input type="text" id="codiceCVV" name="cvv" pattern="^\d{3}$" required>
+                        <input type="text" id="codiceCVV" name="cvv" pattern="^\d{3}$" title="Utilizare solo numeri di esattamente 3 cifre." placeholder="***" required>
                     </div>
                 </div>
                 <div>
                     <div>
                         <label for="nomeCarta">Nome Carta</label>
-                        <input type="text" id="nomeCarta" name="nomeCarta" pattern="^[a-zA-Z ]{3,30}$" required>
+                        <input type="text" id="nomeCarta" name="nomeCarta" pattern="^[a-zA-Z ]{3,30}$" title="Utilizare solo lettere minuscole o maiuscole minimo 3 massimo 30." required>
                     </div>
                 </div>
             </div>
@@ -86,13 +79,13 @@
                 <div>
                     <div>
                         <label for="indirizzo">Indirizzo</label>
-                        <input type="text" id="indirizzo" name="indirizzo" pattern="^[a-zA-Z0-9 ]{3,30}$" required>
+                        <input type="text" id="indirizzo" name="indirizzo" pattern="^[a-zA-Z0-9 ]{3,30}$"  title="Utilizzare solo lettere, numeri, minuscole o maiuscole, da 3 a 30 caratteri." required>
                     </div>
                 </div>
                 <div>
                     <div>
                         <label for="cap">CAP</label>
-                        <input type="text" id="cap" name="cap" pattern="^\d{5}$" required>
+                        <input type="text" id="cap" name="cap" pattern="^\d{5}$" title="Utilizare solo numeri di esattamente 5 cifre." placeholder="*****" required>
                     </div>
                 </div>
             </div>

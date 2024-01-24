@@ -1,14 +1,14 @@
 package RicercaProdotti.Control;
 
-import GestioneProdotto.Service.ProdottoService;
+import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.Other.Permesso;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSession;
 import model.entity.Account;
 
+import model.entity.Prodotto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,14 +40,14 @@ public class RicercaProdottoFiltroTest {
     @Mock
     private RequestDispatcher requestDispatcher;
     @Mock
-    private ProdottoService prodottoService;
-    @Mock
     private Account account;
+    @Mock
+    private GestioneProdottoService prodottoService;
     @InjectMocks
     private RicercaProdottiFiltro ricercaProdottiFiltroServlet;
 
     @BeforeEach
-    public void setUp() throws ServletException {
+    public void setUp(){
         ArrayList<Permesso> permessi = new ArrayList<>();
         //Gestione Account
         permessi.add(new Permesso("Ospite","Login","doPost"));
@@ -128,6 +129,9 @@ public class RicercaProdottoFiltroTest {
         colori.add("Scura");
         colori.add("Rossa");
         Mockito.lenient().when(servletContext.getAttribute("colori")).thenReturn(colori);
+
+        Mockito.lenient().when(prodottoService.ricercaProdottiFiltro(any(String.class),any(Boolean.class),any(ArrayList.class),any(Integer.class))).thenReturn(new ArrayList<Prodotto>());
+        ricercaProdottiFiltroServlet.setProdottoService(prodottoService);
     }
 
     public void setUp(String stile, String colore, String tassoAlcolico){
@@ -214,7 +218,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGet7() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUp("IPA","Rossa","3");
+        this.setUp("IPA","Rossa","3.");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -301,7 +305,7 @@ public class RicercaProdottoFiltroTest {
     @Test
     public void testDoGet15() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
-        this.setUp("IPAStringaDiTrentaCaratteriIPA","Scura","7");
+        this.setUp("IPAStringaDiTrentaCaratteriIPA","Scura","7.");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso
@@ -3169,6 +3173,26 @@ public class RicercaProdottoFiltroTest {
     public void testDoGetWhiteErrore273() throws Exception {
         // Simula il comportamento della servlet quando un account è già in sessione
         this.setUpWhite("dd£$",null,"4.4", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore274() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("dd£$",null,"4.", "10f", 1,true, "ricercaProdottiFiltro","null");
+        // Esegui la servlet
+        ricercaProdottiFiltroServlet.doGet(request, response);
+        // Verifica il comportamento atteso
+        verify(requestDispatcher).forward(request,response);
+    }
+
+    @Test
+    public void testDoGetWhiteErrore275() throws Exception {
+        // Simula il comportamento della servlet quando un account è già in sessione
+        this.setUpWhite("lllll","llll","40", null, 1,true, "/WEB-INF/ricercaProdotti.jsp","null");
         // Esegui la servlet
         ricercaProdottiFiltroServlet.doGet(request, response);
         // Verifica il comportamento atteso

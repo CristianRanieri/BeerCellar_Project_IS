@@ -1,7 +1,9 @@
 <html lang="it">
     <head>
         <meta charset="UTF-8">
-        <title>Errore Permessi BeerCellar</title>
+        <title>Errore 404 BeerCellar</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_errore.css" type="text/css">
     </head>
 
@@ -10,17 +12,12 @@
             <jsp:param name="header" value=""/>
         </jsp:include>
 
-
         <div class="contenitore_elementi_pagina_errore">
-            <h2>ERRORE</h2>
-            <h1>OH NO!</h1>
-            <h3>Ma &egrave; tutto OK!</h3>
+            <h2>OH NO!</h2>
+            <h1>Errore 404</h1>
+            <h3>Errore del client</h3>
 
-            <% if(request.getAttribute("errore-prodotto-null")!=null){%>
-                <p>Il prodotto di cui hai fatto richiesta al momento non &egrave; disponibile. Ritorna al nostro catalogo.</p>
-            <%}else {%>
-                <p>Non hai i permessi per accedere a questa pagina. Ritorna al nostro catalogo.</p>
-            <%}%>
+            <p>La pagina a cui stai tentando di accedere &egrave; inesistente o attualmente non raggiungibile.</p>
 
             <form action="index.jsp">
                 <button type="submit" value="TORNA ALLA HOME">Torna alla Home</button>
@@ -32,7 +29,7 @@
         </div>
 
         <jsp:include page="/WEB-INF/footer.html">
-          <jsp:param name="footer" value=""/>
+            <jsp:param name="footer" value=""/>
         </jsp:include>
 
     </body>

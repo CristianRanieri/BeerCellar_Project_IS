@@ -5,6 +5,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Pagina Prodotto BeerCellar</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon_BeerCellar.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_errore.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotto_utente.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css_pagina_prodotto_admin.css" type="text/css">
@@ -29,8 +31,8 @@
     <!--SUCCESSO:-->
     <% if(request.getParameter("successo-modifica")!=null && ((Account)session.getAttribute("account")).isGestore()){%>
       <div id="blocco-messaggio-successo">
-        <h2>Prodotto Modoficato</h2>
-        <h3>La modofica del prodotto è stata effettuata con successo.</h3>
+        <h2>Prodotto Modificato</h2>
+        <h3>La modifica del prodotto è stata effettuata con successo.</h3>
       </div>
     <% }%>
     <!--SUCCESSO:-->
@@ -60,10 +62,15 @@
 
       <div class="contenitore_informazioni">
         <h2><%=prodotto.getNome()%></h2>
-        <p><%=prodotto.getFormato()%></p>
-        <p><%=prodotto.getStile()%></p>
-        <p><%=prodotto.getColore()%></p>
-        <p><%=prodotto.getBirrificio()%></p>
+        <%if (!prodotto.isGlutine()){%>
+          <div class="contenitore_glutine"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Gluten Free</div>
+        <%}%>
+        <p><b>Formato:</b> <%=prodotto.getFormato()%></p>
+        <p><b>Stile:</b> <%=prodotto.getStile()%></p>
+        <p><b>Colore:</b> <%=prodotto.getColore()%></p>
+        <p><b>Birrificio:</b> <%=prodotto.getBirrificio()%></p>
+        <p><b>Fermentazione:</b> <%=prodotto.getFermentazione()%></p>
+        <p><b>Tasso Alcolico:</b> <%=prodotto.getTassoAlcolico()%>%</p>
         <h3>€<%=prodotto.getPrezzo()%></h3>
 
 

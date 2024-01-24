@@ -1,5 +1,8 @@
 package GestioneCarrello.Control;
 
+import GestioneCarrello.Service.CarrelloException;
+import GestioneCarrello.Service.CarrelloService;
+import GestioneCarrello.Service.GestioneCarrelloService;
 import GestioneProdotto.Service.GestioneProdottoService;
 import Utils.Other.Permesso;
 import Utils.ValidazioneInput.PatternInput;
@@ -30,56 +33,25 @@ public class AggiungiProdotto extends HttpServlet {
             dispatcher.forward(req,resp);
         }else {
             //account di tipo Utente loggato oppure non loggato
-            //ho dei valori da validare?
             //controllo i valori
             if(req.getParameter("id") != null && PatternInput.numeri1_4Cifre(req.getParameter("id")) &&
                     req.getParameter("quantita") != null && PatternInput.numeri1_2Cifre(req.getParameter("quantita"))
             ){
-                //giu input sono validi
-                //controllare che il prodotto esite e che sia in catalogo
-                GestioneProdottoService serviceProdotto = new GestioneProdottoService();
-                Prodotto prodotto= serviceProdotto.getProdotto(Integer.parseInt(req.getParameter("id")));
-                if(prodotto != null && prodotto.isInCatalogo()){
-                    //il prodotto esiste ed è in catalogo
-                    //controllo che il prodotto non sia nel carrello
-                    boolean b= true;
-                    for(ContenutoCarrello cc: account.getCarrello().getContenutoCarrello()){
-                        if(cc.getProdotto().getId() == Integer.parseInt(req.getParameter("id"))) {
-                            //il prodotto è gia presente, aumento solo la quantita
-                            int nuvo = cc.getQuantita() + Integer.parseInt(req.getParameter("quantita"));
-                            if(nuvo <= 99)
-                                cc.setQuantita(nuvo);
-                            b=false;
-                        }
-                    }
-
-                    //il prodotto non è gia presente, lo inserisco
-                    if(b) {
-                        ContenutoCarrello c= new ContenutoCarrello();
-                        c.setProdotto(prodotto);
-                        c.setQuantita(Integer.parseInt(req.getParameter("quantita")));
-                        account.getCarrello().getContenutoCarrello().add(c);
-                    }
-
-                    //calcolo il prezzo totale
-                    double prezzoTotale=0;
-                    for(ContenutoCarrello contenutoCarrello : account.getCarrello().getContenutoCarrello()){
-                        prezzoTotale+= contenutoCarrello.getProdotto().getPrezzo()*contenutoCarrello.getQuantita();
-                    }
-                    req.setAttribute("prezzoTotale", BigDecimal.valueOf(prezzoTotale).setScale(2, RoundingMode.HALF_UP).doubleValue());
-
-                    RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/carrello.jsp");
-                    dispatcher.forward(req,resp);
-                }else {
+                GestioneCarrelloService carrelloService= new GestioneCarrelloService();
+                try {
+                    carrelloService.aggiungiProdotto(Integer.parseInt(req.getParameter("id")),Integer.parseInt(req.getParameter("quantita")),req.getSession());
+                    resp.sendRedirect("visualizzaCarrello");
+                } catch (CarrelloException e) {
                     //il prodotto non esiste o non in catalogo
+                    req.setAttribute("errore-prodotto-null",true);
                     RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/errorePermessi.jsp");
                     dispatcher.forward(req,resp);
                 }
             }else {
                 //gli input non sono validi
                 //almeno un input non rispetta il formato, si setta l'attributo di errore e si restituisce la pagina di un errore
-                req.setAttribute("error1", true);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/carrello.jsp");
+                req.setAttribute("Input-Invalido", true);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("visualizzaCarrello");
                 dispatcher.forward(req, resp);
             }
         }

@@ -15,10 +15,13 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 38.5%;
+    transition: 200ms;
 }
 
 .contenitore_scoperta:hover {
     background-image: linear-gradient(to top, rgb(98, 39, 1), transparent), url("../image/banner.jpg");
+    box-shadow: rgba(28, 17, 10, 0.84) 0.5em 0.5em 1em;
+    transform: translateY(-0.2em);
 }
 
 .contenitore_scoperta .contenitore_bottone_scopri {
